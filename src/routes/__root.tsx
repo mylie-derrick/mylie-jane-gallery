@@ -16,17 +16,17 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+        <p className="eyebrow">404</p>
+        <h1 className="mt-4 text-3xl text-foreground">Page not found</h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          The page you're looking for has moved or no longer exists.
         </p>
-        <div className="mt-6">
+        <div className="mt-8">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center border-b border-foreground pb-1 text-sm tracking-wide text-foreground transition-colors hover:text-primary hover:border-primary"
           >
-            Go home
+            Return home
           </Link>
         </div>
       </div>
@@ -44,25 +44,23 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+        <h1 className="text-2xl text-foreground">Something went wrong</h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Please try again, or head back to the home page.
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
           <button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="border-b border-foreground pb-1 text-sm tracking-wide text-foreground transition-colors hover:text-primary hover:border-primary"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="border-b border-transparent pb-1 text-sm tracking-wide text-muted-foreground transition-colors hover:text-foreground hover:border-foreground"
           >
             Go home
           </a>
@@ -77,19 +75,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Mylie Jane Design — Oil Paintings by Mylie Jane Derrick" },
+      {
+        name: "description",
+        content:
+          "Original oil paintings by Mylie Jane Derrick. Representational landscapes and still lifes inspired by the mountains and red rock of Utah.",
+      },
+      { name: "author", content: "Mylie Jane Derrick" },
+      { property: "og:title", content: "Mylie Jane Design" },
+      {
+        property: "og:description",
+        content:
+          "Original oil paintings by Mylie Jane Derrick — landscapes and still lifes from Utah.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap",
       },
     ],
   }),
@@ -113,13 +121,66 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function SiteHeader() {
+  const linkBase =
+    "text-[0.78rem] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-foreground";
+  const active = { className: `${linkBase} text-foreground` };
+  return (
+    <header className="border-b border-border/60">
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-8 md:flex-row md:items-end md:justify-between md:px-10">
+        <Link to="/" className="block">
+          <p className="font-serif text-2xl leading-none tracking-tight text-foreground">
+            Mylie Jane Derrick
+          </p>
+          <p className="eyebrow mt-2">Mylie Jane Design · Oil Paintings</p>
+        </Link>
+        <nav className="flex flex-wrap items-center gap-x-8 gap-y-3">
+          <Link to="/gallery" className={linkBase} activeProps={active}>Gallery</Link>
+          <Link to="/collections" className={linkBase} activeProps={active}>Collections</Link>
+          <Link to="/statement" className={linkBase} activeProps={active}>Statement</Link>
+          <Link to="/contact" className={linkBase} activeProps={active}>Inquiries</Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="mt-32 border-t border-border/60">
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-12 md:flex-row md:items-center md:justify-between md:px-10">
+        <div>
+          <p className="font-serif text-lg text-foreground">Mylie Jane Design</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Studio in Salt Lake City, Utah.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-muted-foreground">
+          <Link to="/gallery" className="hover:text-foreground">Gallery</Link>
+          <Link to="/collections" className="hover:text-foreground">Collections</Link>
+          <Link to="/statement" className="hover:text-foreground">Statement</Link>
+          <Link to="/contact" className="hover:text-foreground">Inquiries</Link>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          © {new Date().getFullYear()} Mylie Jane Derrick. All works original.
+        </p>
+      </div>
+    </footer>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="flex min-h-screen flex-col bg-background text-foreground">
+        <SiteHeader />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <SiteFooter />
+      </div>
     </QueryClientProvider>
   );
 }
