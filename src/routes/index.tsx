@@ -77,7 +77,7 @@ function Index() {
       </section>
 
 
-      <section className="mx-auto mt-32 max-w-7xl px-6 md:px-10">
+      <section id="recent-work" className="mx-auto mt-24 max-w-7xl px-6 pt-8 md:px-10 md:mt-32 scroll-mt-16">
         <div className="flex items-end justify-between gap-6 border-b border-border/60 pb-6">
           <div>
             <p className="eyebrow">Recent Work</p>
