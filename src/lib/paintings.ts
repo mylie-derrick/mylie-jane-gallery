@@ -1,13 +1,13 @@
-import aspenLight from "@/assets/painting-aspen-light.jpg";
-import powellReflection from "@/assets/painting-powell-reflection.jpg";
-import peonies from "@/assets/painting-peonies.jpg";
-import wasatchMorning from "@/assets/painting-wasatch-morning.jpg";
-import lemonsBrass from "@/assets/painting-lemons-brass.jpg";
-import cottonwoodCreek from "@/assets/painting-cottonwood-creek.jpg";
-import canyonDusk from "@/assets/painting-canyon-dusk.jpg";
-import gardenRoses from "@/assets/painting-garden-roses.jpg";
+import freshlyCut from "@/assets/freshly-cut.jpg.asset.json";
+import orangesAndRoses from "@/assets/oranges-and-roses.jpg.asset.json";
+import lavenderAndLemons from "@/assets/lavender-and-lemons.jpg.asset.json";
+import carnations from "@/assets/carnations.jpg.asset.json";
+import daffodils from "@/assets/daffodils.jpg.asset.json";
+import eveningSky from "@/assets/evening-sky.jpg.asset.json";
+import skiers from "@/assets/skiers.jpg.asset.json";
+import portraitProfile from "@/assets/portrait-profile.jpg.asset.json";
 
-export type CollectionId = "landscapes" | "still-lifes" | "plein-air";
+export type CollectionId = "still-lifes" | "landscapes" | "other-work";
 
 export interface Painting {
   slug: string;
@@ -22,105 +22,105 @@ export interface Painting {
 
 export const collections: { id: CollectionId; title: string; description: string }[] = [
   {
-    id: "landscapes",
-    title: "Landscapes",
-    description:
-      "Studio paintings of the places I keep returning to — the Wasatch, the red rock country, the long quiet of Lake Powell.",
-  },
-  {
     id: "still-lifes",
     title: "Still Lifes",
     description:
-      "Small, slow paintings made at the kitchen table. Flowers from the garden, fruit, the things on hand in afternoon light.",
+      "Slow, close paintings made at the studio table — flowers, fruit, and everyday objects in quiet light.",
   },
   {
-    id: "plein-air",
-    title: "Plein Air",
+    id: "landscapes",
+    title: "Landscapes",
     description:
-      "Paintings finished outside in one sitting, in whatever weather the day offers. The closest thing I have to a journal.",
+      "The places I keep returning to — big Western skies, open fields, and quiet moments in the mountains.",
+  },
+  {
+    id: "other-work",
+    title: "Other Work",
+    description:
+      "Portraits, studies, and pieces that don't quite fit the other rooms.",
   },
 ];
 
 export const paintings: Painting[] = [
   {
-    slug: "aspen-light",
-    title: "Aspen Light",
-    year: 2025,
-    medium: "Oil on linen",
-    size: '24 × 30 in',
-    collection: "landscapes",
-    image: aspenLight,
-    note: "Painted from a late September hike above Alta. I wanted the aspens to feel lit from within — the way they actually look when the sun drops behind the ridge.",
-  },
-  {
-    slug: "powell-reflection",
-    title: "Powell, Late Morning",
+    slug: "freshly-cut",
+    title: "Freshly Cut",
     year: 2024,
     medium: "Oil on panel",
-    size: '20 × 20 in',
-    collection: "landscapes",
-    image: powellReflection,
-    note: "A quiet inlet on the south end of the lake. The water was so still I almost didn't trust it.",
-  },
-  {
-    slug: "wasatch-morning",
-    title: "Wasatch, Morning Fog",
-    year: 2025,
-    medium: "Oil on linen",
-    size: '30 × 40 in',
-    collection: "landscapes",
-    image: wasatchMorning,
-    note: "Studio piece from a stack of plein air studies done last October. I kept losing and finding the mountain in the fog — I wanted that in the painting.",
-  },
-  {
-    slug: "canyon-dusk",
-    title: "Canyon, Dusk",
-    year: 2024,
-    medium: "Oil on panel",
-    size: '18 × 24 in',
-    collection: "landscapes",
-    image: canyonDusk,
-    note: "Southern Utah, just after the sun left the canyon walls. The shadows turn violet for about ten minutes and then it's over.",
-  },
-  {
-    slug: "white-peonies",
-    title: "White Peonies",
-    year: 2025,
-    medium: "Oil on linen",
-    size: '14 × 14 in',
+    size: "12 × 12 in",
     collection: "still-lifes",
-    image: peonies,
-    note: "From the garden, set on the kitchen counter in north light. Peonies only last a few days — most of this was painted in one long sitting.",
+    image: freshlyCut.url,
+    note: "Roses from the garden in a small white vase, painted in one long sitting against a dark ground.",
   },
   {
-    slug: "lemons-and-brass",
-    title: "Lemons and Brass",
+    slug: "oranges-and-roses",
+    title: "Oranges and Roses",
     year: 2024,
     medium: "Oil on panel",
-    size: '12 × 16 in',
+    size: "12 × 16 in",
     collection: "still-lifes",
-    image: lemonsBrass,
-    note: "A small study about warm light on warm color. The brass bowl belonged to my grandmother.",
+    image: orangesAndRoses.url,
+    note: "A study in warm color — cut oranges, a whole navel, and two pink peony buds on a scarred wooden board.",
   },
   {
-    slug: "garden-roses",
-    title: "Garden Roses, Afternoon",
-    year: 2025,
-    medium: "Oil on linen",
-    size: '16 × 20 in',
-    collection: "still-lifes",
-    image: gardenRoses,
-    note: "Cut from the back fence in early June. I left the fallen petals where they landed.",
-  },
-  {
-    slug: "cottonwood-creek",
-    title: "Cottonwood Creek",
+    slug: "lavender-and-lemons",
+    title: "Lavender and Lemons",
     year: 2024,
     medium: "Oil on panel",
-    size: '11 × 14 in',
-    collection: "plein-air",
-    image: cottonwoodCreek,
-    note: "Finished on site in about two hours. The light moves quickly through cottonwoods — you have to commit early and keep going.",
+    size: "10 × 16 in",
+    collection: "still-lifes",
+    image: lavenderAndLemons.url,
+    note: "Bread, oil, lemon, and a bud vase of lavender — a small tabletop arrangement built around cool violet and pale yellow.",
+  },
+  {
+    slug: "carnations",
+    title: "Carnations in a Bud Vase",
+    year: 2023,
+    medium: "Oil on canvas",
+    size: "9 × 12 in",
+    collection: "still-lifes",
+    image: carnations.url,
+    note: "Coral carnations against a deep navy ground. I wanted the glass to feel almost weightless.",
+  },
+  {
+    slug: "daffodils",
+    title: "Daffodils",
+    year: 2023,
+    medium: "Oil on panel",
+    size: "10 × 12 in",
+    collection: "still-lifes",
+    image: daffodils.url,
+    note: "Two daffodils in a slim glass vase, catching afternoon light against a soft gray wall.",
+  },
+  {
+    slug: "evening-sky",
+    title: "Evening Sky Over the Fields",
+    year: 2024,
+    medium: "Oil on panel",
+    size: "11 × 14 in",
+    collection: "landscapes",
+    image: eveningSky.url,
+    note: "Painted on a drive home — the last of the sun catching the underside of long pink clouds over a small farmhouse.",
+  },
+  {
+    slug: "backcountry",
+    title: "Backcountry",
+    year: 2024,
+    medium: "Oil on panel",
+    size: "8 × 10 in",
+    collection: "landscapes",
+    image: skiers.url,
+    note: "A small tonal study of four skiers moving through overcast light in the high country.",
+  },
+  {
+    slug: "profile-study",
+    title: "Portrait Study",
+    year: 2023,
+    medium: "Oil on canvas",
+    size: "11 × 14 in",
+    collection: "other-work",
+    image: portraitProfile.url,
+    note: "A profile study done from life in the studio. The dark ground and hoop earring were the anchors I kept coming back to.",
   },
 ];
 
