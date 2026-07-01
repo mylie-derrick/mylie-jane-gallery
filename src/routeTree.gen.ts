@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as StatementRouteImport } from './routes/statement'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CollectionsRouteImport } from './routes/collections'
@@ -17,11 +16,6 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PaintingsSlugRouteImport } from './routes/paintings.$slug'
 
-const StatementRoute = StatementRouteImport.update({
-  id: '/statement',
-  path: '/statement',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const GalleryRoute = GalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
@@ -59,7 +53,6 @@ export interface FileRoutesByFullPath {
   '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
-  '/statement': typeof StatementRoute
   '/paintings/$slug': typeof PaintingsSlugRoute
 }
 export interface FileRoutesByTo {
@@ -68,7 +61,6 @@ export interface FileRoutesByTo {
   '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
-  '/statement': typeof StatementRoute
   '/paintings/$slug': typeof PaintingsSlugRoute
 }
 export interface FileRoutesById {
@@ -78,7 +70,6 @@ export interface FileRoutesById {
   '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
-  '/statement': typeof StatementRoute
   '/paintings/$slug': typeof PaintingsSlugRoute
 }
 export interface FileRouteTypes {
@@ -89,7 +80,6 @@ export interface FileRouteTypes {
     | '/collections'
     | '/contact'
     | '/gallery'
-    | '/statement'
     | '/paintings/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -98,7 +88,6 @@ export interface FileRouteTypes {
     | '/collections'
     | '/contact'
     | '/gallery'
-    | '/statement'
     | '/paintings/$slug'
   id:
     | '__root__'
@@ -107,7 +96,6 @@ export interface FileRouteTypes {
     | '/collections'
     | '/contact'
     | '/gallery'
-    | '/statement'
     | '/paintings/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -117,19 +105,11 @@ export interface RootRouteChildren {
   CollectionsRoute: typeof CollectionsRoute
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
-  StatementRoute: typeof StatementRoute
   PaintingsSlugRoute: typeof PaintingsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/statement': {
-      id: '/statement'
-      path: '/statement'
-      fullPath: '/statement'
-      preLoaderRoute: typeof StatementRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/gallery': {
       id: '/gallery'
       path: '/gallery'
@@ -181,7 +161,6 @@ const rootRouteChildren: RootRouteChildren = {
   CollectionsRoute: CollectionsRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
-  StatementRoute: StatementRoute,
   PaintingsSlugRoute: PaintingsSlugRoute,
 }
 export const routeTree = rootRouteImport
