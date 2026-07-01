@@ -29,49 +29,53 @@ function Index() {
 
   return (
     <>
-      <section className="mx-auto max-w-7xl px-6 pt-12 md:px-10 md:pt-20">
-        <div className="grid gap-12 md:grid-cols-12 md:gap-16">
-          <div className="md:col-span-5 md:pt-12">
-            <p className="eyebrow">Oil Paintings · Est. Utah</p>
-            <h1 className="mt-6 font-serif text-4xl leading-[1.05] text-foreground md:text-6xl">
-              Quiet paintings of the West, made one canvas at a time.
-            </h1>
-            <p className="mt-8 max-w-md text-base leading-relaxed text-muted-foreground">
-              I'm Mylie Jane Derrick — a representational oil painter working from Utah's
-              mountains, deserts, and the still corners of my studio. Each piece is an
-              original, painted slowly and sold directly.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-8">
-              <Link
-                to="/gallery"
-                className="border-b border-foreground pb-1 text-sm uppercase tracking-[0.22em] text-foreground transition-colors hover:text-primary hover:border-primary"
-              >
-                View the gallery
-              </Link>
-              <Link
-                to="/statement"
-                className="border-b border-transparent pb-1 text-sm uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-foreground hover:border-foreground"
-              >
-                Artist statement
-              </Link>
-            </div>
-          </div>
-          <div className="md:col-span-7">
-            <figure>
-              <img
-                src={heroImage}
-                alt="Wasatch, Morning Fog — an oil painting of the Wasatch range under low morning fog."
-                width={1024}
-                height={1024}
-                className="w-full object-cover shadow-[0_30px_80px_-40px_rgba(60,40,20,0.35)]"
-              />
-              <figcaption className="mt-4 text-sm text-muted-foreground">
-                <span className="italic">Wasatch, Morning Fog</span> · Oil on linen · 30 × 40 in
-              </figcaption>
-            </figure>
-          </div>
+      <section className="relative -mt-px h-screen w-full overflow-hidden">
+        <img
+          src={heroImage}
+          alt="Wasatch, Morning Fog — an oil painting of the Wasatch range under low morning fog."
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        {/* subtle dark gradient at bottom for legibility */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(26,26,26,0) 55%, rgba(26,26,26,0.55) 100%)",
+          }}
+        />
+        <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+          <h1
+            className="font-serif italic text-[var(--brand-cream)] text-5xl leading-[1.05] md:text-7xl lg:text-8xl"
+            style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
+          >
+            Mylie Jane Design
+          </h1>
+          <p className="mt-6 text-xs uppercase tracking-[0.32em] text-[var(--brand-cream)]/90 md:text-sm">
+            Original oil paintings · American West
+          </p>
         </div>
+        <a
+          href="#recent-work"
+          aria-label="Scroll to recent work"
+          className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-[var(--brand-cream)]/80 transition-colors hover:text-[var(--brand-cream)]"
+        >
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="animate-bounce"
+          >
+            <path d="M12 5v14" />
+            <path d="M6 13l6 6 6-6" />
+          </svg>
+        </a>
       </section>
+
 
       <section className="mx-auto mt-32 max-w-7xl px-6 md:px-10">
         <div className="flex items-end justify-between gap-6 border-b border-border/60 pb-6">
