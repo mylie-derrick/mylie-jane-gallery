@@ -1,126 +1,196 @@
-import freshlyCut from "@/assets/freshly-cut.jpg.asset.json";
-import orangesAndRoses from "@/assets/oranges-and-roses.jpg.asset.json";
-import lavenderAndLemons from "@/assets/lavender-and-lemons.jpg.asset.json";
-import carnations from "@/assets/carnations.jpg.asset.json";
-import daffodils from "@/assets/daffodils.jpg.asset.json";
-import eveningSky from "@/assets/evening-sky.jpg.asset.json";
-import skiers from "@/assets/skiers.jpg.asset.json";
-import portraitProfile from "@/assets/portrait-profile.jpg.asset.json";
-
 export type CollectionId = "still-lifes" | "landscapes" | "other-work";
+export type PaintingStatus = "Available" | "Sold" | "Not for Sale";
 
 export interface Painting {
+  id: string;
   slug: string;
   title: string;
-  year: number;
+  year: number | "TBD";
   medium: string;
   size: string;
+  price: string;
+  status: PaintingStatus;
   collection: CollectionId;
+  category: "Still Lifes" | "Landscapes" | "Other Work";
   image: string;
   note: string;
 }
 
-export const collections: { id: CollectionId; title: string; description: string }[] = [
-  {
-    id: "still-lifes",
-    title: "Still Lifes",
-    description:
-      "Slow, close paintings made at the studio table — flowers, fruit, and everyday objects in quiet light.",
-  },
-  {
-    id: "landscapes",
-    title: "Landscapes",
-    description:
-      "The places I keep returning to — big Western skies, open fields, and quiet moments in the mountains.",
-  },
-  {
-    id: "other-work",
-    title: "Other Work",
-    description:
-      "Portraits, studies, and pieces that don't quite fit the other rooms.",
-  },
-];
+export const collections: { id: CollectionId; title: Painting["category"]; description: string }[] =
+  [
+    {
+      id: "still-lifes",
+      title: "Still Lifes",
+      description:
+        "Paintings meant to capture light, color, and quiet moments. Fruit on a table, flowers in a jar, everyday things worth looking at twice.",
+    },
+    {
+      id: "landscapes",
+      title: "Landscapes",
+      description:
+        "Paintings inspired by the places I've traveled and keep returning to. Mountains, open skies, and scenes that hold a little bit of light.",
+    },
+    {
+      id: "other-work",
+      title: "Other Work",
+      description: "Portraits, studies, and other work.",
+    },
+  ];
 
 export const paintings: Painting[] = [
   {
+    id: "freshly-cut",
     slug: "freshly-cut",
     title: "Freshly Cut",
     year: 2024,
-    medium: "Oil on panel",
-    size: "12 × 12 in",
+    medium: "Oil on Board",
+    size: "TBD",
+    price: "TBD",
+    status: "Available",
     collection: "still-lifes",
-    image: freshlyCut.url,
-    note: "Roses from the garden in a small white vase, painted in one long sitting against a dark ground.",
+    category: "Still Lifes",
+    image: "/images/freshly-cut.jpg",
+    note: "Pink roses in a white vase against a dark background. Strong still life candidate.",
   },
   {
-    slug: "oranges-and-roses",
-    title: "Oranges and Roses",
-    year: 2024,
-    medium: "Oil on panel",
-    size: "12 × 16 in",
+    id: "oranges-and-blooms",
+    slug: "oranges-and-blooms",
+    title: "Oranges and Blooms",
+    year: 2025,
+    medium: "Oil on Board",
+    size: "TBD",
+    price: "TBD",
+    status: "Available",
     collection: "still-lifes",
-    image: orangesAndRoses.url,
-    note: "A study in warm color — cut oranges, a whole navel, and two pink peony buds on a scarred wooden board.",
+    category: "Still Lifes",
+    image: "/images/oranges-and-blooms.jpg",
+    note: "Citrus and pink flowers on a wood surface against a dark ground. Strong candidate for homepage or featured still life.",
   },
   {
+    id: "lavender-and-lemons",
     slug: "lavender-and-lemons",
     title: "Lavender and Lemons",
-    year: 2024,
-    medium: "Oil on panel",
-    size: "10 × 16 in",
+    year: 2022,
+    medium: "Oil on Board",
+    size: "TBD",
+    price: "TBD",
+    status: "Sold",
     collection: "still-lifes",
-    image: lavenderAndLemons.url,
-    note: "Bread, oil, lemon, and a bud vase of lavender — a small tabletop arrangement built around cool violet and pale yellow.",
+    category: "Still Lifes",
+    image: "/images/lavender-and-lemons.jpg",
+    note: "Bread, lemons, lavender in a glass jar, and dark bottle. Use in gallery, not as purchasable.",
   },
   {
-    slug: "carnations",
-    title: "Carnations in a Bud Vase",
+    id: "peonies",
+    slug: "peonies",
+    title: "Peonies",
+    year: 2025,
+    medium: "Oil on Canvas",
+    size: "TBD",
+    price: "TBD",
+    status: "Available",
+    collection: "still-lifes",
+    category: "Still Lifes",
+    image: "/images/peonies.jpg",
+    note: "Floral still life photographed in studio context.",
+  },
+  {
+    id: "grandma",
+    slug: "grandma",
+    title: "Grandma",
+    year: 2022,
+    medium: "Oil on Board",
+    size: "TBD",
+    price: "TBD",
+    status: "Available",
+    collection: "still-lifes",
+    category: "Still Lifes",
+    image: "/images/grandma.jpg",
+    note: "Perfume bottles, glass vase, and flowers. Elegant, personal, refined still life.",
+  },
+  {
+    id: "happy-flowers",
+    slug: "happy-flowers",
+    title: "Happy Flowers",
     year: 2023,
-    medium: "Oil on canvas",
-    size: "9 × 12 in",
+    medium: "Oil on Canvas",
+    size: "TBD",
+    price: "TBD",
+    status: "Sold",
     collection: "still-lifes",
-    image: carnations.url,
-    note: "Coral carnations against a deep navy ground. I wanted the glass to feel almost weightless.",
+    category: "Still Lifes",
+    image: "/images/happy-flowers.jpg",
+    note: "Small yellow flowers in a glass jar. Use in gallery, not as purchasable.",
   },
   {
-    slug: "daffodils",
-    title: "Daffodils",
+    id: "wahweap",
+    slug: "wahweap",
+    title: "Wahweap",
     year: 2023,
-    medium: "Oil on panel",
-    size: "10 × 12 in",
-    collection: "still-lifes",
-    image: daffodils.url,
-    note: "Two daffodils in a slim glass vase, catching afternoon light against a soft gray wall.",
-  },
-  {
-    slug: "evening-sky",
-    title: "Evening Sky Over the Fields",
-    year: 2024,
-    medium: "Oil on panel",
-    size: "11 × 14 in",
+    medium: "Oil on Board",
+    size: "TBD",
+    price: "TBD",
+    status: "Available",
     collection: "landscapes",
-    image: eveningSky.url,
-    note: "Painted on a drive home — the last of the sun catching the underside of long pink clouds over a small farmhouse.",
+    category: "Landscapes",
+    image: "/images/wahweap.jpg",
+    note: "Lake Powell/desert red rock landscape. Important to Mylie's Utah and outdoor story.",
   },
   {
-    slug: "backcountry",
-    title: "Backcountry",
-    year: 2024,
-    medium: "Oil on panel",
-    size: "8 × 10 in",
+    id: "sunset-on-the-tetons",
+    slug: "sunset-on-the-tetons",
+    title: "Sunset on the Tetons",
+    year: 2025,
+    medium: "Oil on Board",
+    size: "TBD",
+    price: "TBD",
+    status: "Available",
     collection: "landscapes",
-    image: skiers.url,
-    note: "A small tonal study of four skiers moving through overcast light in the high country.",
+    category: "Landscapes",
+    image: "/images/sunset-on-the-tetons.jpg",
+    note: "Landscape with wide sky, fields, trees, and small white building.",
   },
   {
-    slug: "profile-study",
-    title: "Portrait Study",
-    year: 2023,
-    medium: "Oil on canvas",
-    size: "11 × 14 in",
+    id: "lake-louise-iced-over",
+    slug: "lake-louise-iced-over",
+    title: "Lake Louise Iced Over",
+    year: 2026,
+    medium: "Oil on Canvas",
+    size: "TBD",
+    price: "TBD",
+    status: "Available",
+    collection: "landscapes",
+    category: "Landscapes",
+    image: "/images/lake-louise-iced-over.jpg",
+    note: "Winter landscape, blue palette, snowy trees, mountains, stream, small warm cabin light. Not yet professionally photographed.",
+  },
+  {
+    id: "livin",
+    slug: "livin",
+    title: "Livin",
+    year: 2026,
+    medium: "Oil on Canvas",
+    size: "TBD",
+    price: "TBD",
+    status: "Available",
+    collection: "landscapes",
+    category: "Landscapes",
+    image: "/images/livin.jpg",
+    note: "Small winter/ski landscape. Not yet professionally photographed.",
+  },
+  {
+    id: "untitled-portrait-study",
+    slug: "untitled-portrait-study",
+    title: "Untitled Portrait Study",
+    year: "TBD",
+    medium: "Oil",
+    size: "TBD",
+    price: "TBD",
+    status: "Not for Sale",
     collection: "other-work",
-    image: portraitProfile.url,
-    note: "A profile study done from life in the studio. The dark ground and hoop earring were the anchors I kept coming back to.",
+    category: "Other Work",
+    image: "/images/untitled-portrait-study.jpg",
+    note: "Portrait profile study connected to Grand Central Atelier training. Use in gallery only.",
   },
 ];
 

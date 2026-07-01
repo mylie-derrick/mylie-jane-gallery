@@ -46,34 +46,34 @@
   --radius: 0.25rem;
 
   /* Brand palette — exact hex, no substitutes */
-  --brand-cream: #F5F0E8;
-  --brand-olive: #2C3320;
-  --brand-moss:  #6B7A4A;
-  --brand-mauve: #C4A8A0;
-  --brand-wine:  #6B2D35;
-  --brand-ink:   #1A1A1A;
+  --brand-cream: #f5f0e8;
+  --brand-olive: #2c3320;
+  --brand-moss: #6b7a4a;
+  --brand-mauve: #c4a8a0;
+  --brand-wine: #6b2d35;
+  --brand-ink: #1a1a1a;
 
-  --background: #F5F0E8;   /* warm cream */
-  --foreground: #1A1A1A;   /* near black */
-  --card: #F5F0E8;
-  --card-foreground: #1A1A1A;
-  --popover: #F5F0E8;
-  --popover-foreground: #1A1A1A;
+  --background: #f5f0e8; /* warm cream */
+  --foreground: #1a1a1a; /* near black */
+  --card: #f5f0e8;
+  --card-foreground: #1a1a1a;
+  --popover: #f5f0e8;
+  --popover-foreground: #1a1a1a;
 
-  --primary: #6B2D35;                 /* burgundy — buttons, active nav, hovers */
-  --primary-foreground: #F5F0E8;
-  --secondary: #C4A8A0;               /* dusty mauve — secondary buttons, tags */
-  --secondary-foreground: #1A1A1A;
-  --muted: #EAE2D3;                   /* warm cream tint */
-  --muted-foreground: #5A4E44;        /* warm brownish ink for meta text */
-  --accent: #2C3320;                  /* dark olive */
-  --accent-foreground: #F5F0E8;
+  --primary: #6b2d35; /* burgundy — buttons, active nav, hovers */
+  --primary-foreground: #f5f0e8;
+  --secondary: #c4a8a0; /* dusty mauve — secondary buttons, tags */
+  --secondary-foreground: #1a1a1a;
+  --muted: #eae2d3; /* warm cream tint */
+  --muted-foreground: #5a4e44; /* warm brownish ink for meta text */
+  --accent: #2c3320; /* dark olive */
+  --accent-foreground: #f5f0e8;
 
-  --destructive: #6B2D35;
-  --destructive-foreground: #F5F0E8;
-  --border: #C4A8A0;                  /* dusty mauve dividers */
-  --input: #C4A8A0;
-  --ring: #6B2D35;
+  --destructive: #6b2d35;
+  --destructive-foreground: #f5f0e8;
+  --border: #c4a8a0; /* dusty mauve dividers */
+  --input: #c4a8a0;
+  --ring: #6b2d35;
 }
 
 @layer base {
@@ -84,21 +84,26 @@
   html {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    background-color: #F5F0E8;
+    background-color: #f5f0e8;
   }
 
   body {
-    background-color: #F5F0E8;
-    color: #1A1A1A;
+    background-color: #f5f0e8;
+    color: #1a1a1a;
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
   }
 
-  h1, h2, h3, h4, h5 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     font-family: var(--font-serif);
     font-weight: 400;
+    font-style: italic;
     letter-spacing: -0.01em;
-    color: #1A1A1A;
+    color: #1a1a1a;
   }
 }
 
@@ -107,6 +112,6 @@
   font-size: 0.72rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #6B2D35; /* burgundy */
+  color: #6b2d35; /* burgundy */
   font-weight: 500;
 }

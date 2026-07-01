@@ -26,7 +26,10 @@ export const Route = createFileRoute("/paintings/$slug")({
     <div className="mx-auto max-w-xl px-6 py-32 text-center">
       <p className="eyebrow">Not found</p>
       <h1 className="mt-4 font-serif text-3xl">That painting isn't here</h1>
-      <Link to="/gallery" className="mt-8 inline-block border-b border-foreground pb-1 text-sm uppercase tracking-[0.22em]">
+      <Link
+        to="/gallery"
+        className="mt-8 inline-block border-b border-foreground pb-1 text-sm uppercase tracking-[0.22em]"
+      >
         Back to gallery
       </Link>
     </div>
@@ -37,6 +40,7 @@ function PaintingPage() {
   const { painting } = Route.useLoaderData();
   const collection = getCollection(painting.collection);
   const others = paintings.filter((p) => p.slug !== painting.slug).slice(0, 3);
+  const available = painting.status === "Available";
 
   return (
     <article className="mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-24">
@@ -59,9 +63,7 @@ function PaintingPage() {
         </figure>
 
         <aside className="md:col-span-4 md:pt-4">
-          {collection && (
-            <p className="eyebrow">{collection.title}</p>
-          )}
+          {collection && <p className="eyebrow">{collection.title}</p>}
           <h1 className="mt-3 font-serif text-3xl italic text-foreground md:text-4xl">
             {painting.title}
           </h1>
@@ -79,23 +81,37 @@ function PaintingPage() {
               <dt className="text-muted-foreground">Size</dt>
               <dd className="text-foreground">{painting.size}</dd>
             </div>
+            <div className="flex justify-between border-b border-border/60 pb-2">
+              <dt className="text-muted-foreground">Price</dt>
+              <dd className="text-foreground">{painting.price}</dd>
+            </div>
+            <div className="flex justify-between border-b border-border/60 pb-2">
+              <dt className="text-muted-foreground">Status</dt>
+              <dd className="text-foreground">{painting.status}</dd>
+            </div>
           </dl>
 
-          <p className="mt-8 text-base leading-relaxed text-foreground/85">
-            {painting.note}
-          </p>
+          <p className="mt-8 text-base leading-relaxed text-foreground/85">{painting.note}</p>
 
-          <Link
-            to="/contact"
-            search={{ painting: painting.title }}
-            className="mt-10 inline-flex items-center justify-center bg-primary px-6 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Inquire to Purchase
-          </Link>
-          <p className="mt-3 text-xs text-muted-foreground">
-            Originals are sold directly. I'll reply personally with availability,
-            pricing, and shipping.
-          </p>
+          {available ? (
+            <>
+              <Link
+                to="/contact"
+                search={{ painting: painting.title }}
+                className="mt-10 inline-flex items-center justify-center bg-primary px-6 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-[color:var(--brand-olive)]"
+              >
+                Inquire to Purchase
+              </Link>
+              <p className="mt-3 text-xs text-muted-foreground">
+                Originals are sold directly. I'll reply personally with availability, pricing, and
+                shipping.
+              </p>
+            </>
+          ) : (
+            <p className="mt-10 border border-border px-5 py-3 text-center text-xs uppercase tracking-[0.22em] text-muted-foreground">
+              {painting.status}
+            </p>
+          )}
         </aside>
       </div>
 

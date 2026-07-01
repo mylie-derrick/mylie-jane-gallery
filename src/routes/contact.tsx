@@ -29,10 +29,36 @@ export const Route = createFileRoute("/contact")({
 function Contact() {
   const { painting } = Route.useSearch();
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+  const formspreeEndpoint = (import.meta.env as Record<string, string | undefined>)
+    .NEXT_PUBLIC_FORMSPREE_ENDPOINT;
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setError("");
+
+    // TODO for Mylie: add NEXT_PUBLIC_FORMSPREE_ENDPOINT to your environment with the endpoint from Formspree.
+    if (!formspreeEndpoint) {
+      setError(
+        "This form is ready for Formspree. Add NEXT_PUBLIC_FORMSPREE_ENDPOINT to send messages.",
+      );
+      return;
+    }
+
+    const form = e.currentTarget;
+    const response = await fetch(formspreeEndpoint, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { Accept: "application/json" },
+    });
+
+    if (response.ok) {
+      setSent(true);
+      form.reset();
+      return;
+    }
+
+    setError("Something went wrong sending your note. Please try again.");
   };
 
   return (
@@ -40,18 +66,13 @@ function Contact() {
       <div className="grid gap-16 md:grid-cols-12">
         <header className="md:col-span-5">
           <p className="eyebrow">Inquiries</p>
-          <h1 className="mt-4 font-serif text-4xl text-foreground md:text-5xl">
-            Let's talk.
-          </h1>
+          <h1 className="mt-4 font-serif text-4xl text-foreground md:text-5xl">Let's talk.</h1>
           <div className="mt-8 space-y-5 text-base leading-relaxed text-muted-foreground">
             <p>
-              Every painting is one of a kind, so purchases happen through a short
-              conversation. Send a note about a piece you're drawn to, ask about a
-              commission, or just say hello.
+              Every painting is one of a kind, so purchases happen through a short conversation.
+              Send a note about a piece you're drawn to or just say hello.
             </p>
-            <p>
-              I reply personally — usually within a day or two.
-            </p>
+            <p>I reply personally — usually within a day or two.</p>
           </div>
           <div className="mt-10 text-sm text-foreground">
             <p className="eyebrow">Studio</p>
@@ -64,15 +85,16 @@ function Contact() {
           {sent ? (
             <div className="border border-border bg-card p-10 text-center">
               <p className="eyebrow">Thank you</p>
-              <h2 className="mt-4 font-serif text-2xl text-foreground">
-                Your note is on its way.
-              </h2>
-              <p className="mt-3 text-sm text-muted-foreground">
-                I'll be in touch soon.
-              </p>
+              <h2 className="mt-4 font-serif text-2xl text-foreground">Your note is on its way.</h2>
+              <p className="mt-3 text-sm text-muted-foreground">I'll be in touch soon.</p>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="space-y-7">
+            <form
+              action={formspreeEndpoint}
+              method="POST"
+              onSubmit={onSubmit}
+              className="space-y-7"
+            >
               <Field label="Name" name="name" required />
               <Field label="Email" name="email" type="email" required />
               <Field
@@ -97,6 +119,9 @@ function Contact() {
                   placeholder="Tell me a little about what you're hoping for."
                 />
               </div>
+              {error && (
+                <p className="text-sm leading-relaxed text-[color:var(--brand-wine)]">{error}</p>
+              )}
               <button
                 type="submit"
                 className="bg-primary px-7 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-primary/90"

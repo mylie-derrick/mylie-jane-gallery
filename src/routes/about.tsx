@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import portrait from "@/assets/artist-portrait.jpg.asset.json";
+
+const aboutCopy =
+  "Hi, I'm Mylie. I'm an oil painter, marketing student, and creative person from Utah. I've always been drawn to beautiful things, especially the kind you notice outside: light on the mountains, color in the sky, wildflowers, ski days, lake trips, and quiet moments that make you want to pay attention. I started oil painting in high school, partly because my mom is a professional oil painter and partly because I loved the way painting taught me to really see. Right now, I paint mostly landscapes and still lifes in a representational style I'm still growing into. My work is inspired by the outdoors, travel, home, faith, family, and places that feel meaningful to me. I love painting fruit on a table, mountains I've spent time in, and scenes that hold a little bit of light. I'm not trying to make things look perfect. I'm trying to capture what it felt like to be there: the color, the warmth, the movement, and the feeling of the moment. I'm also studying marketing at BYU, so I think a lot about how art, storytelling, branding, and business can work together. My hope is to build an art and design brand that feels warm, original, thoughtful, and lasting. Every painting on this site is one of a kind. I hope the right pieces find their way to people who will love living with them.";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -8,15 +10,15 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "About Mylie Jane Derrick — oil painter working from a studio in Utah on still lifes, landscapes, and portraits.",
+          "About Mylie Jane Derrick — Utah oil painter making still lifes, landscapes, and studies.",
       },
       { property: "og:title", content: "About — Mylie Jane Derrick" },
       {
         property: "og:description",
-        content: "About oil painter Mylie Jane Derrick.",
+        content: "About Utah oil painter Mylie Jane Derrick.",
       },
-      { property: "og:image", content: portrait.url },
-      { name: "twitter:image", content: portrait.url },
+      { property: "og:image", content: "/images/wahweap.jpg" },
+      { name: "twitter:image", content: "/images/wahweap.jpg" },
     ],
   }),
   component: About,
@@ -28,46 +30,29 @@ function About() {
       <div className="grid gap-16 md:grid-cols-12">
         <div className="md:col-span-5">
           <img
-            src={portrait.url}
-            alt="Mylie Jane Derrick in her studio, standing next to an easel."
+            src="/images/wahweap.jpg"
+            alt="Wahweap oil painting by Mylie Jane Derrick."
             loading="lazy"
-            className="w-full object-cover"
+            className="aspect-[4/5] w-full object-cover"
             style={{ boxShadow: "0 30px 80px -40px rgba(44, 51, 32, 0.45)" }}
           />
           <p className="mt-4 text-sm" style={{ color: "#5A4E44" }}>
-            In the studio.
+            Wahweap, oil on board.
           </p>
         </div>
 
         <div className="md:col-span-7">
-          <p className="eyebrow">About Me</p>
-          <h1 className="mt-4 font-serif text-4xl leading-tight md:text-5xl" style={{ color: "var(--brand-ink)" }}>
+          <p className="eyebrow">About</p>
+          <h1
+            className="mt-4 font-serif text-4xl italic leading-tight md:text-5xl"
+            style={{ color: "var(--brand-ink)" }}
+          >
             Hi, I'm Mylie.
           </h1>
 
-          <div className="mt-10 space-y-6 text-base leading-relaxed" style={{ color: "var(--brand-ink)" }}>
-            <p>
-              I'm an oil painter working from a small studio in Utah. Most days you'll
-              find me in a paint-covered smock in front of an easel, chasing the light
-              on a piece of fruit or the shape of a cloud I saw driving home.
-            </p>
-            <p>
-              I paint mostly from life — still lifes at the studio table, and
-              landscapes from time spent outside in the American West. Now and then a
-              portrait pulls me in and I have to follow it.
-            </p>
-            <p>
-              The Impressionists and the quiet still life painters taught me almost
-              everything I know about looking. I'm not trying to make a photograph.
-              I'm trying to honor what it actually felt like to stand in front of the
-              thing — the temperature of the light, the color you only notice after a
-              few minutes.
-            </p>
-            <p>
-              Every painting on this site is one of a kind. I sell directly to the
-              people who want to live with them, and I take that personally.
-            </p>
-          </div>
+          <p className="mt-10 text-base leading-8 md:text-lg" style={{ color: "var(--brand-ink)" }}>
+            {aboutCopy}
+          </p>
 
           <div className="mt-12 flex flex-wrap gap-8">
             <Link
