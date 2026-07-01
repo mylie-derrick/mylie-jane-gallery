@@ -123,21 +123,23 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function SiteHeader() {
   const linkBase =
-    "text-[0.78rem] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-foreground";
-  const active = { className: `${linkBase} text-foreground` };
+    "text-[0.78rem] uppercase tracking-[0.22em] text-[color:var(--brand-cream)]/70 transition-colors hover:text-[color:var(--brand-cream)]";
+  const active = { className: `${linkBase} text-[color:var(--brand-cream)] border-b border-[color:var(--brand-mauve)] pb-1` };
   return (
-    <header className="border-b border-border/60">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-8 md:flex-row md:items-end md:justify-between md:px-10">
+    <header style={{ backgroundColor: "var(--brand-olive)" }}>
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-6 md:flex-row md:items-end md:justify-between md:px-10">
         <Link to="/" className="block">
-          <p className="font-serif text-2xl leading-none tracking-tight text-foreground">
+          <p className="font-serif text-2xl leading-none tracking-tight" style={{ color: "var(--brand-cream)" }}>
             Mylie Jane Derrick
           </p>
-          <p className="eyebrow mt-2">Mylie Jane Design · Oil Paintings</p>
+          <p className="mt-2 text-[0.68rem] uppercase tracking-[0.28em]" style={{ color: "var(--brand-mauve)" }}>
+            Mylie Jane Design · Oil Paintings
+          </p>
         </Link>
         <nav className="flex flex-wrap items-center gap-x-8 gap-y-3">
           <Link to="/gallery" className={linkBase} activeProps={active}>Gallery</Link>
           <Link to="/collections" className={linkBase} activeProps={active}>Collections</Link>
-          <Link to="/statement" className={linkBase} activeProps={active}>Statement</Link>
+          <Link to="/about" className={linkBase} activeProps={active}>About</Link>
           <Link to="/contact" className={linkBase} activeProps={active}>Inquiries</Link>
         </nav>
       </div>
@@ -146,22 +148,23 @@ function SiteHeader() {
 }
 
 function SiteFooter() {
+  const linkCls = "text-sm text-[color:var(--brand-cream)]/75 hover:text-[color:var(--brand-cream)]";
   return (
-    <footer className="mt-32 border-t border-border/60">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-12 md:flex-row md:items-center md:justify-between md:px-10">
+    <footer className="mt-32" style={{ backgroundColor: "var(--brand-olive)", color: "var(--brand-cream)" }}>
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
         <div>
-          <p className="font-serif text-lg text-foreground">Mylie Jane Design</p>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="font-serif text-lg" style={{ color: "var(--brand-cream)" }}>Mylie Jane Design</p>
+          <p className="mt-1 text-sm" style={{ color: "var(--brand-mauve)" }}>
             Studio in Salt Lake City, Utah.
           </p>
         </div>
-        <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-muted-foreground">
-          <Link to="/gallery" className="hover:text-foreground">Gallery</Link>
-          <Link to="/collections" className="hover:text-foreground">Collections</Link>
-          <Link to="/statement" className="hover:text-foreground">Statement</Link>
-          <Link to="/contact" className="hover:text-foreground">Inquiries</Link>
+        <div className="flex flex-wrap gap-x-8 gap-y-2">
+          <Link to="/gallery" className={linkCls}>Gallery</Link>
+          <Link to="/collections" className={linkCls}>Collections</Link>
+          <Link to="/about" className={linkCls}>About</Link>
+          <Link to="/contact" className={linkCls}>Inquiries</Link>
         </div>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs" style={{ color: "var(--brand-mauve)" }}>
           © {new Date().getFullYear()} Mylie Jane Derrick. All works original.
         </p>
       </div>

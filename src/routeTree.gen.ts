@@ -9,18 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as StatementRouteImport } from './routes/statement'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CollectionsRouteImport } from './routes/collections'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PaintingsSlugRouteImport } from './routes/paintings.$slug'
 
-const StatementRoute = StatementRouteImport.update({
-  id: '/statement',
-  path: '/statement',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const GalleryRoute = GalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
@@ -36,6 +31,11 @@ const CollectionsRoute = CollectionsRouteImport.update({
   path: '/collections',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,74 +49,67 @@ const PaintingsSlugRoute = PaintingsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
-  '/statement': typeof StatementRoute
   '/paintings/$slug': typeof PaintingsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
-  '/statement': typeof StatementRoute
   '/paintings/$slug': typeof PaintingsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
-  '/statement': typeof StatementRoute
   '/paintings/$slug': typeof PaintingsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/collections'
     | '/contact'
     | '/gallery'
-    | '/statement'
     | '/paintings/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/collections'
     | '/contact'
     | '/gallery'
-    | '/statement'
     | '/paintings/$slug'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/collections'
     | '/contact'
     | '/gallery'
-    | '/statement'
     | '/paintings/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   CollectionsRoute: typeof CollectionsRoute
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
-  StatementRoute: typeof StatementRoute
   PaintingsSlugRoute: typeof PaintingsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/statement': {
-      id: '/statement'
-      path: '/statement'
-      fullPath: '/statement'
-      preLoaderRoute: typeof StatementRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/gallery': {
       id: '/gallery'
       path: '/gallery'
@@ -138,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -157,10 +157,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   CollectionsRoute: CollectionsRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
-  StatementRoute: StatementRoute,
   PaintingsSlugRoute: PaintingsSlugRoute,
 }
 export const routeTree = rootRouteImport
