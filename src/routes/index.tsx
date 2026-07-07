@@ -152,7 +152,7 @@ function Index() {
                   src={p.image}
                   alt={p.title}
                   loading="lazy"
-                  className="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                  className="aspect-square w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                 />
               </div>
               <div className="mt-4">

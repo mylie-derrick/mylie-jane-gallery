@@ -58,7 +58,7 @@ function PaintingPage() {
             alt={painting.title}
             width={1024}
             height={1024}
-            className="w-full object-cover shadow-[0_30px_80px_-40px_rgba(60,40,20,0.35)]"
+            className="w-full object-contain shadow-[0_30px_80px_-40px_rgba(60,40,20,0.35)]"
           />
         </figure>
 
@@ -133,7 +133,7 @@ function PaintingPage() {
                     loading="lazy"
                     width={1024}
                     height={1024}
-                    className="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="aspect-square w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                   />
                 </div>
                 <p className="mt-3 font-serif italic text-foreground">{p.title}</p>

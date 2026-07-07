@@ -33,7 +33,7 @@ function About() {
             src="/images/wahweap.jpg"
             alt="Wahweap oil painting by Mylie Jane Derrick."
             loading="lazy"
-            className="aspect-[4/5] w-full object-cover"
+            className="aspect-[4/5] w-full object-contain"
             style={{ boxShadow: "0 30px 80px -40px rgba(44, 51, 32, 0.45)" }}
           />
           <p className="mt-4 text-sm" style={{ color: "#5A4E44" }}>

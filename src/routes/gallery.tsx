@@ -99,7 +99,7 @@ function Gallery() {
                 loading="lazy"
                 width={1200}
                 height={1200}
-                className={`${index === 0 && visiblePaintings.length > 4 ? "aspect-[4/3]" : "aspect-[4/5]"} w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]`}
+                className={`${index === 0 && visiblePaintings.length > 4 ? "aspect-[4/3]" : "aspect-[4/5]"} w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]`}
               />
             </div>
             <div className="mt-5 flex items-start justify-between gap-4">

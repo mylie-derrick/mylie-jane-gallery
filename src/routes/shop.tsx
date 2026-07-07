@@ -47,7 +47,7 @@ function Shop() {
                     loading="lazy"
                     width={1000}
                     height={1200}
-                    className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="aspect-[4/5] w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                   />
                 </div>
               </Link>
