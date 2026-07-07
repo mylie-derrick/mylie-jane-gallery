@@ -148,24 +148,29 @@ function Index() {
         </div>
       </section>
 
-      <section className="mx-auto mt-24 max-w-4xl px-6 text-center md:mt-32 md:px-10">
-        <p className="eyebrow">Commissions</p>
-        <h2
-          className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl"
-          style={{ color: "var(--brand-ink)" }}
-        >
-          Have something in mind?
-        </h2>
-        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-          Commission a custom piece for your home, a meaningful gift, or a place you want to
-          remember. Share what you're imagining and I'll help shape it into an original painting.
-        </p>
-        <Link
-          to="/contact"
-          className="mt-8 inline-flex items-center justify-center bg-[color:var(--brand-forest-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-header-green)]"
-        >
-          Start an Inquiry
-        </Link>
+      <section
+        className="mt-24 px-6 py-20 text-center md:mt-32 md:px-10 md:py-24"
+        style={{ backgroundColor: "rgba(148, 168, 124, 0.28)" }}
+      >
+        <div className="mx-auto max-w-4xl">
+          <p className="eyebrow">Commissions</p>
+          <h2
+            className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl"
+            style={{ color: "var(--brand-ink)" }}
+          >
+            Have something in mind?
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            Commission a custom piece for your home, a meaningful gift, or a place you want to
+            remember. Share what you're imagining and I'll help shape it into an original painting.
+          </p>
+          <Link
+            to="/contact"
+            className="mt-8 inline-flex items-center justify-center bg-[color:var(--brand-forest-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-header-green)]"
+          >
+            Start an Inquiry
+          </Link>
+        </div>
       </section>
 
       <section className="mx-auto mt-32 max-w-3xl px-6 text-center md:px-10">
@@ -174,14 +179,9 @@ function Index() {
           className="mt-6 font-serif text-2xl italic leading-relaxed md:text-3xl"
           style={{ color: "var(--brand-ink)" }}
         >
-          "I paint the things that stop me — a bowl of oranges in warm light, a Western sky just
-          before it turns."
-        </p>
-        <p
-          className="mt-6 text-sm uppercase tracking-[0.22em]"
-          style={{ color: "var(--brand-forest-green)" }}
-        >
-          — Mylie Jane
+          Thank you for being here. It means a great deal to me that these paintings find homes of
+          their own. My hope is that they bring beauty, warmth, and joy to the spaces they're part
+          of.
         </p>
       </section>
     </>
