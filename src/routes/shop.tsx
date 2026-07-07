@@ -34,20 +34,18 @@ function Shop() {
         </p>
       </header>
 
-      <div className="mt-16 grid gap-x-10 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-16 columns-1 gap-10 md:columns-2 xl:columns-3">
         {paintings.map((painting) => {
           const available = painting.status === "Available";
           return (
-            <article key={painting.slug} className="group">
+            <article key={painting.slug} className="group mb-16 break-inside-avoid">
               <Link to="/paintings/$slug" params={{ slug: painting.slug }} className="block">
-                <div className="overflow-hidden" style={{ backgroundColor: "var(--brand-olive)" }}>
+                <div className="overflow-hidden">
                   <img
                     src={painting.image}
                     alt={painting.title}
                     loading="lazy"
-                    width={1000}
-                    height={1200}
-                    className="aspect-[4/5] w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
                   />
                 </div>
               </Link>

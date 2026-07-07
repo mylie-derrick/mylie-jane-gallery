@@ -139,20 +139,20 @@ function Index() {
             See all →
           </Link>
         </div>
-        <div className="mt-12 grid gap-12 md:grid-cols-3">
+        <div className="mt-12 columns-1 gap-12 md:columns-3">
           {featured.map((p) => (
             <Link
               key={p.slug}
               to="/paintings/$slug"
               params={{ slug: p.slug }}
-              className="group block"
+              className="group mb-12 block break-inside-avoid"
             >
-              <div className="overflow-hidden" style={{ backgroundColor: "var(--brand-olive)" }}>
+              <div className="overflow-hidden">
                 <img
                   src={p.image}
                   alt={p.title}
                   loading="lazy"
-                  className="aspect-square w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                  className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
                 />
               </div>
               <div className="mt-4">

@@ -84,22 +84,20 @@ function Gallery() {
         </div>
       </header>
 
-      <div className="mt-16 grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-        {visiblePaintings.map((painting, index) => (
+      <div className="mt-16 columns-1 gap-10 sm:columns-2 lg:columns-3">
+        {visiblePaintings.map((painting) => (
           <Link
             key={painting.slug}
             to="/paintings/$slug"
             params={{ slug: painting.slug }}
-            className={`group block ${index === 0 && visiblePaintings.length > 4 ? "lg:col-span-2" : ""}`}
+            className="group mb-16 block break-inside-avoid"
           >
-            <div className="overflow-hidden" style={{ backgroundColor: "var(--brand-olive)" }}>
+            <div className="overflow-hidden">
               <img
                 src={painting.image}
                 alt={painting.title}
                 loading="lazy"
-                width={1200}
-                height={1200}
-                className={`${index === 0 && visiblePaintings.length > 4 ? "aspect-[4/3]" : "aspect-[4/5]"} w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]`}
+                className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
               />
             </div>
             <div className="mt-5 flex items-start justify-between gap-4">
