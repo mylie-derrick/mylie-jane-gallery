@@ -4,11 +4,12 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -123,26 +124,54 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function SiteHeader() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const isHome = pathname === "/";
+  const [scrolled, setScrolled] = useState(false);
+  const transparentOverHero = isHome && !scrolled;
+  const navTextColor = transparentOverHero ? "var(--brand-cream)" : "var(--brand-slate-blue)";
+  const navTextMuted = transparentOverHero
+    ? "rgba(247, 243, 236, 0.78)"
+    : "rgba(61, 90, 108, 0.78)";
   const linkBase =
-    "text-[0.78rem] uppercase tracking-[0.22em] text-[color:var(--brand-cream)]/75 transition-colors hover:text-[color:var(--brand-cream)]";
-  const active = {
-    className: `${linkBase} text-[color:var(--brand-cream)] border-b border-[color:var(--brand-mauve)] pb-1`,
+    "text-[0.78rem] uppercase tracking-[0.22em] transition-colors hover:opacity-100";
+  const desktopActive = {
+    className: `${linkBase} border-b pb-1 opacity-100`,
+    style: { color: navTextColor, borderColor: navTextColor },
+  };
+  const mobileActive = {
+    className: `${linkBase} border-b pb-1 opacity-100`,
+    style: { color: "var(--brand-slate-blue)", borderColor: "var(--brand-slate-blue)" },
   };
 
+  useEffect(() => {
+    const updateScrolled = () => setScrolled(window.scrollY > 2);
+
+    updateScrolled();
+    window.addEventListener("scroll", updateScrolled, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrolled);
+  }, []);
+
   return (
-    <header style={{ backgroundColor: "var(--brand-dusty-blue)" }}>
+    <header
+      className="fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 ease-out"
+      style={{
+        backgroundColor: scrolled ? "var(--brand-cream)" : "transparent",
+        borderColor: scrolled ? "rgba(196, 168, 160, 0.5)" : "transparent",
+        boxShadow: scrolled ? "0 12px 30px -28px rgba(26, 26, 26, 0.45)" : "none",
+      }}
+    >
       <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-5 md:flex-row md:items-end md:justify-between md:px-10">
         <div className="flex items-center justify-between gap-5">
           <Link to="/" className="block">
             <p
-              className="font-serif text-2xl leading-none tracking-tight"
-              style={{ color: "var(--brand-cream)" }}
+              className="font-serif text-2xl leading-none tracking-tight transition-colors duration-300"
+              style={{ color: navTextColor }}
             >
               Mylie Jane Derrick
             </p>
             <p
-              className="mt-2 text-[0.68rem] uppercase tracking-[0.28em]"
-              style={{ color: "rgba(247, 243, 236, 0.82)" }}
+              className="mt-2 text-[0.68rem] uppercase tracking-[0.28em] transition-colors duration-300"
+              style={{ color: navTextMuted }}
             >
               Mylie Jane Design · Oil Paintings
             </p>
@@ -150,37 +179,78 @@ function SiteHeader() {
           <details className="relative md:hidden">
             <summary
               aria-label="Navigation menu"
-              className="flex h-10 w-10 cursor-pointer list-none items-center justify-center border border-[color:var(--brand-cream)]/35 text-[color:var(--brand-cream)] [&::-webkit-details-marker]:hidden"
+              className="flex h-10 w-10 cursor-pointer list-none items-center justify-center border transition-colors duration-300 [&::-webkit-details-marker]:hidden"
+              style={{ borderColor: navTextMuted, color: navTextColor }}
             >
               <Menu size={18} />
             </summary>
-            <nav className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-dusty-blue)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]">
-              <Link to="/gallery" className={linkBase} activeProps={active}>
+            <nav className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]">
+              <Link
+                to="/gallery"
+                className={`${linkBase} opacity-80`}
+                style={{ color: "var(--brand-slate-blue)" }}
+                activeProps={mobileActive}
+              >
                 Gallery
               </Link>
-              <Link to="/shop" className={linkBase} activeProps={active}>
+              <Link
+                to="/shop"
+                className={`${linkBase} opacity-80`}
+                style={{ color: "var(--brand-slate-blue)" }}
+                activeProps={mobileActive}
+              >
                 Shop
               </Link>
-              <Link to="/about" className={linkBase} activeProps={active}>
+              <Link
+                to="/about"
+                className={`${linkBase} opacity-80`}
+                style={{ color: "var(--brand-slate-blue)" }}
+                activeProps={mobileActive}
+              >
                 About
               </Link>
-              <Link to="/contact" className={linkBase} activeProps={active}>
+              <Link
+                to="/contact"
+                className={`${linkBase} opacity-80`}
+                style={{ color: "var(--brand-slate-blue)" }}
+                activeProps={mobileActive}
+              >
                 Contact
               </Link>
             </nav>
           </details>
         </div>
         <nav className="hidden flex-col gap-4 pt-3 md:flex md:flex-row md:flex-wrap md:items-center md:gap-x-8 md:gap-y-3 md:pt-0">
-          <Link to="/gallery" className={linkBase} activeProps={active}>
+          <Link
+            to="/gallery"
+            className={`${linkBase} opacity-80`}
+            style={{ color: navTextColor }}
+            activeProps={desktopActive}
+          >
             Gallery
           </Link>
-          <Link to="/shop" className={linkBase} activeProps={active}>
+          <Link
+            to="/shop"
+            className={`${linkBase} opacity-80`}
+            style={{ color: navTextColor }}
+            activeProps={desktopActive}
+          >
             Shop
           </Link>
-          <Link to="/about" className={linkBase} activeProps={active}>
+          <Link
+            to="/about"
+            className={`${linkBase} opacity-80`}
+            style={{ color: navTextColor }}
+            activeProps={desktopActive}
+          >
             About
           </Link>
-          <Link to="/contact" className={linkBase} activeProps={active}>
+          <Link
+            to="/contact"
+            className={`${linkBase} opacity-80`}
+            style={{ color: navTextColor }}
+            activeProps={desktopActive}
+          >
             Contact
           </Link>
         </nav>
@@ -230,12 +300,14 @@ function SiteFooter() {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const isHome = pathname === "/";
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col bg-background text-foreground">
         <SiteHeader />
-        <main className="flex-1">
+        <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
           <Outlet />
         </main>
         <SiteFooter />
