@@ -87,7 +87,7 @@ function Contact() {
           <div className="mt-10 text-sm text-foreground">
             <p className="eyebrow">Studio</p>
             <p className="mt-2">Salt Lake City, Utah</p>
-            <p className="mt-1 text-muted-foreground">hello@myliejanedesign.com</p>
+            <p className="mt-1 text-muted-foreground">myliederrick@icloud.com</p>
           </div>
         </header>
 
