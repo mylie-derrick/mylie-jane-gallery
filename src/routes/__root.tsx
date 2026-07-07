@@ -8,7 +8,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
+import { Instagram, Menu } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -294,6 +294,16 @@ function SiteFooter() {
           <Link to="/contact" className={linkCls}>
             Contact
           </Link>
+          <a
+            href="https://www.instagram.com/myliejanedesign/"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-[color:var(--brand-deep-moss)]/80 transition-colors hover:text-[color:var(--brand-deep-moss)]"
+            aria-label="Mylie Jane Design on Instagram"
+          >
+            <Instagram size={16} aria-hidden="true" />
+            <span>Instagram</span>
+          </a>
         </div>
         <p className="text-xs" style={{ color: "var(--brand-deep-moss)" }}>
           © {new Date().getFullYear()} Mylie Jane Derrick. All works original.

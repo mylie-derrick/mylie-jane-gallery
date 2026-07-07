@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
 
+const formEndpoint = "https://formsubmit.co/ajax/myliederrick@icloud.com";
+
 const searchSchema = z.object({
   painting: z.string().optional(),
 });
@@ -30,32 +32,40 @@ function Contact() {
   const { painting } = Route.useSearch();
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
-  const formspreeEndpoint = (import.meta.env as Record<string, string | undefined>)
-    .NEXT_PUBLIC_FORMSPREE_ENDPOINT;
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
-    // TODO for Mylie: add NEXT_PUBLIC_FORMSPREE_ENDPOINT to your environment with the endpoint from Formspree.
-    if (!formspreeEndpoint) {
-      setError(
-        "This form is ready for Formspree. Add NEXT_PUBLIC_FORMSPREE_ENDPOINT to send messages.",
-      );
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const name = String(formData.get("name") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const message = String(formData.get("message") ?? "").trim();
+
+    if (!name || !email || !message) {
+      setError("Please fill out your name, email, and message before sending.");
       return;
     }
 
-    const form = e.currentTarget;
-    const response = await fetch(formspreeEndpoint, {
-      method: "POST",
-      body: new FormData(form),
-      headers: { Accept: "application/json" },
-    });
+    formData.set("name", name);
+    formData.set("email", email);
+    formData.set("message", message);
 
-    if (response.ok) {
-      setSent(true);
-      form.reset();
-      return;
+    try {
+      const response = await fetch(formEndpoint, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+
+      if (response.ok) {
+        setSent(true);
+        form.reset();
+        return;
+      }
+    } catch {
+      // Fall through to the friendly error below.
     }
 
     setError("Something went wrong sending your note. Please try again.");
@@ -90,11 +100,14 @@ function Contact() {
             </div>
           ) : (
             <form
-              action={formspreeEndpoint}
+              action={formEndpoint}
               method="POST"
               onSubmit={onSubmit}
               className="space-y-7"
             >
+              <input type="hidden" name="_subject" value="New Mylie Jane Design inquiry" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
               <Field label="Name" name="name" required />
               <Field label="Email" name="email" type="email" required />
               <Field
