@@ -17,8 +17,8 @@ export const Route = createFileRoute("/about")({
         property: "og:description",
         content: "About Utah oil painter Mylie Jane Derrick.",
       },
-      { property: "og:image", content: "/images/wahweap.jpg" },
-      { name: "twitter:image", content: "/images/wahweap.jpg" },
+      { property: "og:image", content: "/images/mylie-studio-portrait.jpg" },
+      { name: "twitter:image", content: "/images/mylie-studio-portrait.jpg" },
     ],
   }),
   component: About,
@@ -30,14 +30,14 @@ function About() {
       <div className="grid gap-16 md:grid-cols-12">
         <div className="md:col-span-5">
           <img
-            src="/images/wahweap.jpg"
-            alt="Wahweap oil painting by Mylie Jane Derrick."
+            src="/images/mylie-studio-portrait.jpg"
+            alt="Mylie Jane Derrick in her studio with an oil painting."
             loading="lazy"
             className="aspect-[4/5] w-full object-contain"
             style={{ boxShadow: "0 30px 80px -40px rgba(44, 51, 32, 0.45)" }}
           />
           <p className="mt-4 text-sm" style={{ color: "#5A4E44" }}>
-            Wahweap, oil on board.
+            Mylie in the studio.
           </p>
         </div>
 
@@ -58,7 +58,10 @@ function About() {
             <Link
               to="/gallery"
               className="pb-1 text-sm uppercase tracking-[0.22em]"
-              style={{ color: "var(--brand-wine)", borderBottom: "1px solid var(--brand-wine)" }}
+              style={{
+                color: "var(--brand-slate-blue)",
+                borderBottom: "1px solid var(--brand-slate-blue)",
+              }}
             >
               See the paintings
             </Link>

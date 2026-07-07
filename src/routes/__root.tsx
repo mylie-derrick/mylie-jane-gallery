@@ -130,7 +130,7 @@ function SiteHeader() {
   };
 
   return (
-    <header style={{ backgroundColor: "var(--brand-wine)" }}>
+    <header style={{ backgroundColor: "var(--brand-dusty-blue)" }}>
       <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-5 md:flex-row md:items-end md:justify-between md:px-10">
         <div className="flex items-center justify-between gap-5">
           <Link to="/" className="block">
@@ -142,7 +142,7 @@ function SiteHeader() {
             </p>
             <p
               className="mt-2 text-[0.68rem] uppercase tracking-[0.28em]"
-              style={{ color: "var(--brand-mauve)" }}
+              style={{ color: "rgba(247, 243, 236, 0.82)" }}
             >
               Mylie Jane Design · Oil Paintings
             </p>
@@ -154,7 +154,7 @@ function SiteHeader() {
             >
               <Menu size={18} />
             </summary>
-            <nav className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-wine)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]">
+            <nav className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-dusty-blue)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]">
               <Link to="/gallery" className={linkBase} activeProps={active}>
                 Gallery
               </Link>
@@ -191,18 +191,18 @@ function SiteHeader() {
 
 function SiteFooter() {
   const linkCls =
-    "text-sm text-[color:var(--brand-cream)]/75 hover:text-[color:var(--brand-cream)]";
+    "text-sm text-[color:var(--brand-deep-moss)]/80 transition-colors hover:text-[color:var(--brand-deep-moss)]";
   return (
     <footer
       className="mt-32"
-      style={{ backgroundColor: "var(--brand-olive)", color: "var(--brand-cream)" }}
+      style={{ backgroundColor: "var(--brand-footer-moss)", color: "var(--brand-deep-moss)" }}
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
         <div>
-          <p className="font-serif text-lg" style={{ color: "var(--brand-cream)" }}>
+          <p className="font-serif text-lg" style={{ color: "var(--brand-deep-moss)" }}>
             Mylie Jane Design
           </p>
-          <p className="mt-1 text-sm" style={{ color: "var(--brand-mauve)" }}>
+          <p className="mt-1 text-sm" style={{ color: "var(--brand-deep-moss)" }}>
             Studio in Salt Lake City, Utah.
           </p>
         </div>
@@ -220,7 +220,7 @@ function SiteFooter() {
             Contact
           </Link>
         </div>
-        <p className="text-xs" style={{ color: "var(--brand-mauve)" }}>
+        <p className="text-xs" style={{ color: "var(--brand-deep-moss)" }}>
           © {new Date().getFullYear()} Mylie Jane Derrick. All works original.
         </p>
       </div>

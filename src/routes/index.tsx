@@ -15,8 +15,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Original oil paintings — still lifes and landscapes from the American West.",
       },
-      { property: "og:image", content: "/images/oranges-and-blooms.jpg" },
-      { name: "twitter:image", content: "/images/oranges-and-blooms.jpg" },
+      { property: "og:image", content: "/images/hero-painting-process.jpg" },
+      { name: "twitter:image", content: "/images/hero-painting-process.jpg" },
     ],
   }),
   component: Index,
@@ -31,11 +31,11 @@ function Index() {
     <>
       <section
         className="relative flex min-h-[82vh] w-full items-end overflow-hidden"
-        style={{ backgroundColor: "var(--brand-olive)" }}
+        style={{ backgroundColor: "var(--brand-dusty-blue)" }}
       >
         <img
-          src="/images/oranges-and-blooms.jpg"
-          alt="Oranges and Blooms oil painting by Mylie Jane Derrick."
+          src="/images/hero-painting-process.jpg"
+          alt="Mylie Jane Derrick painting oranges and blooms in the studio."
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div
@@ -79,13 +79,13 @@ function Index() {
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
               to="/gallery"
-              className="inline-flex items-center justify-center bg-[color:var(--brand-wine)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-olive)]"
+              className="inline-flex items-center justify-center bg-[color:var(--brand-slate-blue)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-dusty-blue)]"
             >
               View Gallery
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-cream)] hover:text-[color:var(--brand-wine)]"
+              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-cream)] hover:text-[color:var(--brand-slate-blue)]"
             >
               Inquire About a Painting
             </Link>
@@ -134,7 +134,7 @@ function Index() {
           <Link
             to="/gallery"
             className="hidden text-sm uppercase tracking-[0.22em] md:inline"
-            style={{ color: "var(--brand-wine)" }}
+            style={{ color: "var(--brand-slate-blue)" }}
           >
             See all →
           </Link>
@@ -179,7 +179,7 @@ function Index() {
         </p>
         <p
           className="mt-6 text-sm uppercase tracking-[0.22em]"
-          style={{ color: "var(--brand-wine)" }}
+          style={{ color: "var(--brand-slate-blue)" }}
         >
           — Mylie Jane
         </p>

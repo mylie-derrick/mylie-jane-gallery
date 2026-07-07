@@ -120,7 +120,9 @@ function Contact() {
                 />
               </div>
               {error && (
-                <p className="text-sm leading-relaxed text-[color:var(--brand-wine)]">{error}</p>
+                <p className="text-sm leading-relaxed text-[color:var(--brand-slate-blue)]">
+                  {error}
+                </p>
               )}
               <button
                 type="submit"

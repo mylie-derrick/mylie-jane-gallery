@@ -31,10 +31,10 @@
   --color-ring: var(--ring);
 
   --color-cream: var(--brand-cream);
-  --color-olive: var(--brand-olive);
+  --color-olive: var(--brand-dusty-blue);
   --color-moss: var(--brand-moss);
   --color-mauve: var(--brand-mauve);
-  --color-wine: var(--brand-wine);
+  --color-wine: var(--brand-slate-blue);
   --color-ink: var(--brand-ink);
 
   --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
@@ -46,34 +46,38 @@
   --radius: 0.25rem;
 
   /* Brand palette — exact hex, no substitutes */
-  --brand-cream: #f5f0e8;
-  --brand-olive: #2c3320;
-  --brand-moss: #6b7a4a;
+  --brand-cream: #f7f3ec;
+  --brand-dusty-blue: #8fa9ba;
+  --brand-footer-moss: #94a87c;
+  --brand-deep-moss: #43523a;
+  --brand-slate-blue: #3d5a6c;
+  --brand-olive: var(--brand-dusty-blue);
+  --brand-moss: var(--brand-deep-moss);
   --brand-mauve: #c4a8a0;
-  --brand-wine: #6b2d35;
+  --brand-wine: var(--brand-slate-blue);
   --brand-ink: #1a1a1a;
 
-  --background: #f5f0e8; /* warm cream */
+  --background: #f7f3ec; /* warm cream */
   --foreground: #1a1a1a; /* near black */
-  --card: #f5f0e8;
+  --card: #f7f3ec;
   --card-foreground: #1a1a1a;
-  --popover: #f5f0e8;
+  --popover: #f7f3ec;
   --popover-foreground: #1a1a1a;
 
-  --primary: #6b2d35; /* burgundy — buttons, active nav, hovers */
-  --primary-foreground: #f5f0e8;
+  --primary: #3d5a6c; /* slate blue — buttons, active nav, hovers */
+  --primary-foreground: #f7f3ec;
   --secondary: #c4a8a0; /* dusty mauve — secondary buttons, tags */
   --secondary-foreground: #1a1a1a;
   --muted: #eae2d3; /* warm cream tint */
   --muted-foreground: #5a4e44; /* warm brownish ink for meta text */
-  --accent: #2c3320; /* dark olive */
-  --accent-foreground: #f5f0e8;
+  --accent: #8fa9ba; /* dusty blue */
+  --accent-foreground: #1a1a1a;
 
-  --destructive: #6b2d35;
-  --destructive-foreground: #f5f0e8;
+  --destructive: #3d5a6c;
+  --destructive-foreground: #f7f3ec;
   --border: #c4a8a0; /* dusty mauve dividers */
   --input: #c4a8a0;
-  --ring: #6b2d35;
+  --ring: #3d5a6c;
 }
 
 @layer base {
@@ -84,11 +88,11 @@
   html {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    background-color: #f5f0e8;
+    background-color: #f7f3ec;
   }
 
   body {
-    background-color: #f5f0e8;
+    background-color: #f7f3ec;
     color: #1a1a1a;
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
@@ -112,6 +116,6 @@
   font-size: 0.72rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #6b2d35; /* burgundy */
+  color: #3d5a6c; /* slate blue */
   font-weight: 500;
 }
