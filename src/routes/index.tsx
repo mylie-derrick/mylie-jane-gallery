@@ -31,7 +31,7 @@ function Index() {
     <>
       <section
         className="relative flex min-h-[82vh] w-full items-end overflow-hidden"
-        style={{ backgroundColor: "var(--brand-dusty-blue)" }}
+        style={{ backgroundColor: "var(--brand-header-green)" }}
       >
         <img
           src="/images/hero-painting-process.jpg"
@@ -46,46 +46,26 @@ function Index() {
           }}
         />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20 pt-28 md:px-10 md:pb-24">
-          <p
-            className="text-xs uppercase md:text-sm"
-            style={{
-              color: "var(--brand-cream)",
-              letterSpacing: "0.32em",
-              textShadow: "0 1px 10px rgba(0,0,0,0.4)",
-            }}
-          >
-            Representational oil paintings
-          </p>
           <h1
-            className="mt-5 max-w-4xl italic leading-[1.02] text-5xl md:text-7xl lg:text-8xl"
+            className="max-w-3xl italic leading-[1.04] text-4xl md:text-6xl lg:text-7xl"
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               color: "var(--brand-cream)",
               textShadow: "0 2px 30px rgba(0,0,0,0.35)",
             }}
           >
-            Original oil paintings inspired by light, place, and quiet everyday beauty.
+            Art that elevates the everyday.
           </h1>
-          <p
-            className="mt-6 max-w-2xl text-base leading-relaxed md:text-lg"
-            style={{
-              color: "var(--brand-cream)",
-              textShadow: "0 1px 10px rgba(0,0,0,0.4)",
-            }}
-          >
-            Still lifes, landscapes, and studies by Mylie Jane Derrick, a Utah-based painter drawn
-            to color, memory, and the feeling of being somewhere beautiful.
-          </p>
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
               to="/gallery"
-              className="inline-flex items-center justify-center bg-[color:var(--brand-slate-blue)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-dusty-blue)]"
+              className="inline-flex items-center justify-center bg-[color:var(--brand-forest-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-header-green)]"
             >
               View Gallery
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-cream)] hover:text-[color:var(--brand-slate-blue)]"
+              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-cream)] hover:text-[color:var(--brand-forest-green)]"
             >
               Inquire About a Painting
             </Link>
@@ -134,7 +114,7 @@ function Index() {
           <Link
             to="/gallery"
             className="hidden text-sm uppercase tracking-[0.22em] md:inline"
-            style={{ color: "var(--brand-slate-blue)" }}
+            style={{ color: "var(--brand-forest-green)" }}
           >
             See all →
           </Link>
@@ -168,6 +148,26 @@ function Index() {
         </div>
       </section>
 
+      <section className="mx-auto mt-24 max-w-4xl px-6 text-center md:mt-32 md:px-10">
+        <p className="eyebrow">Commissions</p>
+        <h2
+          className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl"
+          style={{ color: "var(--brand-ink)" }}
+        >
+          Have something in mind?
+        </h2>
+        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          Commission a custom piece for your home, a meaningful gift, or a place you want to
+          remember. Share what you're imagining and I'll help shape it into an original painting.
+        </p>
+        <Link
+          to="/contact"
+          className="mt-8 inline-flex items-center justify-center bg-[color:var(--brand-forest-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-header-green)]"
+        >
+          Start an Inquiry
+        </Link>
+      </section>
+
       <section className="mx-auto mt-32 max-w-3xl px-6 text-center md:px-10">
         <p className="eyebrow">A Note</p>
         <p
@@ -179,7 +179,7 @@ function Index() {
         </p>
         <p
           className="mt-6 text-sm uppercase tracking-[0.22em]"
-          style={{ color: "var(--brand-slate-blue)" }}
+          style={{ color: "var(--brand-forest-green)" }}
         >
           — Mylie Jane
         </p>

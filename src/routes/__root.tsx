@@ -127,11 +127,16 @@ function SiteHeader() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
-  const transparentOverHero = isHome && !scrolled;
-  const navTextColor = transparentOverHero ? "var(--brand-cream)" : "var(--brand-slate-blue)";
-  const navTextMuted = transparentOverHero
+  const navTextColor = scrolled
+    ? "var(--brand-cream)"
+    : isHome
+      ? "var(--brand-cream)"
+      : "var(--brand-forest-green)";
+  const navTextMuted = scrolled
     ? "rgba(247, 243, 236, 0.78)"
-    : "rgba(61, 90, 108, 0.78)";
+    : isHome
+      ? "rgba(247, 243, 236, 0.78)"
+      : "rgba(46, 59, 36, 0.78)";
   const linkBase =
     "text-[0.78rem] uppercase tracking-[0.22em] transition-colors hover:opacity-100";
   const desktopActive = {
@@ -140,7 +145,7 @@ function SiteHeader() {
   };
   const mobileActive = {
     className: `${linkBase} border-b pb-1 opacity-100`,
-    style: { color: "var(--brand-slate-blue)", borderColor: "var(--brand-slate-blue)" },
+    style: { color: "var(--brand-forest-green)", borderColor: "var(--brand-forest-green)" },
   };
 
   useEffect(() => {
@@ -155,8 +160,8 @@ function SiteHeader() {
     <header
       className="fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 ease-out"
       style={{
-        backgroundColor: scrolled ? "var(--brand-cream)" : "transparent",
-        borderColor: scrolled ? "rgba(196, 168, 160, 0.5)" : "transparent",
+        backgroundColor: scrolled ? "var(--brand-header-green)" : "transparent",
+        borderColor: scrolled ? "rgba(247, 243, 236, 0.22)" : "transparent",
         boxShadow: scrolled ? "0 12px 30px -28px rgba(26, 26, 26, 0.45)" : "none",
       }}
     >
@@ -188,7 +193,7 @@ function SiteHeader() {
               <Link
                 to="/gallery"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-slate-blue)" }}
+                style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
               >
                 Gallery
@@ -196,7 +201,7 @@ function SiteHeader() {
               <Link
                 to="/shop"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-slate-blue)" }}
+                style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
               >
                 Shop
@@ -204,7 +209,7 @@ function SiteHeader() {
               <Link
                 to="/about"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-slate-blue)" }}
+                style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
               >
                 About
@@ -212,7 +217,7 @@ function SiteHeader() {
               <Link
                 to="/contact"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-slate-blue)" }}
+                style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
               >
                 Contact

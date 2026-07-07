@@ -120,7 +120,7 @@ function Contact() {
                 />
               </div>
               {error && (
-                <p className="text-sm leading-relaxed text-[color:var(--brand-slate-blue)]">
+                <p className="text-sm leading-relaxed text-[color:var(--brand-forest-green)]">
                   {error}
                 </p>
               )}

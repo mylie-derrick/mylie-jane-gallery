@@ -59,8 +59,8 @@ function About() {
               to="/gallery"
               className="pb-1 text-sm uppercase tracking-[0.22em]"
               style={{
-                color: "var(--brand-slate-blue)",
-                borderBottom: "1px solid var(--brand-slate-blue)",
+                color: "var(--brand-forest-green)",
+                borderBottom: "1px solid var(--brand-forest-green)",
               }}
             >
               See the paintings

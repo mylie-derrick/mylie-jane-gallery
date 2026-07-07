@@ -31,10 +31,10 @@
   --color-ring: var(--ring);
 
   --color-cream: var(--brand-cream);
-  --color-olive: var(--brand-dusty-blue);
+  --color-olive: var(--brand-header-green);
   --color-moss: var(--brand-moss);
   --color-mauve: var(--brand-mauve);
-  --color-wine: var(--brand-slate-blue);
+  --color-wine: var(--brand-forest-green);
   --color-ink: var(--brand-ink);
 
   --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
@@ -47,14 +47,14 @@
 
   /* Brand palette — exact hex, no substitutes */
   --brand-cream: #f7f3ec;
-  --brand-dusty-blue: #8fa9ba;
+  --brand-header-green: #4a5d3a;
   --brand-footer-moss: #94a87c;
   --brand-deep-moss: #43523a;
-  --brand-slate-blue: #3d5a6c;
-  --brand-olive: var(--brand-dusty-blue);
+  --brand-forest-green: #2e3b24;
+  --brand-olive: var(--brand-header-green);
   --brand-moss: var(--brand-deep-moss);
   --brand-mauve: #c4a8a0;
-  --brand-wine: var(--brand-slate-blue);
+  --brand-wine: var(--brand-forest-green);
   --brand-ink: #1a1a1a;
 
   --background: #f7f3ec; /* warm cream */
@@ -64,20 +64,20 @@
   --popover: #f7f3ec;
   --popover-foreground: #1a1a1a;
 
-  --primary: #3d5a6c; /* slate blue — buttons, active nav, hovers */
+  --primary: #2e3b24; /* forest green — buttons, active nav, hovers */
   --primary-foreground: #f7f3ec;
   --secondary: #c4a8a0; /* dusty mauve — secondary buttons, tags */
   --secondary-foreground: #1a1a1a;
   --muted: #eae2d3; /* warm cream tint */
   --muted-foreground: #5a4e44; /* warm brownish ink for meta text */
-  --accent: #8fa9ba; /* dusty blue */
-  --accent-foreground: #1a1a1a;
+  --accent: #4a5d3a; /* header green */
+  --accent-foreground: #f7f3ec;
 
-  --destructive: #3d5a6c;
+  --destructive: #2e3b24;
   --destructive-foreground: #f7f3ec;
   --border: #c4a8a0; /* dusty mauve dividers */
   --input: #c4a8a0;
-  --ring: #3d5a6c;
+  --ring: #2e3b24;
 }
 
 @layer base {
@@ -116,6 +116,6 @@
   font-size: 0.72rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #3d5a6c; /* slate blue */
+  color: #2e3b24; /* deep forest green */
   font-weight: 500;
 }
