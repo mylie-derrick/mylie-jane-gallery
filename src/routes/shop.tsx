@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SoldBadge } from "@/components/sold-badge";
 import { paintings } from "@/lib/paintings";
 
 export const Route = createFileRoute("/shop")({
@@ -46,8 +45,7 @@ function Shop() {
           return (
             <article key={painting.slug} className="group mb-16 break-inside-avoid">
               <Link to="/paintings/$slug" params={{ slug: painting.slug }} className="block">
-                <div className="relative overflow-hidden">
-                  {painting.status === "sold" && <SoldBadge />}
+                <div className="overflow-hidden">
                   <img
                     src={painting.image}
                     alt={painting.title}

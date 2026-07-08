@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SoldBadge } from "@/components/sold-badge";
 import { paintings } from "@/lib/paintings";
 
 export const Route = createFileRoute("/")({
@@ -126,8 +125,7 @@ function Index() {
               params={{ slug: p.slug }}
               className="group mb-12 block break-inside-avoid"
             >
-              <div className="relative overflow-hidden">
-                {p.status === "sold" && <SoldBadge />}
+              <div className="overflow-hidden">
                 <img
                   src={p.image}
                   alt={p.title}
