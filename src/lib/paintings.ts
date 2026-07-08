@@ -223,7 +223,7 @@ const paintingEntries: PaintingEntry[] = [
   {
     slug: "last-of-spring",
     title: "Last of Spring",
-    imageFilename: "last-of-spring.jpg",
+    imageFilename: "Last-of-Spring.jpeg",
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2026,
