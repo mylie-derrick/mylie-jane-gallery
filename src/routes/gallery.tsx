@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
+import { SoldBadge } from "@/components/sold-badge";
 import { collections, paintings, type CollectionId } from "@/lib/paintings";
 
 const searchSchema = z.object({
@@ -92,7 +93,8 @@ function Gallery() {
             params={{ slug: painting.slug }}
             className="group mb-16 block break-inside-avoid"
           >
-            <div className="overflow-hidden">
+            <div className="relative overflow-hidden">
+              {painting.status === "sold" && <SoldBadge />}
               <img
                 src={painting.image}
                 alt={painting.title}
@@ -108,7 +110,7 @@ function Gallery() {
                 </p>
               </div>
               <p className="shrink-0 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                {painting.status}
+                {painting.statusLabel}
               </p>
             </div>
           </Link>

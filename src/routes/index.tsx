@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SoldBadge } from "@/components/sold-badge";
 import { paintings } from "@/lib/paintings";
 
 export const Route = createFileRoute("/")({
@@ -23,9 +24,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const featured = paintings.filter((p) =>
-    ["oranges-and-blooms", "freshly-cut", "wahweap"].includes(p.slug),
-  );
+  const featured = paintings.filter((p) => p.featured);
 
   return (
     <>
@@ -127,7 +126,8 @@ function Index() {
               params={{ slug: p.slug }}
               className="group mb-12 block break-inside-avoid"
             >
-              <div className="overflow-hidden">
+              <div className="relative overflow-hidden">
+                {p.status === "sold" && <SoldBadge />}
                 <img
                   src={p.image}
                   alt={p.title}

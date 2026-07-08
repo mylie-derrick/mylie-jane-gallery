@@ -13,9 +13,9 @@ export const Route = createFileRoute("/paintings/$slug")({
     return {
       meta: [
         { title: `${p.title} — Mylie Jane Design` },
-        { name: "description", content: p.note },
+        { name: "description", content: p.description },
         { property: "og:title", content: `${p.title} — Oil Painting` },
-        { property: "og:description", content: p.note },
+        { property: "og:description", content: p.description },
         { property: "og:image", content: p.image },
         { name: "twitter:image", content: p.image },
       ],
@@ -40,7 +40,7 @@ function PaintingPage() {
   const { painting } = Route.useLoaderData();
   const collection = getCollection(painting.collection);
   const others = paintings.filter((p) => p.slug !== painting.slug).slice(0, 3);
-  const available = painting.status === "Available";
+  const available = painting.status === "available";
 
   return (
     <article className="mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-24">
@@ -87,11 +87,13 @@ function PaintingPage() {
             </div>
             <div className="flex justify-between border-b border-border/60 pb-2">
               <dt className="text-muted-foreground">Status</dt>
-              <dd className="text-foreground">{painting.status}</dd>
+              <dd className="text-foreground">{painting.statusLabel}</dd>
             </div>
           </dl>
 
-          <p className="mt-8 text-base leading-relaxed text-foreground/85">{painting.note}</p>
+          <p className="mt-8 text-base leading-relaxed text-foreground/85">
+            {painting.description}
+          </p>
 
           {available ? (
             <>
@@ -109,7 +111,7 @@ function PaintingPage() {
             </>
           ) : (
             <p className="mt-10 border border-border px-5 py-3 text-center text-xs uppercase tracking-[0.22em] text-muted-foreground">
-              {painting.status}
+              {painting.statusLabel}
             </p>
           )}
         </aside>

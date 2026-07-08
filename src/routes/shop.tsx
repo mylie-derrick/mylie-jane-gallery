@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SoldBadge } from "@/components/sold-badge";
 import { paintings } from "@/lib/paintings";
 
 export const Route = createFileRoute("/shop")({
@@ -36,11 +37,12 @@ function Shop() {
 
       <div className="mt-16 columns-1 gap-10 md:columns-2 xl:columns-3">
         {paintings.map((painting) => {
-          const available = painting.status === "Available";
+          const available = painting.status === "available";
           return (
             <article key={painting.slug} className="group mb-16 break-inside-avoid">
               <Link to="/paintings/$slug" params={{ slug: painting.slug }} className="block">
-                <div className="overflow-hidden">
+                <div className="relative overflow-hidden">
+                  {painting.status === "sold" && <SoldBadge />}
                   <img
                     src={painting.image}
                     alt={painting.title}
@@ -62,7 +64,7 @@ function Shop() {
                       color: available ? "var(--brand-deep-moss)" : "var(--brand-forest-green)",
                     }}
                   >
-                    {painting.status}
+                    {painting.statusLabel}
                   </p>
                 </div>
 
@@ -91,7 +93,7 @@ function Shop() {
                   </Link>
                 ) : (
                   <p className="mt-6 border border-border px-5 py-3 text-center text-xs uppercase tracking-[0.22em] text-muted-foreground">
-                    {painting.status}
+                    {painting.statusLabel}
                   </p>
                 )}
               </div>
