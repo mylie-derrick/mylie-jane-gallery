@@ -220,6 +220,20 @@ const paintingEntries: PaintingEntry[] = [
     size: "TBD",
     price: "TBD",
   },
+  {
+    slug: "last-of-spring",
+    title: "Last of Spring",
+    imageFilename: "last-of-spring.jpg",
+    secondaryImageFilename: "",
+    category: "Still Life",
+    year: 2026,
+    description: "The last daffodils of spring, cut and gathered in a glass jar.",
+    status: "sold",
+    featured: false,
+    medium: "Oil on Canvas",
+    size: "TBD",
+    price: "TBD",
+  },
 ];
 
 export const paintings: Painting[] = paintingEntries.map((entry) => ({
