@@ -21,10 +21,73 @@ export const Route = createFileRoute("/shop")({
 });
 
 function Shop() {
-  const shopPaintings = [...paintings].sort((a, b) => {
-    if (a.status === b.status) return 0;
-    return a.status === "available" ? -1 : 1;
-  });
+  const availablePaintings = paintings.filter((painting) => painting.status === "available");
+  const soldPaintings = paintings.filter((painting) => painting.status === "sold");
+
+  const renderPainting = (painting: (typeof paintings)[number]) => {
+    const available = painting.status === "available";
+
+    return (
+      <article key={painting.slug} className="group mb-16 break-inside-avoid">
+        <Link to="/paintings/$slug" params={{ slug: painting.slug }} className="block">
+          <div className="overflow-hidden">
+            <img
+              src={painting.image}
+              alt={painting.title}
+              loading="lazy"
+              className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
+            />
+          </div>
+        </Link>
+
+        <div className="mt-5">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="font-serif text-2xl italic text-foreground">{painting.title}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{painting.category}</p>
+            </div>
+            <p
+              className="shrink-0 text-xs uppercase tracking-[0.2em]"
+              style={{
+                color: available ? "var(--brand-deep-moss)" : "var(--brand-forest-green)",
+              }}
+            >
+              {painting.statusLabel}
+            </p>
+          </div>
+
+          <dl className="mt-5 space-y-2 text-sm">
+            <div className="flex justify-between gap-6 border-b border-border/50 pb-2">
+              <dt className="text-muted-foreground">Medium</dt>
+              <dd className="text-right text-foreground">{painting.medium}</dd>
+            </div>
+            <div className="flex justify-between gap-6 border-b border-border/50 pb-2">
+              <dt className="text-muted-foreground">Size</dt>
+              <dd className="text-right text-foreground">{painting.size}</dd>
+            </div>
+            <div className="flex justify-between gap-6 border-b border-border/50 pb-2">
+              <dt className="text-muted-foreground">Price</dt>
+              <dd className="text-right text-foreground">{painting.price}</dd>
+            </div>
+          </dl>
+
+          {available ? (
+            <Link
+              to="/contact"
+              search={{ painting: painting.title }}
+              className="mt-6 inline-flex w-full items-center justify-center bg-primary px-6 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-[color:var(--brand-header-green)]"
+            >
+              Inquire to Purchase
+            </Link>
+          ) : (
+            <p className="mt-6 border border-border px-5 py-3 text-center text-xs uppercase tracking-[0.22em] text-muted-foreground">
+              {painting.statusLabel}
+            </p>
+          )}
+        </div>
+      </article>
+    );
+  };
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
@@ -40,69 +103,10 @@ function Shop() {
       </header>
 
       <div className="mt-16 columns-1 gap-10 md:columns-2 xl:columns-3">
-        {shopPaintings.map((painting) => {
-          const available = painting.status === "available";
-          return (
-            <article key={painting.slug} className="group mb-16 break-inside-avoid">
-              <Link to="/paintings/$slug" params={{ slug: painting.slug }} className="block">
-                <div className="overflow-hidden">
-                  <img
-                    src={painting.image}
-                    alt={painting.title}
-                    loading="lazy"
-                    className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
-                  />
-                </div>
-              </Link>
-
-              <div className="mt-5">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h2 className="font-serif text-2xl italic text-foreground">{painting.title}</h2>
-                    <p className="mt-1 text-sm text-muted-foreground">{painting.category}</p>
-                  </div>
-                  <p
-                    className="shrink-0 text-xs uppercase tracking-[0.2em]"
-                    style={{
-                      color: available ? "var(--brand-deep-moss)" : "var(--brand-forest-green)",
-                    }}
-                  >
-                    {painting.statusLabel}
-                  </p>
-                </div>
-
-                <dl className="mt-5 space-y-2 text-sm">
-                  <div className="flex justify-between gap-6 border-b border-border/50 pb-2">
-                    <dt className="text-muted-foreground">Medium</dt>
-                    <dd className="text-right text-foreground">{painting.medium}</dd>
-                  </div>
-                  <div className="flex justify-between gap-6 border-b border-border/50 pb-2">
-                    <dt className="text-muted-foreground">Size</dt>
-                    <dd className="text-right text-foreground">{painting.size}</dd>
-                  </div>
-                  <div className="flex justify-between gap-6 border-b border-border/50 pb-2">
-                    <dt className="text-muted-foreground">Price</dt>
-                    <dd className="text-right text-foreground">{painting.price}</dd>
-                  </div>
-                </dl>
-
-                {available ? (
-                  <Link
-                    to="/contact"
-                    search={{ painting: painting.title }}
-                    className="mt-6 inline-flex w-full items-center justify-center bg-primary px-6 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-[color:var(--brand-header-green)]"
-                  >
-                    Inquire to Purchase
-                  </Link>
-                ) : (
-                  <p className="mt-6 border border-border px-5 py-3 text-center text-xs uppercase tracking-[0.22em] text-muted-foreground">
-                    {painting.statusLabel}
-                  </p>
-                )}
-              </div>
-            </article>
-          );
-        })}
+        {availablePaintings.map(renderPainting)}
+      </div>
+      <div className="columns-1 gap-10 md:columns-2 xl:columns-3">
+        {soldPaintings.map(renderPainting)}
       </div>
     </section>
   );
