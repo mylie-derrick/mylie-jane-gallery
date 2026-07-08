@@ -28,7 +28,7 @@ function Shop() {
     const available = painting.status === "available";
 
     return (
-      <article key={painting.slug} className="group mb-16 break-inside-avoid">
+      <article key={painting.slug} className="group">
         <Link to="/paintings/$slug" params={{ slug: painting.slug }} className="block">
           <div className="overflow-hidden">
             <img
@@ -102,10 +102,13 @@ function Shop() {
         </p>
       </header>
 
-      <div className="mt-16 columns-1 gap-10 md:columns-2 xl:columns-3">
+      <div className="mt-16 grid grid-cols-1 items-start gap-x-10 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
         {availablePaintings.map(renderPainting)}
       </div>
-      <div className="columns-1 gap-10 md:columns-2 xl:columns-3">
+      <div className="mt-16 border-t border-border/60 pt-10">
+        <p className="eyebrow">Sold Works</p>
+      </div>
+      <div className="mt-8 grid grid-cols-1 items-start gap-x-10 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
         {soldPaintings.map(renderPainting)}
       </div>
     </section>
