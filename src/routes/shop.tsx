@@ -23,6 +23,15 @@ export const Route = createFileRoute("/shop")({
 function Shop() {
   const availablePaintings = paintings.filter((painting) => painting.status === "available");
   const soldPaintings = paintings.filter((painting) => painting.status === "sold");
+  const shopPaintings = [...availablePaintings, ...soldPaintings];
+  const getColumns = (columnCount: number) =>
+    shopPaintings.reduce<Array<typeof shopPaintings>>((columns, painting, index) => {
+      columns[index % columnCount].push(painting);
+      return columns;
+    }, Array.from({ length: columnCount }, () => []));
+
+  const twoColumnPaintings = getColumns(2);
+  const threeColumnPaintings = getColumns(3);
 
   const renderPainting = (painting: (typeof paintings)[number]) => {
     const available = painting.status === "available";
@@ -102,14 +111,22 @@ function Shop() {
         </p>
       </header>
 
-      <div className="mt-16 grid grid-cols-1 items-start gap-x-10 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
-        {availablePaintings.map(renderPainting)}
+      <div className="mt-16 space-y-16 md:hidden">
+        {shopPaintings.map(renderPainting)}
       </div>
-      <div className="mt-16 border-t border-border/60 pt-10">
-        <p className="eyebrow">Sold Works</p>
+      <div className="mt-16 hidden gap-10 md:grid md:grid-cols-2 xl:hidden">
+        {twoColumnPaintings.map((column, index) => (
+          <div key={index} className="space-y-16">
+            {column.map(renderPainting)}
+          </div>
+        ))}
       </div>
-      <div className="mt-8 grid grid-cols-1 items-start gap-x-10 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
-        {soldPaintings.map(renderPainting)}
+      <div className="mt-16 hidden gap-10 xl:grid xl:grid-cols-3">
+        {threeColumnPaintings.map((column, index) => (
+          <div key={index} className="space-y-16">
+            {column.map(renderPainting)}
+          </div>
+        ))}
       </div>
     </section>
   );
