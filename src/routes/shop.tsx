@@ -22,6 +22,11 @@ export const Route = createFileRoute("/shop")({
 });
 
 function Shop() {
+  const shopPaintings = [...paintings].sort((a, b) => {
+    if (a.status === b.status) return 0;
+    return a.status === "available" ? -1 : 1;
+  });
+
   return (
     <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
       <header className="max-w-3xl">
@@ -36,7 +41,7 @@ function Shop() {
       </header>
 
       <div className="mt-16 columns-1 gap-10 md:columns-2 xl:columns-3">
-        {paintings.map((painting) => {
+        {shopPaintings.map((painting) => {
           const available = painting.status === "available";
           return (
             <article key={painting.slug} className="group mb-16 break-inside-avoid">
