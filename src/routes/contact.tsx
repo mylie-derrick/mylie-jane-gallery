@@ -69,8 +69,15 @@ function Contact() {
     <section className="mx-auto max-w-5xl px-6 py-16 md:px-10 md:py-24">
       <div className="grid gap-16 md:grid-cols-12">
         <header className="md:col-span-5">
-          <p className="eyebrow">Inquiries</p>
-          <h1 className="mt-4 font-serif text-4xl text-foreground md:text-5xl">Let's talk.</h1>
+          <p className="eyebrow" style={{ color: "var(--brand-cream)" }}>
+            Inquiries
+          </p>
+          <h1
+            className="mt-4 font-serif text-4xl md:text-5xl"
+            style={{ color: "var(--brand-cream)" }}
+          >
+            Let's talk.
+          </h1>
           <img
             src="/images/mylie-contact-portrait.jpg"
             alt="Mylie Jane Derrick smiling in a studio portrait."
@@ -79,26 +86,39 @@ function Contact() {
             className="mt-8 h-36 w-36 rounded-full object-cover md:h-40 md:w-40"
             style={{ objectPosition: "center 32%" }}
           />
-          <div className="mt-8 space-y-5 text-base leading-relaxed text-muted-foreground">
+          <div
+            className="mt-8 space-y-5 text-base leading-relaxed"
+            style={{ color: "rgba(247, 243, 236, 0.84)" }}
+          >
             <p>
               Thanks for stopping by. If you're interested in a painting, have a question, or would
               like to talk about a commission, I'd love to hear from you.
             </p>
             <p>I personally respond to every message and usually reply within a day or two.</p>
           </div>
-          <div className="mt-10 text-sm text-foreground">
-            <p className="eyebrow">Studio</p>
+          <div className="mt-10 text-sm" style={{ color: "var(--brand-cream)" }}>
+            <p className="eyebrow" style={{ color: "var(--brand-cream)" }}>
+              Studio
+            </p>
             <p className="mt-2">Salt Lake City, Utah</p>
-            <p className="mt-1 text-muted-foreground">myliederrick@icloud.com</p>
+            <p className="mt-1" style={{ color: "rgba(247, 243, 236, 0.78)" }}>
+              myliederrick@icloud.com
+            </p>
           </div>
         </header>
 
         <div className="md:col-span-7">
           {sent ? (
-            <div className="border border-border bg-card p-10 text-center">
-              <p className="eyebrow">Thank you</p>
-              <h2 className="mt-4 font-serif text-2xl text-foreground">Your note is on its way.</h2>
-              <p className="mt-3 text-sm text-muted-foreground">I'll be in touch soon.</p>
+            <div className="border border-[color:var(--brand-footer-moss)] bg-[color:var(--brand-header-green)] p-10 text-center">
+              <p className="eyebrow" style={{ color: "var(--brand-cream)" }}>
+                Thank you
+              </p>
+              <h2 className="mt-4 font-serif text-2xl" style={{ color: "var(--brand-cream)" }}>
+                Your note is on its way.
+              </h2>
+              <p className="mt-3 text-sm" style={{ color: "rgba(247, 243, 236, 0.78)" }}>
+                I'll be in touch soon.
+              </p>
             </div>
           ) : (
             <form
@@ -121,7 +141,7 @@ function Contact() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-xs uppercase tracking-[0.22em] text-muted-foreground"
+                  className="block text-xs uppercase tracking-[0.22em] text-[color:rgba(247,243,236,0.78)]"
                 >
                   Message
                 </label>
@@ -130,18 +150,18 @@ function Contact() {
                   name="message"
                   required
                   rows={6}
-                  className="mt-3 w-full border border-input bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 focus:border-foreground focus:outline-none"
+                  className="mt-3 w-full border border-[color:var(--brand-footer-moss)] bg-transparent px-4 py-3 text-base text-[color:var(--brand-cream)] placeholder:text-[color:rgba(247,243,236,0.62)] focus:border-[color:var(--brand-cream)] focus:outline-none"
                   placeholder="Tell me a little about what you're hoping for."
                 />
               </div>
               {error && (
-                <p className="text-sm leading-relaxed text-[color:var(--brand-forest-green)]">
+                <p className="text-sm leading-relaxed text-[color:var(--brand-cream)]">
                   {error}
                 </p>
               )}
               <button
                 type="submit"
-                className="bg-primary px-7 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-primary/90"
+                className="bg-[color:var(--brand-header-green)] px-7 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-footer-moss)]"
               >
                 Send note
               </button>
@@ -172,7 +192,7 @@ function Field({
     <div>
       <label
         htmlFor={name}
-        className="block text-xs uppercase tracking-[0.22em] text-muted-foreground"
+        className="block text-xs uppercase tracking-[0.22em] text-[color:rgba(247,243,236,0.78)]"
       >
         {label}
       </label>
@@ -183,7 +203,7 @@ function Field({
         required={required}
         defaultValue={defaultValue}
         placeholder={placeholder}
-        className="mt-3 w-full border border-input bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 focus:border-foreground focus:outline-none"
+        className="mt-3 w-full border border-[color:var(--brand-footer-moss)] bg-transparent px-4 py-3 text-base text-[color:var(--brand-cream)] placeholder:text-[color:rgba(247,243,236,0.62)] focus:border-[color:var(--brand-cream)] focus:outline-none"
       />
     </div>
   );
