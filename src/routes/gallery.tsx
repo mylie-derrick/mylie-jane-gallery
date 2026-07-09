@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { collections, paintings, type CollectionId } from "@/lib/paintings";
 import { artworkAlt, seo } from "@/lib/seo";
@@ -31,10 +33,38 @@ const filters: { id: FilterId; label: string }[] = [
 
 function Gallery() {
   const { category } = Route.useSearch();
+  const [activePainting, setActivePainting] = useState<string | null>(null);
+  const revealNextClick = useRef(false);
   const filter = category ?? "all";
   const selectedCollection = collections.find((collection) => collection.id === filter);
   const visiblePaintings =
     filter === "all" ? paintings : paintings.filter((painting) => painting.collection === filter);
+
+  useEffect(() => {
+    const dismissOverlay = (event: PointerEvent) => {
+      if (!(event.target as Element | null)?.closest("[data-gallery-artwork]")) {
+        setActivePainting(null);
+      }
+    };
+
+    document.addEventListener("pointerdown", dismissOverlay);
+    return () => document.removeEventListener("pointerdown", dismissOverlay);
+  }, []);
+
+  const handleArtworkPointerDown = (slug: string, event: ReactPointerEvent<HTMLAnchorElement>) => {
+    revealNextClick.current = event.pointerType !== "mouse" && activePainting !== slug;
+  };
+
+  const handleArtworkClick = (slug: string, event: MouseEvent<HTMLAnchorElement>) => {
+    const touchLike = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+    if (revealNextClick.current || (touchLike && activePainting !== slug)) {
+      event.preventDefault();
+      setActivePainting(slug);
+    }
+
+    revealNextClick.current = false;
+  };
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
@@ -84,9 +114,13 @@ function Gallery() {
             key={painting.slug}
             to="/paintings/$slug"
             params={{ slug: painting.slug }}
+            data-gallery-artwork
+            onPointerDown={(event) => handleArtworkPointerDown(painting.slug, event)}
+            onClick={(event) => handleArtworkClick(painting.slug, event)}
             className="group mb-16 block break-inside-avoid"
+            aria-label={`${painting.title}, ${painting.statusLabel}`}
           >
-            <div className="overflow-hidden">
+            <div className="relative overflow-hidden">
               <img
                 src={painting.image}
                 alt={artworkAlt(painting)}
@@ -94,17 +128,24 @@ function Gallery() {
                 decoding="async"
                 className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
               />
-            </div>
-            <div className="mt-5 flex items-start justify-between gap-4">
-              <div>
-                <p className="font-serif text-2xl italic text-foreground">{painting.title}</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {painting.category} · {painting.year}
-                </p>
+              <div
+                className={`absolute inset-0 flex items-center justify-center bg-[rgba(74,93,58,0.62)] px-6 text-center text-white opacity-0 transition duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 ${
+                  activePainting === painting.slug ? "opacity-100" : ""
+                }`}
+              >
+                <div
+                  className={`translate-y-2 transition duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0 ${
+                    activePainting === painting.slug ? "translate-y-0" : ""
+                  }`}
+                >
+                  <p className="font-serif text-3xl italic leading-tight md:text-4xl">
+                    {painting.title}
+                  </p>
+                  <p className="mt-3 text-xs uppercase tracking-[0.24em] md:text-sm">
+                    {painting.statusLabel}
+                  </p>
+                </div>
               </div>
-              <p className="shrink-0 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                {painting.statusLabel}
-              </p>
             </div>
           </Link>
         ))}
