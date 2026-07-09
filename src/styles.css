@@ -48,9 +48,9 @@
   /* Brand palette — exact hex, no substitutes */
   --brand-cream: #f7f3ec;
   --brand-header-green: #4a5d3a;
-  --brand-footer-moss: #4a5d3a;
-  --brand-deep-moss: #f7f3ec;
-  --brand-forest-green: #f7f3ec;
+  --brand-footer-moss: #94a87c;
+  --brand-deep-moss: #43523a;
+  --brand-forest-green: #2e3b24;
   --brand-olive: var(--brand-header-green);
   --brand-moss: var(--brand-deep-moss);
   --brand-mauve: #c4a8a0;
