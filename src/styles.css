@@ -18,8 +18,6 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
@@ -33,7 +31,6 @@
   --color-cream: var(--brand-cream);
   --color-olive: var(--brand-header-green);
   --color-moss: var(--brand-moss);
-  --color-mauve: var(--brand-mauve);
   --color-wine: var(--brand-forest-green);
   --color-ink: var(--brand-ink);
 
@@ -53,7 +50,6 @@
   --brand-forest-green: #2e3b24;
   --brand-olive: var(--brand-header-green);
   --brand-moss: var(--brand-deep-moss);
-  --brand-mauve: #c4a8a0;
   --brand-wine: var(--brand-forest-green);
   --brand-ink: #f7f3ec;
 
@@ -66,8 +62,6 @@
 
   --primary: #4a5d3a;
   --primary-foreground: #f7f3ec;
-  --secondary: #94a87c;
-  --secondary-foreground: #2e3b24;
   --muted: #4a5d3a;
   --muted-foreground: #eae2d3;
   --accent: #4a5d3a; /* header green */
