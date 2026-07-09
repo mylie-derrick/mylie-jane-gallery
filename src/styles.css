@@ -48,36 +48,36 @@
   /* Brand palette — exact hex, no substitutes */
   --brand-cream: #f7f3ec;
   --brand-header-green: #4a5d3a;
-  --brand-footer-moss: #94a87c;
-  --brand-deep-moss: #43523a;
-  --brand-forest-green: #2e3b24;
+  --brand-footer-moss: #4a5d3a;
+  --brand-deep-moss: #f7f3ec;
+  --brand-forest-green: #f7f3ec;
   --brand-olive: var(--brand-header-green);
   --brand-moss: var(--brand-deep-moss);
   --brand-mauve: #c4a8a0;
   --brand-wine: var(--brand-forest-green);
-  --brand-ink: #1a1a1a;
+  --brand-ink: #f7f3ec;
 
-  --background: #f7f3ec; /* warm cream */
-  --foreground: #1a1a1a; /* near black */
-  --card: #f7f3ec;
-  --card-foreground: #1a1a1a;
-  --popover: #f7f3ec;
-  --popover-foreground: #1a1a1a;
+  --background: #2e3b24;
+  --foreground: #f7f3ec;
+  --card: #2e3b24;
+  --card-foreground: #f7f3ec;
+  --popover: #2e3b24;
+  --popover-foreground: #f7f3ec;
 
-  --primary: #2e3b24; /* forest green — buttons, active nav, hovers */
+  --primary: #4a5d3a;
   --primary-foreground: #f7f3ec;
-  --secondary: #c4a8a0; /* dusty mauve — secondary buttons, tags */
-  --secondary-foreground: #1a1a1a;
-  --muted: #eae2d3; /* warm cream tint */
-  --muted-foreground: #5a4e44; /* warm brownish ink for meta text */
+  --secondary: #94a87c;
+  --secondary-foreground: #2e3b24;
+  --muted: #4a5d3a;
+  --muted-foreground: #eae2d3;
   --accent: #4a5d3a; /* header green */
   --accent-foreground: #f7f3ec;
 
-  --destructive: #2e3b24;
-  --destructive-foreground: #f7f3ec;
-  --border: #c4a8a0; /* dusty mauve dividers */
-  --input: #c4a8a0;
-  --ring: #2e3b24;
+  --destructive: #f7f3ec;
+  --destructive-foreground: #2e3b24;
+  --border: #94a87c;
+  --input: #94a87c;
+  --ring: #f7f3ec;
 }
 
 @layer base {
@@ -88,12 +88,12 @@
   html {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    background-color: #f7f3ec;
+    background-color: #2e3b24;
   }
 
   body {
-    background-color: #f7f3ec;
-    color: #1a1a1a;
+    background-color: #2e3b24;
+    color: #f7f3ec;
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
   }
@@ -107,7 +107,7 @@
     font-weight: 400;
     font-style: italic;
     letter-spacing: -0.01em;
-    color: #1a1a1a;
+    color: #f7f3ec;
   }
 }
 
@@ -116,6 +116,6 @@
   font-size: 0.72rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #2e3b24; /* deep forest green */
+  color: #f7f3ec;
   font-weight: 500;
 }
