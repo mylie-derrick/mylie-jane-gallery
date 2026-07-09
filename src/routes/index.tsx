@@ -27,7 +27,7 @@ function Index() {
     <>
       <section
         className="relative flex min-h-screen w-full items-center overflow-hidden"
-        style={{ backgroundColor: "var(--brand-header-green)" }}
+        style={{ backgroundColor: "var(--brand-forest-green)" }}
       >
           <img
             src="/images/hero-painting-process.jpg"
