@@ -2,7 +2,7 @@ import type { Painting } from "@/lib/paintings";
 
 export const siteUrl =
   (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, "") ||
-  "https://myliejanedesign.vercel.app";
+  "https://myliejanedesign.com";
 
 export const siteName = "Mylie Jane Design";
 export const artistName = "Mylie Jane Derrick";
