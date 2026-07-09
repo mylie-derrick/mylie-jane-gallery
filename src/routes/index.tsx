@@ -28,7 +28,7 @@ function Index() {
   return (
     <>
       <section
-        className="relative flex min-h-[82vh] w-full items-end overflow-hidden"
+        className="relative flex min-h-screen w-full items-center overflow-hidden"
         style={{ backgroundColor: "var(--brand-header-green)" }}
       >
         <img
@@ -43,7 +43,7 @@ function Index() {
               "linear-gradient(to bottom, rgba(26,26,26,0.15) 0%, rgba(26,26,26,0) 30%, rgba(26,26,26,0) 55%, rgba(26,26,26,0.7) 100%)",
           }}
         />
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20 pt-28 md:px-10 md:pb-24">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-28 pt-32 md:px-10 md:pb-32 md:pt-36">
           <h1
             className="max-w-3xl italic leading-[1.04] text-4xl md:text-6xl lg:text-7xl"
             style={{
