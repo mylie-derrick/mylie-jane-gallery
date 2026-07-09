@@ -71,12 +71,20 @@ function Contact() {
         <header className="md:col-span-5">
           <p className="eyebrow">Inquiries</p>
           <h1 className="mt-4 font-serif text-4xl text-foreground md:text-5xl">Let's talk.</h1>
+          <img
+            src="/images/mylie-contact-portrait.jpg"
+            alt="Mylie Jane Derrick smiling in a studio portrait."
+            loading="lazy"
+            decoding="async"
+            className="mt-8 h-36 w-36 rounded-full object-cover md:h-40 md:w-40"
+            style={{ objectPosition: "center 32%" }}
+          />
           <div className="mt-8 space-y-5 text-base leading-relaxed text-muted-foreground">
             <p>
-              Every painting is one of a kind, so purchases happen through a short conversation.
-              Send a note about a piece you're drawn to or just say hello.
+              Thanks for stopping by. If you're interested in a painting, have a question, or would
+              like to talk about a commission, I'd love to hear from you.
             </p>
-            <p>I reply personally — usually within a day or two.</p>
+            <p>I personally respond to every message and usually reply within a day or two.</p>
           </div>
           <div className="mt-10 text-sm text-foreground">
             <p className="eyebrow">Studio</p>
