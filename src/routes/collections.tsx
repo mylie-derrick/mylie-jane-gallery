@@ -1,5 +1,7 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/collections")({
-  component: () => <Navigate to="/gallery" replace />,
+  loader: () => {
+    throw redirect({ to: "/gallery", replace: true });
+  },
 });

@@ -1,26 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { personSchema, seo } from "@/lib/seo";
 
 const aboutCopy =
   "Hi, I'm Mylie. I'm an oil painter, marketing student, and creative person from Utah. I've always been drawn to beautiful things, especially the kind you notice outside: light on the mountains, color in the sky, wildflowers, ski days, lake trips, and quiet moments that make you want to pay attention. I started oil painting in high school, partly because my mom is a professional oil painter and partly because I loved the way painting taught me to really see. Right now, I paint mostly landscapes and still lifes in a representational style I'm still growing into. My work is inspired by the outdoors, travel, home, faith, family, and places that feel meaningful to me. I love painting fruit on a table, mountains I've spent time in, and scenes that hold a little bit of light. I'm not trying to make things look perfect. I'm trying to capture what it felt like to be there: the color, the warmth, the movement, and the feeling of the moment. I'm also studying marketing at BYU, so I think a lot about how art, storytelling, branding, and business can work together. My hope is to build an art and design brand that feels warm, original, thoughtful, and lasting. Every painting on this site is one of a kind. I hope the right pieces find their way to people who will love living with them.";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Mylie Jane Derrick" },
-      {
-        name: "description",
-        content:
-          "About Mylie Jane Derrick — Utah oil painter making still lifes, landscapes, and studies.",
-      },
-      { property: "og:title", content: "About — Mylie Jane Derrick" },
-      {
-        property: "og:description",
-        content: "About Utah oil painter Mylie Jane Derrick.",
-      },
-      { property: "og:image", content: "/images/mylie-studio-portrait.jpg" },
-      { name: "twitter:image", content: "/images/mylie-studio-portrait.jpg" },
-    ],
-  }),
+  head: () => {
+    const head = seo({
+      title: "About Mylie Jane Derrick | Utah Oil Painter",
+      description:
+        "Meet Mylie Jane Derrick, the Utah oil painter behind Mylie Jane Design, creating original still life and landscape paintings.",
+      path: "/about",
+      image: "/images/mylie-studio-portrait.jpg",
+      type: "profile",
+    });
+
+    return {
+      ...head,
+      meta: [...head.meta, { "script:ld+json": personSchema }],
+    };
+  },
   component: About,
 });
 
@@ -33,6 +32,7 @@ function About() {
             src="/images/mylie-studio-portrait.jpg"
             alt="Mylie Jane Derrick in her studio with an oil painting."
             loading="lazy"
+            decoding="async"
             className="aspect-[4/5] w-full object-contain"
             style={{ boxShadow: "0 30px 80px -40px rgba(44, 51, 32, 0.45)" }}
           />

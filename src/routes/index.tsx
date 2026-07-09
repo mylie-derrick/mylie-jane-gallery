@@ -1,24 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { paintings } from "@/lib/paintings";
+import { artworkAlt, defaultSeoImage, seo, websiteSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Mylie Jane Design — Oil Paintings by Mylie Jane Derrick" },
-      {
-        name: "description",
-        content:
-          "Original oil paintings by Mylie Jane Derrick — still lifes and landscapes from the American West.",
-      },
-      { property: "og:title", content: "Mylie Jane Design — Oil Paintings" },
-      {
-        property: "og:description",
-        content: "Original oil paintings — still lifes and landscapes from the American West.",
-      },
-      { property: "og:image", content: "/images/hero-painting-process.jpg" },
-      { name: "twitter:image", content: "/images/hero-painting-process.jpg" },
-    ],
-  }),
+  head: () => {
+    const head = seo({
+      title: "Mylie Jane Design | Original Oil Paintings by Mylie Jane Derrick",
+      description:
+        "Explore original oil paintings, still lifes, landscapes, and commission inquiries by Utah artist Mylie Jane Derrick of Mylie Jane Design.",
+      path: "/",
+      image: defaultSeoImage,
+    });
+
+    return {
+      ...head,
+      meta: [...head.meta, { "script:ld+json": websiteSchema }],
+    };
+  },
   component: Index,
 });
 
@@ -31,11 +29,13 @@ function Index() {
         className="relative flex min-h-screen w-full items-center overflow-hidden"
         style={{ backgroundColor: "var(--brand-header-green)" }}
       >
-        <img
-          src="/images/hero-painting-process.jpg"
-          alt="Mylie Jane Derrick painting oranges and blooms in the studio."
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+          <img
+            src="/images/hero-painting-process.jpg"
+            alt="Mylie Jane Derrick painting oranges and blooms in the studio."
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -128,8 +128,9 @@ function Index() {
               <div className="overflow-hidden">
                 <img
                   src={p.image}
-                  alt={p.title}
+                  alt={artworkAlt(p)}
                   loading="lazy"
+                  decoding="async"
                   className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
                 />
               </div>

@@ -1,22 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { paintings } from "@/lib/paintings";
+import { artworkAlt, seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/shop")({
-  head: () => ({
-    meta: [
-      { title: "Shop — Mylie Jane Design" },
-      {
-        name: "description",
-        content:
-          "Available original oil paintings by Mylie Jane Derrick. Inquiry-only sales for one-of-a-kind work.",
-      },
-      { property: "og:title", content: "Shop — Mylie Jane Design" },
-      {
-        property: "og:description",
-        content: "Inquiry-only original paintings by Mylie Jane Derrick.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "Shop Original Oil Paintings | Mylie Jane Design",
+      description:
+        "Shop available original oil paintings by Utah artist Mylie Jane Derrick. Inquire about still life and landscape paintings from Mylie Jane Design.",
+      path: "/shop",
+      image: "/images/oranges-and-blooms.jpg",
+    }),
   component: Shop,
 });
 
@@ -42,8 +36,9 @@ function Shop() {
           <div className="overflow-hidden">
             <img
               src={painting.image}
-              alt={painting.title}
+              alt={artworkAlt(painting)}
               loading="lazy"
+              decoding="async"
               className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
             />
           </div>

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
 import { collections, paintings, type CollectionId } from "@/lib/paintings";
+import { artworkAlt, seo } from "@/lib/seo";
 
 const searchSchema = z.object({
   category: z.enum(["all", "still-lifes", "landscapes", "other-work"]).optional(),
@@ -8,21 +9,14 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/gallery")({
   validateSearch: searchSchema,
-  head: () => ({
-    meta: [
-      { title: "Gallery — Mylie Jane Design" },
-      {
-        name: "description",
-        content:
-          "Browse original oil paintings by Mylie Jane Derrick — still lifes, landscapes, portraits, and studies.",
-      },
-      { property: "og:title", content: "Gallery — Mylie Jane Design" },
-      {
-        property: "og:description",
-        content: "Original oil paintings by Mylie Jane Derrick.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "Original Oil Painting Gallery | Mylie Jane Design",
+      description:
+        "Browse Mylie Jane Derrick's original oil painting gallery, including still life paintings, Utah-inspired landscapes, portraits, and studies.",
+      path: "/gallery",
+      image: "/images/freshly-cut.jpg",
+    }),
   component: Gallery,
 });
 
@@ -95,8 +89,9 @@ function Gallery() {
             <div className="overflow-hidden">
               <img
                 src={painting.image}
-                alt={painting.title}
+                alt={artworkAlt(painting)}
                 loading="lazy"
+                decoding="async"
                 className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
               />
             </div>

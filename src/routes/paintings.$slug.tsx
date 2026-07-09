@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getCollection, getPainting, paintings } from "@/lib/paintings";
+import { artworkAlt, artworkSchema, seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/paintings/$slug")({
   loader: ({ params }) => {
@@ -10,15 +11,18 @@ export const Route = createFileRoute("/paintings/$slug")({
   head: ({ loaderData }) => {
     const p = loaderData?.painting;
     if (!p) return {};
+    const description = `${p.description} View ${p.title}, an original ${p.category.toLowerCase()} oil painting by Utah artist Mylie Jane Derrick.`;
+    const head = seo({
+      title: `${p.title} | Original ${p.category} Oil Painting`,
+      description,
+      path: `/paintings/${p.slug}`,
+      image: p.image,
+      type: "article",
+    });
+
     return {
-      meta: [
-        { title: `${p.title} — Mylie Jane Design` },
-        { name: "description", content: p.description },
-        { property: "og:title", content: `${p.title} — Oil Painting` },
-        { property: "og:description", content: p.description },
-        { property: "og:image", content: p.image },
-        { name: "twitter:image", content: p.image },
-      ],
+      ...head,
+      meta: [...head.meta, { "script:ld+json": artworkSchema(p) }],
     };
   },
   component: PaintingPage,
@@ -55,9 +59,10 @@ function PaintingPage() {
         <figure className="md:col-span-8">
           <img
             src={painting.image}
-            alt={painting.title}
+            alt={artworkAlt(painting)}
             width={1024}
             height={1024}
+            decoding="async"
             className="w-full object-contain shadow-[0_30px_80px_-40px_rgba(60,40,20,0.35)]"
           />
         </figure>
@@ -131,10 +136,11 @@ function PaintingPage() {
                 <div className="overflow-hidden bg-muted">
                   <img
                     src={p.image}
-                    alt={p.title}
+                    alt={artworkAlt(p)}
                     loading="lazy"
                     width={1024}
                     height={1024}
+                    decoding="async"
                     className="aspect-square w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                   />
                 </div>

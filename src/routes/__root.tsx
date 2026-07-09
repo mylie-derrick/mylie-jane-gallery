@@ -13,6 +13,7 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { artistName, defaultSeoImage, organizationSchema, personSchema, siteName, websiteSchema, absoluteUrl } from "../lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -77,21 +78,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Mylie Jane Design — Oil Paintings by Mylie Jane Derrick" },
-      {
-        name: "description",
-        content:
-          "Original oil paintings by Mylie Jane Derrick. Representational landscapes and still lifes inspired by the mountains and red rock of Utah.",
-      },
-      { name: "author", content: "Mylie Jane Derrick" },
-      { property: "og:title", content: "Mylie Jane Design" },
-      {
-        property: "og:description",
-        content:
-          "Original oil paintings by Mylie Jane Derrick — landscapes and still lifes from Utah.",
-      },
+      { title: `${siteName} — Oil Paintings by ${artistName}` },
+      { name: "description", content: "Original oil paintings, still lifes, and landscapes by Utah artist Mylie Jane Derrick." },
+      { name: "author", content: artistName },
+      { name: "robots", content: "index, follow" },
+      { property: "og:title", content: siteName },
+      { property: "og:description", content: "Original oil paintings by Mylie Jane Derrick — landscapes and still lifes from Utah." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: siteName },
+      { property: "og:image", content: absoluteUrl(defaultSeoImage) },
       { name: "twitter:card", content: "summary_large_image" },
+      { "script:ld+json": personSchema },
+      { "script:ld+json": organizationSchema },
+      { "script:ld+json": websiteSchema },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -101,6 +100,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap",
       },
+      { rel: "sitemap", type: "application/xml", href: absoluteUrl("/sitemap.xml") },
     ],
   }),
   shellComponent: RootShell,
@@ -189,7 +189,10 @@ function SiteHeader() {
             >
               <Menu size={18} />
             </summary>
-            <nav className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]">
+            <nav
+              aria-label="Mobile navigation"
+              className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]"
+            >
               <Link
                 to="/gallery"
                 className={`${linkBase} opacity-80`}
@@ -225,7 +228,10 @@ function SiteHeader() {
             </nav>
           </details>
         </div>
-        <nav className="hidden flex-col gap-4 pt-3 md:flex md:flex-row md:flex-wrap md:items-center md:gap-x-8 md:gap-y-3 md:pt-0">
+        <nav
+          aria-label="Main navigation"
+          className="hidden flex-col gap-4 pt-3 md:flex md:flex-row md:flex-wrap md:items-center md:gap-x-8 md:gap-y-3 md:pt-0"
+        >
           <Link
             to="/gallery"
             className={`${linkBase} opacity-80`}

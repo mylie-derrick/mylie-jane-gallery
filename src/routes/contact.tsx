@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
+import { seo } from "@/lib/seo";
 
 const formEndpoint = "https://formsubmit.co/ajax/myliederrick@icloud.com";
 
@@ -10,21 +11,14 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/contact")({
   validateSearch: searchSchema,
-  head: () => ({
-    meta: [
-      { title: "Inquiries — Mylie Jane Design" },
-      {
-        name: "description",
-        content:
-          "Ask about an available painting, request a commission, or send a note to Mylie Jane Derrick.",
-      },
-      { property: "og:title", content: "Inquiries — Mylie Jane Design" },
-      {
-        property: "og:description",
-        content: "Ask about a painting, request a commission, or just say hello.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "Contact Mylie Jane Derrick | Painting Inquiries",
+      description:
+        "Contact Mylie Jane Derrick to inquire about an available original oil painting, request a custom commission, or send a note.",
+      path: "/contact",
+      image: "/images/mylie-studio-portrait.jpg",
+    }),
   component: Contact,
 });
 
