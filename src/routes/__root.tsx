@@ -145,7 +145,7 @@ function SiteHeader() {
   };
   const mobileActive = {
     className: `${linkBase} border-b pb-1 opacity-100`,
-    style: { color: "var(--brand-forest-green)", borderColor: "var(--brand-forest-green)" },
+    style: { color: "var(--brand-cream)", borderColor: "var(--brand-cream)" },
   };
 
   useEffect(() => {
@@ -191,12 +191,12 @@ function SiteHeader() {
             </summary>
             <nav
               aria-label="Mobile navigation"
-              className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]"
+              className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-header-green)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]"
             >
               <Link
                 to="/gallery"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-forest-green)" }}
+                style={{ color: "var(--brand-cream)" }}
                 activeProps={mobileActive}
               >
                 Gallery
@@ -204,7 +204,7 @@ function SiteHeader() {
               <Link
                 to="/shop"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-forest-green)" }}
+                style={{ color: "var(--brand-cream)" }}
                 activeProps={mobileActive}
               >
                 Shop
@@ -212,7 +212,7 @@ function SiteHeader() {
               <Link
                 to="/about"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-forest-green)" }}
+                style={{ color: "var(--brand-cream)" }}
                 activeProps={mobileActive}
               >
                 About
@@ -220,7 +220,7 @@ function SiteHeader() {
               <Link
                 to="/contact"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-forest-green)" }}
+                style={{ color: "var(--brand-cream)" }}
                 activeProps={mobileActive}
               >
                 Contact
