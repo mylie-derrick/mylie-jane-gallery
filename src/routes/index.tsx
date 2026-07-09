@@ -98,7 +98,7 @@ function Index() {
       >
         <div
           className="flex items-end justify-between gap-6 pb-6"
-          style={{ borderBottom: "1px solid var(--brand-mauve)" }}
+          style={{ borderBottom: "1px solid var(--brand-footer-moss)" }}
         >
           <div>
             <p className="eyebrow">Recent Work</p>
