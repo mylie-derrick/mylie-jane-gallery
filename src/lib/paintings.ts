@@ -202,7 +202,7 @@ const paintingEntries: PaintingEntry[] = [
     category: "Landscape",
     year: 2026,
     description: "Small winter/ski landscape in the backcountry of Sunshine Canada",
-    status: "available",
+    status: "sold",
     medium: "Oil on Canvas",
     size: "TBD",
     price: "TBD",
