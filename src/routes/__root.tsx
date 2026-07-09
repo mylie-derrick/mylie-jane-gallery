@@ -127,16 +127,13 @@ function SiteHeader() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
-  const navTextColor = scrolled
+  const navSolid = scrolled || !isHome;
+  const navTextColor = navSolid
     ? "var(--brand-cream)"
-    : isHome
-      ? "var(--brand-cream)"
-      : "var(--brand-forest-green)";
-  const navTextMuted = scrolled
+    : "var(--brand-cream)";
+  const navTextMuted = navSolid
     ? "rgba(247, 243, 236, 0.78)"
-    : isHome
-      ? "rgba(247, 243, 236, 0.78)"
-      : "rgba(46, 59, 36, 0.78)";
+    : "rgba(247, 243, 236, 0.78)";
   const linkBase =
     "text-[0.78rem] uppercase tracking-[0.22em] transition-colors hover:opacity-100";
   const desktopActive = {
@@ -160,9 +157,9 @@ function SiteHeader() {
     <header
       className="fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 ease-out"
       style={{
-        backgroundColor: scrolled ? "var(--brand-header-green)" : "transparent",
-        borderColor: scrolled ? "rgba(247, 243, 236, 0.22)" : "transparent",
-        boxShadow: scrolled ? "0 12px 30px -28px rgba(26, 26, 26, 0.45)" : "none",
+        backgroundColor: navSolid ? "var(--brand-header-green)" : "transparent",
+        borderColor: navSolid ? "rgba(247, 243, 236, 0.22)" : "transparent",
+        boxShadow: navSolid ? "0 12px 30px -28px rgba(26, 26, 26, 0.45)" : "none",
       }}
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-5 md:flex-row md:items-end md:justify-between md:px-10">
@@ -272,18 +269,18 @@ function SiteHeader() {
 
 function SiteFooter() {
   const linkCls =
-    "text-sm text-[color:var(--brand-deep-moss)]/80 transition-colors hover:text-[color:var(--brand-deep-moss)]";
+    "text-sm text-[color:var(--brand-cream)]/80 transition-colors hover:text-[color:var(--brand-cream)]";
   return (
     <footer
       className="mt-32"
-      style={{ backgroundColor: "var(--brand-footer-moss)", color: "var(--brand-deep-moss)" }}
+      style={{ backgroundColor: "var(--brand-forest-green)", color: "var(--brand-cream)" }}
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
         <div>
-          <p className="font-serif text-lg" style={{ color: "var(--brand-deep-moss)" }}>
+          <p className="font-serif text-lg" style={{ color: "var(--brand-cream)" }}>
             Mylie Jane Design
           </p>
-          <p className="mt-1 text-sm" style={{ color: "var(--brand-deep-moss)" }}>
+          <p className="mt-1 text-sm" style={{ color: "var(--brand-cream)" }}>
             Studio in Salt Lake City, Utah.
           </p>
         </div>
@@ -304,14 +301,14 @@ function SiteFooter() {
             href="https://www.instagram.com/myliejanedesign/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-[color:var(--brand-deep-moss)]/80 transition-colors hover:text-[color:var(--brand-deep-moss)]"
+            className="inline-flex items-center gap-2 text-sm text-[color:var(--brand-cream)]/80 transition-colors hover:text-[color:var(--brand-cream)]"
             aria-label="Mylie Jane Design on Instagram"
           >
             <Instagram size={16} aria-hidden="true" />
             <span>Instagram</span>
           </a>
         </div>
-        <p className="text-xs" style={{ color: "var(--brand-deep-moss)" }}>
+        <p className="text-xs" style={{ color: "var(--brand-cream)" }}>
           © {new Date().getFullYear()} Mylie Jane Derrick. All works original.
         </p>
       </div>
@@ -323,12 +320,17 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const isHome = pathname === "/";
+  const isContact = pathname === "/contact";
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col bg-background text-foreground">
         <SiteHeader />
-        <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
+        <main
+          className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"} ${
+            isContact ? "bg-[color:var(--brand-forest-green)] text-[color:var(--brand-cream)]" : ""
+          }`}
+        >
           <Outlet />
         </main>
         <SiteFooter />
