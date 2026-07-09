@@ -90,8 +90,8 @@ function Gallery() {
                   search={item.id === "all" ? {} : { category: item.id }}
                   className="border px-4 py-2 text-xs uppercase tracking-[0.22em] transition-colors"
                   style={{
-                    borderColor: active ? "var(--brand-forest-green)" : "var(--brand-mauve)",
-                    backgroundColor: active ? "var(--brand-forest-green)" : "transparent",
+                    borderColor: active ? "var(--brand-header-green)" : "var(--brand-mauve)",
+                    backgroundColor: active ? "var(--brand-header-green)" : "transparent",
                     color: active ? "var(--brand-cream)" : "var(--brand-ink)",
                   }}
                 >
