@@ -57,13 +57,13 @@ function Index() {
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
               to="/gallery"
-              className="inline-flex items-center justify-center bg-[color:var(--brand-forest-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-header-green)]"
+              className="inline-flex items-center justify-center bg-[color:var(--brand-header-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-footer-moss)]"
             >
               View Gallery
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-cream)] hover:text-[color:var(--brand-forest-green)]"
+              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-cream)] hover:text-[color:var(--background)]"
             >
               Inquire About a Painting
             </Link>
@@ -138,7 +138,7 @@ function Index() {
                 <p className="font-serif text-xl italic" style={{ color: "var(--brand-ink)" }}>
                   {p.title}
                 </p>
-                <p className="mt-1 text-sm" style={{ color: "#5A4E44" }}>
+                <p className="mt-1 text-sm text-muted-foreground">
                   {p.category} · {p.year}
                 </p>
               </div>
@@ -165,7 +165,7 @@ function Index() {
           </p>
           <Link
             to="/contact"
-            className="mt-8 inline-flex items-center justify-center bg-[color:var(--brand-forest-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-header-green)]"
+            className="mt-8 inline-flex items-center justify-center bg-[color:var(--brand-header-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-footer-moss)]"
           >
             Start an Inquiry
           </Link>
