@@ -272,18 +272,18 @@ function SiteHeader() {
 
 function SiteFooter() {
   const linkCls =
-    "text-sm text-[color:var(--brand-cream)]/80 transition-colors hover:text-[color:var(--brand-cream)]";
+    "text-sm text-[color:var(--brand-forest-green)]/80 transition-colors hover:text-[color:var(--brand-forest-green)]";
   return (
     <footer
       className="mt-32"
-      style={{ backgroundColor: "var(--brand-deep-moss)", color: "var(--brand-cream)" }}
+      style={{ backgroundColor: "var(--brand-footer-moss)", color: "var(--brand-forest-green)" }}
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
         <div>
-          <p className="font-serif text-lg" style={{ color: "var(--brand-cream)" }}>
+          <p className="font-serif text-lg" style={{ color: "var(--brand-forest-green)" }}>
             Mylie Jane Design
           </p>
-          <p className="mt-1 text-sm" style={{ color: "rgba(247, 243, 236, 0.82)" }}>
+          <p className="mt-1 text-sm" style={{ color: "rgba(46, 59, 36, 0.82)" }}>
             Studio in Salt Lake City, Utah.
           </p>
         </div>
@@ -304,14 +304,14 @@ function SiteFooter() {
             href="https://www.instagram.com/myliejanedesign/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-[color:var(--brand-cream)]/80 transition-colors hover:text-[color:var(--brand-cream)]"
+            className="inline-flex items-center gap-2 text-sm text-[color:var(--brand-forest-green)]/80 transition-colors hover:text-[color:var(--brand-forest-green)]"
             aria-label="Mylie Jane Design on Instagram"
           >
             <Instagram size={16} aria-hidden="true" />
             <span>Instagram</span>
           </a>
         </div>
-        <p className="text-xs" style={{ color: "rgba(247, 243, 236, 0.72)" }}>
+        <p className="text-xs" style={{ color: "rgba(46, 59, 36, 0.72)" }}>
           © {new Date().getFullYear()} Mylie Jane Derrick. All works original.
         </p>
       </div>
