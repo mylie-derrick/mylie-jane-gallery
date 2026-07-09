@@ -53,7 +53,7 @@ function Shop() {
             <p
               className="shrink-0 text-xs uppercase tracking-[0.2em]"
               style={{
-                color: available ? "var(--brand-deep-moss)" : "var(--brand-forest-green)",
+                color: available ? "var(--brand-footer-moss)" : "var(--brand-cream)",
               }}
             >
               {painting.statusLabel}
@@ -79,7 +79,7 @@ function Shop() {
             <Link
               to="/contact"
               search={{ painting: painting.title }}
-              className="mt-6 inline-flex w-full items-center justify-center bg-primary px-6 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-[color:var(--brand-header-green)]"
+              className="mt-6 inline-flex w-full items-center justify-center border border-[color:var(--brand-cream)]/25 bg-primary px-6 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-[color:var(--brand-deep-moss)]"
             >
               Inquire to Purchase
             </Link>
