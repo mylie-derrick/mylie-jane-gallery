@@ -77,7 +77,7 @@ function About() {
             <Link
               to="/contact"
               className="pb-1 text-sm uppercase tracking-[0.22em]"
-              style={{ color: "var(--brand-ink)", borderBottom: "1px solid var(--brand-mauve)" }}
+              style={{ color: "var(--brand-ink)", borderBottom: "1px solid var(--brand-header-green)" }}
             >
               Get in touch
             </Link>
