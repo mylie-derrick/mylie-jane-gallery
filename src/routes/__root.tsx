@@ -10,10 +10,19 @@ import {
 } from "@tanstack/react-router";
 import { Instagram, Menu } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { artistName, defaultSeoImage, organizationSchema, personSchema, siteName, websiteSchema, absoluteUrl } from "../lib/seo";
+import {
+  artistName,
+  defaultSeoImage,
+  organizationSchema,
+  personSchema,
+  siteName,
+  websiteSchema,
+  absoluteUrl,
+} from "../lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -79,11 +88,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: `${siteName} — Oil Paintings by ${artistName}` },
-      { name: "description", content: "Original oil paintings, still lifes, and landscapes by Utah artist Mylie Jane Derrick." },
+      {
+        name: "description",
+        content:
+          "Original oil paintings, still lifes, and landscapes by Utah artist Mylie Jane Derrick.",
+      },
       { name: "author", content: artistName },
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: siteName },
-      { property: "og:description", content: "Original oil paintings by Mylie Jane Derrick — landscapes and still lifes from Utah." },
+      {
+        property: "og:description",
+        content:
+          "Original oil paintings by Mylie Jane Derrick — landscapes and still lifes from Utah.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: siteName },
       { property: "og:image", content: absoluteUrl(defaultSeoImage) },
@@ -118,6 +135,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
+        <Analytics />
       </body>
     </html>
   );
@@ -137,8 +155,7 @@ function SiteHeader() {
     : isHome
       ? "rgba(247, 243, 236, 0.78)"
       : "rgba(46, 59, 36, 0.78)";
-  const linkBase =
-    "text-[0.78rem] uppercase tracking-[0.22em] transition-colors hover:opacity-100";
+  const linkBase = "text-[0.78rem] uppercase tracking-[0.22em] transition-colors hover:opacity-100";
   const desktopActive = {
     className: `${linkBase} border-b pb-1 opacity-100`,
     style: { color: navTextColor, borderColor: navTextColor },
