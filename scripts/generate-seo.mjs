@@ -1,6 +1,10 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
-const siteUrl = (process.env.SITE_URL || process.env.VITE_SITE_URL || "https://myliejanedesign.com").replace(/\/$/, "");
+const siteUrl = (
+  process.env.SITE_URL ||
+  process.env.VITE_SITE_URL ||
+  "https://myliejanedesign.com"
+).replace(/\/$/, "");
 const publicDir = new URL("../public/", import.meta.url);
 const paintingsFile = new URL("../src/lib/paintings.ts", import.meta.url);
 
