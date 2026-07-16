@@ -107,6 +107,33 @@
   --ring: #f7f3ec;
 }
 
+.theme-light {
+  --brand-ink: #1a1a1a;
+  --brand-mauve: #c4a8a0;
+
+  --background: #f7f3ec;
+  --foreground: #1a1a1a;
+  --card: #f7f3ec;
+  --card-foreground: #1a1a1a;
+  --popover: #f7f3ec;
+  --popover-foreground: #1a1a1a;
+
+  --primary: #2e3b24;
+  --primary-foreground: #f7f3ec;
+  --secondary: #c4a8a0;
+  --secondary-foreground: #1a1a1a;
+  --muted: #eae2d3;
+  --muted-foreground: #5a4e44;
+  --accent: #4a5d3a;
+  --accent-foreground: #f7f3ec;
+
+  --destructive: #2e3b24;
+  --destructive-foreground: #f7f3ec;
+  --border: #c4a8a0;
+  --input: #c4a8a0;
+  --ring: #2e3b24;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
