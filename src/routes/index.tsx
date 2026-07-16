@@ -27,15 +27,15 @@ function Index() {
     <>
       <section
         className="relative flex min-h-screen w-full items-center overflow-hidden"
-        style={{ backgroundColor: "var(--brand-header-green)" }}
+        style={{ backgroundColor: "var(--brand-forest-green)" }}
       >
-          <img
-            src="/images/hero-painting-process.jpg"
-            alt="Mylie Jane Derrick painting oranges and blooms in the studio."
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
+        <img
+          src="/images/hero-painting-process.jpg"
+          alt="Mylie Jane Derrick painting oranges and blooms in the studio."
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -57,13 +57,13 @@ function Index() {
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
               to="/gallery"
-              className="inline-flex items-center justify-center bg-[color:var(--brand-forest-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-header-green)]"
+              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)]/30 bg-[color:var(--brand-header-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-deep-moss)]"
             >
               View Gallery
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-cream)] hover:text-[color:var(--brand-forest-green)]"
+              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-cream)] hover:text-[color:var(--background)]"
             >
               Inquire About a Painting
             </Link>
@@ -98,7 +98,7 @@ function Index() {
       >
         <div
           className="flex items-end justify-between gap-6 pb-6"
-          style={{ borderBottom: "1px solid var(--brand-mauve)" }}
+          style={{ borderBottom: "1px solid var(--brand-deep-moss)" }}
         >
           <div>
             <p className="eyebrow">Recent Work</p>
@@ -112,7 +112,7 @@ function Index() {
           <Link
             to="/gallery"
             className="hidden text-sm uppercase tracking-[0.22em] md:inline"
-            style={{ color: "var(--brand-forest-green)" }}
+            style={{ color: "var(--brand-cream)" }}
           >
             See all →
           </Link>
@@ -138,7 +138,7 @@ function Index() {
                 <p className="font-serif text-xl italic" style={{ color: "var(--brand-ink)" }}>
                   {p.title}
                 </p>
-                <p className="mt-1 text-sm" style={{ color: "#5A4E44" }}>
+                <p className="mt-1 text-sm text-muted-foreground">
                   {p.category} · {p.year}
                 </p>
               </div>
@@ -149,23 +149,26 @@ function Index() {
 
       <section
         className="mt-24 px-6 py-20 text-center md:mt-32 md:px-10 md:py-24"
-        style={{ backgroundColor: "rgba(148, 168, 124, 0.28)" }}
+        style={{ backgroundColor: "var(--brand-deep-moss)" }}
       >
         <div className="mx-auto max-w-4xl">
           <p className="eyebrow">Commissions</p>
           <h2
             className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl"
-            style={{ color: "var(--brand-ink)" }}
+            style={{ color: "var(--brand-cream)" }}
           >
             Have something in mind?
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p
+            className="mx-auto mt-5 max-w-2xl text-base leading-relaxed md:text-lg"
+            style={{ color: "rgba(247, 243, 236, 0.78)" }}
+          >
             Commission a custom piece for your home, a meaningful gift, or a place you want to
             remember. Share what you're imagining and I'll help shape it into an original painting.
           </p>
           <Link
             to="/contact"
-            className="mt-8 inline-flex items-center justify-center bg-[color:var(--brand-forest-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-header-green)]"
+            className="mt-8 inline-flex items-center justify-center border border-[color:var(--brand-cream)]/35 bg-[color:var(--brand-header-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-forest-green)]"
           >
             Start an Inquiry
           </Link>
