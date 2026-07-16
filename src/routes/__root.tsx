@@ -343,12 +343,11 @@ function RootComponent() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const isHome = pathname === "/";
   const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
+  const pageThemeClass = isDarkPage ? "theme-dark" : "theme-light";
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div
-        className={`flex min-h-screen flex-col bg-background text-foreground ${isDarkPage ? "theme-dark" : ""}`}
-      >
+      <div className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}>
         <SiteHeader />
         <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
           <Outlet />
