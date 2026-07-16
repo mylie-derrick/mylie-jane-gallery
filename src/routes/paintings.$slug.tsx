@@ -105,7 +105,7 @@ function PaintingPage() {
               <Link
                 to="/contact"
                 search={{ painting: painting.title }}
-                className="mt-10 inline-flex items-center justify-center border border-[color:var(--brand-cream)]/25 bg-primary px-6 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-[color:var(--brand-deep-moss)]"
+                className="mt-10 inline-flex items-center justify-center bg-primary px-6 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-[color:var(--brand-header-green)]"
               >
                 Inquire to Purchase
               </Link>
