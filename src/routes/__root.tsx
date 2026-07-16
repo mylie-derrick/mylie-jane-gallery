@@ -144,15 +144,16 @@ function RootShell({ children }: { children: ReactNode }) {
 function SiteHeader() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const isHome = pathname === "/";
+  const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
   const [scrolled, setScrolled] = useState(false);
   const navTextColor = scrolled
     ? "var(--brand-cream)"
-    : isHome
+    : isDarkPage
       ? "var(--brand-cream)"
       : "var(--brand-forest-green)";
   const navTextMuted = scrolled
     ? "rgba(247, 243, 236, 0.78)"
-    : isHome
+    : isDarkPage
       ? "rgba(247, 243, 236, 0.78)"
       : "rgba(46, 59, 36, 0.78)";
   const linkBase = "text-[0.78rem] uppercase tracking-[0.22em] transition-colors hover:opacity-100";
@@ -288,19 +289,22 @@ function SiteHeader() {
 }
 
 function SiteFooter() {
-  const linkCls =
-    "text-sm text-[color:var(--brand-deep-moss)]/80 transition-colors hover:text-[color:var(--brand-deep-moss)]";
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const isDarkPage = pathname === "/" || pathname === "/gallery" || pathname === "/contact";
+  const footerBackground = isDarkPage ? "var(--brand-deep-moss)" : "var(--brand-footer-moss)";
+  const footerColor = isDarkPage ? "var(--brand-cream)" : "var(--brand-deep-moss)";
+  const mutedFooterColor = isDarkPage ? "rgba(247, 243, 236, 0.78)" : "var(--brand-deep-moss)";
+  const linkCls = isDarkPage
+    ? "text-sm text-[color:var(--brand-cream)]/80 transition-colors hover:text-[color:var(--brand-cream)]"
+    : "text-sm text-[color:var(--brand-deep-moss)]/80 transition-colors hover:text-[color:var(--brand-deep-moss)]";
   return (
-    <footer
-      className="mt-32"
-      style={{ backgroundColor: "var(--brand-footer-moss)", color: "var(--brand-deep-moss)" }}
-    >
+    <footer className="mt-32" style={{ backgroundColor: footerBackground, color: footerColor }}>
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
         <div>
-          <p className="font-serif text-lg" style={{ color: "var(--brand-deep-moss)" }}>
+          <p className="font-serif text-lg" style={{ color: footerColor }}>
             Mylie Jane Design
           </p>
-          <p className="mt-1 text-sm" style={{ color: "var(--brand-deep-moss)" }}>
+          <p className="mt-1 text-sm" style={{ color: mutedFooterColor }}>
             Studio in Salt Lake City, Utah.
           </p>
         </div>
@@ -321,14 +325,14 @@ function SiteFooter() {
             href="https://www.instagram.com/myliejanedesign/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-[color:var(--brand-deep-moss)]/80 transition-colors hover:text-[color:var(--brand-deep-moss)]"
+            className={`inline-flex items-center gap-2 ${linkCls}`}
             aria-label="Mylie Jane Design on Instagram"
           >
             <Instagram size={16} aria-hidden="true" />
             <span>Instagram</span>
           </a>
         </div>
-        <p className="text-xs" style={{ color: "var(--brand-deep-moss)" }}>
+        <p className="text-xs" style={{ color: mutedFooterColor }}>
           © {new Date().getFullYear()} Mylie Jane Derrick. All works original.
         </p>
       </div>
@@ -340,10 +344,12 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const isHome = pathname === "/";
+  const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
+  const pageThemeClass = isDarkPage ? "theme-dark" : "theme-light";
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <div className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}>
         <SiteHeader />
         <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
           <Outlet />
