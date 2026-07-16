@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type { PointerEvent as ReactPointerEvent } from "react";
-import { useState } from "react";
+import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { collections, paintings, type CollectionId } from "@/lib/paintings";
 import { artworkAlt, seo } from "@/lib/seo";
@@ -34,20 +34,39 @@ const filters: { id: FilterId; label: string }[] = [
 function Gallery() {
   const { category } = Route.useSearch();
   const [activePainting, setActivePainting] = useState<string | null>(null);
+  const activatedOnPointer = useRef<string | null>(null);
   const filter = category ?? "all";
   const selectedCollection = collections.find((collection) => collection.id === filter);
   const visiblePaintings =
     filter === "all" ? paintings : paintings.filter((painting) => painting.collection === filter);
 
+  useEffect(() => {
+    const dismissOverlay = (event: PointerEvent) => {
+      if (!(event.target as Element | null)?.closest("[data-gallery-artwork]")) {
+        setActivePainting(null);
+        activatedOnPointer.current = null;
+      }
+    };
+
+    document.addEventListener("pointerdown", dismissOverlay);
+    return () => document.removeEventListener("pointerdown", dismissOverlay);
+  }, []);
+
   const handleArtworkPointerDown = (slug: string, event: ReactPointerEvent<HTMLAnchorElement>) => {
     if (event.pointerType !== "mouse") {
-      setActivePainting(slug);
+      if (activePainting !== slug) {
+        setActivePainting(slug);
+        activatedOnPointer.current = slug;
+      } else {
+        activatedOnPointer.current = null;
+      }
     }
   };
 
-  const handleArtworkPointerEnd = (event: ReactPointerEvent<HTMLAnchorElement>) => {
-    if (event.pointerType !== "mouse") {
-      setActivePainting(null);
+  const handleArtworkClick = (slug: string, event: MouseEvent<HTMLAnchorElement>) => {
+    if (activatedOnPointer.current === slug) {
+      event.preventDefault();
+      activatedOnPointer.current = null;
     }
   };
 
@@ -100,9 +119,7 @@ function Gallery() {
             params={{ slug: painting.slug }}
             data-gallery-artwork
             onPointerDown={(event) => handleArtworkPointerDown(painting.slug, event)}
-            onPointerUp={handleArtworkPointerEnd}
-            onPointerCancel={handleArtworkPointerEnd}
-            onPointerLeave={handleArtworkPointerEnd}
+            onClick={(event) => handleArtworkClick(painting.slug, event)}
             className="group mb-16 block break-inside-avoid"
             aria-label={`${painting.title}, ${painting.statusLabel}`}
           >
