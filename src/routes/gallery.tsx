@@ -31,10 +31,16 @@ const filters: { id: FilterId; label: string }[] = [
   { id: "other-work", label: "Other Work" },
 ];
 
+const eventStartedInArtwork = (event: PointerEvent) =>
+  event
+    .composedPath()
+    .some((target) => target instanceof Element && target.hasAttribute("data-gallery-artwork"));
+
 function Gallery() {
   const { category } = Route.useSearch();
   const [activePainting, setActivePainting] = useState<string | null>(null);
-  const revealNextClick = useRef(false);
+  const activePaintingRef = useRef<string | null>(null);
+  const suppressClickForSlug = useRef<string | null>(null);
   const filter = category ?? "all";
   const selectedCollection = collections.find((collection) => collection.id === filter);
   const visiblePaintings =
@@ -42,8 +48,10 @@ function Gallery() {
 
   useEffect(() => {
     const dismissOverlay = (event: PointerEvent) => {
-      if (!(event.target as Element | null)?.closest("[data-gallery-artwork]")) {
+      if (!eventStartedInArtwork(event)) {
+        activePaintingRef.current = null;
         setActivePainting(null);
+        suppressClickForSlug.current = null;
       }
     };
 
@@ -52,18 +60,25 @@ function Gallery() {
   }, []);
 
   const handleArtworkPointerDown = (slug: string, event: ReactPointerEvent<HTMLAnchorElement>) => {
-    revealNextClick.current = event.pointerType !== "mouse" && activePainting !== slug;
+    if (event.pointerType !== "mouse") {
+      event.stopPropagation();
+
+      if (activePaintingRef.current !== slug) {
+        event.preventDefault();
+        activePaintingRef.current = slug;
+        setActivePainting(slug);
+        suppressClickForSlug.current = slug;
+      } else {
+        suppressClickForSlug.current = null;
+      }
+    }
   };
 
   const handleArtworkClick = (slug: string, event: MouseEvent<HTMLAnchorElement>) => {
-    const touchLike = window.matchMedia("(hover: none), (pointer: coarse)").matches;
-
-    if (revealNextClick.current || (touchLike && activePainting !== slug)) {
+    if (suppressClickForSlug.current === slug) {
       event.preventDefault();
-      setActivePainting(slug);
+      suppressClickForSlug.current = null;
     }
-
-    revealNextClick.current = false;
   };
 
   return (
@@ -75,8 +90,7 @@ function Gallery() {
             Original paintings, gathered by series.
           </h1>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            Browse still lifes, landscapes, portraits, and studies. Sold paintings remain here as
-            part of the archive.
+            Browse still lifes, landscapes, portraits, and studies.
           </p>
         </div>
         <div className="md:col-span-5">
@@ -90,8 +104,8 @@ function Gallery() {
                   search={item.id === "all" ? {} : { category: item.id }}
                   className="border px-4 py-2 text-xs uppercase tracking-[0.22em] transition-colors"
                   style={{
-                    borderColor: active ? "var(--brand-forest-green)" : "var(--brand-mauve)",
-                    backgroundColor: active ? "var(--brand-forest-green)" : "transparent",
+                    borderColor: active ? "var(--brand-header-green)" : "var(--brand-deep-moss)",
+                    backgroundColor: active ? "var(--brand-header-green)" : "transparent",
                     color: active ? "var(--brand-cream)" : "var(--brand-ink)",
                   }}
                 >
