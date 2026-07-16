@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
-import { useEffect, useRef, useState } from "react";
+import type { PointerEvent as ReactPointerEvent } from "react";
+import { useState } from "react";
 import { z } from "zod";
 import { collections, paintings, type CollectionId } from "@/lib/paintings";
 import { artworkAlt, seo } from "@/lib/seo";
@@ -34,36 +34,21 @@ const filters: { id: FilterId; label: string }[] = [
 function Gallery() {
   const { category } = Route.useSearch();
   const [activePainting, setActivePainting] = useState<string | null>(null);
-  const revealNextClick = useRef(false);
   const filter = category ?? "all";
   const selectedCollection = collections.find((collection) => collection.id === filter);
   const visiblePaintings =
     filter === "all" ? paintings : paintings.filter((painting) => painting.collection === filter);
 
-  useEffect(() => {
-    const dismissOverlay = (event: PointerEvent) => {
-      if (!(event.target as Element | null)?.closest("[data-gallery-artwork]")) {
-        setActivePainting(null);
-      }
-    };
-
-    document.addEventListener("pointerdown", dismissOverlay);
-    return () => document.removeEventListener("pointerdown", dismissOverlay);
-  }, []);
-
   const handleArtworkPointerDown = (slug: string, event: ReactPointerEvent<HTMLAnchorElement>) => {
-    revealNextClick.current = event.pointerType !== "mouse" && activePainting !== slug;
-  };
-
-  const handleArtworkClick = (slug: string, event: MouseEvent<HTMLAnchorElement>) => {
-    const touchLike = window.matchMedia("(hover: none), (pointer: coarse)").matches;
-
-    if (revealNextClick.current || (touchLike && activePainting !== slug)) {
-      event.preventDefault();
+    if (event.pointerType !== "mouse") {
       setActivePainting(slug);
     }
+  };
 
-    revealNextClick.current = false;
+  const handleArtworkPointerEnd = (event: ReactPointerEvent<HTMLAnchorElement>) => {
+    if (event.pointerType !== "mouse") {
+      setActivePainting(null);
+    }
   };
 
   return (
@@ -75,8 +60,7 @@ function Gallery() {
             Original paintings, gathered by series.
           </h1>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            Browse still lifes, landscapes, portraits, and studies. Sold paintings remain here as
-            part of the archive.
+            Browse still lifes, landscapes, portraits, and studies.
           </p>
         </div>
         <div className="md:col-span-5">
@@ -90,7 +74,7 @@ function Gallery() {
                   search={item.id === "all" ? {} : { category: item.id }}
                   className="border px-4 py-2 text-xs uppercase tracking-[0.22em] transition-colors"
                   style={{
-                    borderColor: active ? "var(--brand-header-green)" : "var(--brand-footer-moss)",
+                    borderColor: active ? "var(--brand-header-green)" : "var(--brand-deep-moss)",
                     backgroundColor: active ? "var(--brand-header-green)" : "transparent",
                     color: active ? "var(--brand-cream)" : "var(--brand-ink)",
                   }}
@@ -116,7 +100,9 @@ function Gallery() {
             params={{ slug: painting.slug }}
             data-gallery-artwork
             onPointerDown={(event) => handleArtworkPointerDown(painting.slug, event)}
-            onClick={(event) => handleArtworkClick(painting.slug, event)}
+            onPointerUp={handleArtworkPointerEnd}
+            onPointerCancel={handleArtworkPointerEnd}
+            onPointerLeave={handleArtworkPointerEnd}
             className="group mb-16 block break-inside-avoid"
             aria-label={`${painting.title}, ${painting.statusLabel}`}
           >
