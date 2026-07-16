@@ -66,7 +66,7 @@
 
   --primary: #2e3b24; /* forest green — buttons, active nav, hovers */
   --primary-foreground: #f7f3ec;
-  --secondary: #c4a8a0; /* dusty mauve — secondary buttons, tags */
+  --secondary: #c4a8a0; /* dusty mauve — production white pages only */
   --secondary-foreground: #1a1a1a;
   --muted: #eae2d3; /* warm cream tint */
   --muted-foreground: #5a4e44; /* warm brownish ink for meta text */
@@ -75,7 +75,61 @@
 
   --destructive: #2e3b24;
   --destructive-foreground: #f7f3ec;
-  --border: #c4a8a0; /* dusty mauve dividers */
+  --border: #c4a8a0; /* dusty mauve dividers on production white pages */
+  --input: #c4a8a0;
+  --ring: #2e3b24;
+}
+
+.theme-dark {
+  --brand-ink: #f7f3ec;
+  --brand-mauve: #43523a;
+
+  --background: #2e3b24;
+  --foreground: #f7f3ec;
+  --card: #2e3b24;
+  --card-foreground: #f7f3ec;
+  --popover: #2e3b24;
+  --popover-foreground: #f7f3ec;
+
+  --primary: #4a5d3a;
+  --primary-foreground: #f7f3ec;
+  --secondary: #43523a;
+  --secondary-foreground: #f7f3ec;
+  --muted: #4a5d3a;
+  --muted-foreground: #eae2d3;
+  --accent: #4a5d3a;
+  --accent-foreground: #f7f3ec;
+
+  --destructive: #f7f3ec;
+  --destructive-foreground: #2e3b24;
+  --border: #43523a;
+  --input: #4a5d3a;
+  --ring: #f7f3ec;
+}
+
+.theme-light {
+  --brand-ink: #1a1a1a;
+  --brand-mauve: #c4a8a0;
+
+  --background: #f7f3ec;
+  --foreground: #1a1a1a;
+  --card: #f7f3ec;
+  --card-foreground: #1a1a1a;
+  --popover: #f7f3ec;
+  --popover-foreground: #1a1a1a;
+
+  --primary: #2e3b24;
+  --primary-foreground: #f7f3ec;
+  --secondary: #c4a8a0;
+  --secondary-foreground: #1a1a1a;
+  --muted: #eae2d3;
+  --muted-foreground: #5a4e44;
+  --accent: #4a5d3a;
+  --accent-foreground: #f7f3ec;
+
+  --destructive: #2e3b24;
+  --destructive-foreground: #f7f3ec;
+  --border: #c4a8a0;
   --input: #c4a8a0;
   --ring: #2e3b24;
 }
@@ -109,6 +163,14 @@
     letter-spacing: -0.01em;
     color: #1a1a1a;
   }
+
+  .theme-dark h1,
+  .theme-dark h2,
+  .theme-dark h3,
+  .theme-dark h4,
+  .theme-dark h5 {
+    color: #f7f3ec;
+  }
 }
 
 @utility eyebrow {
@@ -118,4 +180,8 @@
   text-transform: uppercase;
   color: #2e3b24; /* deep forest green */
   font-weight: 500;
+}
+
+.theme-dark .eyebrow {
+  color: #f7f3ec;
 }
