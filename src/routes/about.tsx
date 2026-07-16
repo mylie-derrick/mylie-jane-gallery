@@ -41,7 +41,7 @@ function About() {
             className="aspect-[4/5] w-full object-cover object-center"
             style={{ boxShadow: "0 30px 80px -40px rgba(44, 51, 32, 0.45)" }}
           />
-          <p className="mt-4 text-sm text-muted-foreground">
+          <p className="mt-4 text-sm" style={{ color: "#5A4E44" }}>
             Mylie in the studio.
           </p>
         </div>
@@ -68,8 +68,8 @@ function About() {
               to="/gallery"
               className="pb-1 text-sm uppercase tracking-[0.22em]"
               style={{
-                color: "var(--brand-footer-moss)",
-                borderBottom: "1px solid var(--brand-footer-moss)",
+                color: "var(--brand-forest-green)",
+                borderBottom: "1px solid var(--brand-forest-green)",
               }}
             >
               See the paintings
@@ -77,7 +77,7 @@ function About() {
             <Link
               to="/contact"
               className="pb-1 text-sm uppercase tracking-[0.22em]"
-              style={{ color: "var(--brand-ink)", borderBottom: "1px solid var(--brand-header-green)" }}
+              style={{ color: "var(--brand-ink)", borderBottom: "1px solid var(--brand-mauve)" }}
             >
               Get in touch
             </Link>
