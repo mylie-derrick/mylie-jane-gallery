@@ -13,7 +13,15 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { artistName, defaultSeoImage, organizationSchema, personSchema, siteName, websiteSchema, absoluteUrl } from "../lib/seo";
+import {
+  artistName,
+  defaultSeoImage,
+  organizationSchema,
+  personSchema,
+  siteName,
+  websiteSchema,
+  absoluteUrl,
+} from "../lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -79,11 +87,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: `${siteName} — Oil Paintings by ${artistName}` },
-      { name: "description", content: "Original oil paintings, still lifes, and landscapes by Utah artist Mylie Jane Derrick." },
+      {
+        name: "description",
+        content:
+          "Original oil paintings, still lifes, and landscapes by Utah artist Mylie Jane Derrick.",
+      },
       { name: "author", content: artistName },
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: siteName },
-      { property: "og:description", content: "Original oil paintings by Mylie Jane Derrick — landscapes and still lifes from Utah." },
+      {
+        property: "og:description",
+        content:
+          "Original oil paintings by Mylie Jane Derrick — landscapes and still lifes from Utah.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: siteName },
       { property: "og:image", content: absoluteUrl(defaultSeoImage) },
@@ -126,26 +142,26 @@ function RootShell({ children }: { children: ReactNode }) {
 function SiteHeader() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const isHome = pathname === "/";
+  const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
   const [scrolled, setScrolled] = useState(false);
   const navTextColor = scrolled
     ? "var(--brand-cream)"
-    : isHome
+    : isDarkPage
       ? "var(--brand-cream)"
-      : "var(--brand-cream)";
+      : "var(--brand-forest-green)";
   const navTextMuted = scrolled
     ? "rgba(247, 243, 236, 0.78)"
-    : isHome
+    : isDarkPage
       ? "rgba(247, 243, 236, 0.78)"
-      : "rgba(247, 243, 236, 0.78)";
-  const linkBase =
-    "text-[0.78rem] uppercase tracking-[0.22em] transition-colors hover:opacity-100";
+      : "rgba(46, 59, 36, 0.78)";
+  const linkBase = "text-[0.78rem] uppercase tracking-[0.22em] transition-colors hover:opacity-100";
   const desktopActive = {
     className: `${linkBase} border-b pb-1 opacity-100`,
     style: { color: navTextColor, borderColor: navTextColor },
   };
   const mobileActive = {
     className: `${linkBase} border-b pb-1 opacity-100`,
-    style: { color: "var(--brand-cream)", borderColor: "var(--brand-cream)" },
+    style: { color: "var(--brand-forest-green)", borderColor: "var(--brand-forest-green)" },
   };
 
   useEffect(() => {
@@ -191,12 +207,12 @@ function SiteHeader() {
             </summary>
             <nav
               aria-label="Mobile navigation"
-              className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-header-green)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]"
+              className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]"
             >
               <Link
                 to="/gallery"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-cream)" }}
+                style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
               >
                 Gallery
@@ -204,7 +220,7 @@ function SiteHeader() {
               <Link
                 to="/shop"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-cream)" }}
+                style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
               >
                 Shop
@@ -212,7 +228,7 @@ function SiteHeader() {
               <Link
                 to="/about"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-cream)" }}
+                style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
               >
                 About
@@ -220,7 +236,7 @@ function SiteHeader() {
               <Link
                 to="/contact"
                 className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-cream)" }}
+                style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
               >
                 Contact
@@ -271,19 +287,22 @@ function SiteHeader() {
 }
 
 function SiteFooter() {
-  const linkCls =
-    "text-sm text-[color:var(--brand-forest-green)]/80 transition-colors hover:text-[color:var(--brand-forest-green)]";
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const isDarkPage = pathname === "/" || pathname === "/gallery" || pathname === "/contact";
+  const footerBackground = isDarkPage ? "var(--brand-deep-moss)" : "var(--brand-footer-moss)";
+  const footerColor = isDarkPage ? "var(--brand-cream)" : "var(--brand-deep-moss)";
+  const mutedFooterColor = isDarkPage ? "rgba(247, 243, 236, 0.78)" : "var(--brand-deep-moss)";
+  const linkCls = isDarkPage
+    ? "text-sm text-[color:var(--brand-cream)]/80 transition-colors hover:text-[color:var(--brand-cream)]"
+    : "text-sm text-[color:var(--brand-deep-moss)]/80 transition-colors hover:text-[color:var(--brand-deep-moss)]";
   return (
-    <footer
-      className="mt-32"
-      style={{ backgroundColor: "var(--brand-footer-moss)", color: "var(--brand-forest-green)" }}
-    >
+    <footer className="mt-32" style={{ backgroundColor: footerBackground, color: footerColor }}>
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
         <div>
-          <p className="font-serif text-lg" style={{ color: "var(--brand-forest-green)" }}>
+          <p className="font-serif text-lg" style={{ color: footerColor }}>
             Mylie Jane Design
           </p>
-          <p className="mt-1 text-sm" style={{ color: "rgba(46, 59, 36, 0.82)" }}>
+          <p className="mt-1 text-sm" style={{ color: mutedFooterColor }}>
             Studio in Salt Lake City, Utah.
           </p>
         </div>
@@ -304,14 +323,14 @@ function SiteFooter() {
             href="https://www.instagram.com/myliejanedesign/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-[color:var(--brand-forest-green)]/80 transition-colors hover:text-[color:var(--brand-forest-green)]"
+            className={`inline-flex items-center gap-2 ${linkCls}`}
             aria-label="Mylie Jane Design on Instagram"
           >
             <Instagram size={16} aria-hidden="true" />
             <span>Instagram</span>
           </a>
         </div>
-        <p className="text-xs" style={{ color: "rgba(46, 59, 36, 0.72)" }}>
+        <p className="text-xs" style={{ color: mutedFooterColor }}>
           © {new Date().getFullYear()} Mylie Jane Derrick. All works original.
         </p>
       </div>
@@ -323,10 +342,13 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const isHome = pathname === "/";
+  const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <div
+        className={`flex min-h-screen flex-col bg-background text-foreground ${isDarkPage ? "theme-dark" : ""}`}
+      >
         <SiteHeader />
         <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
           <Outlet />
