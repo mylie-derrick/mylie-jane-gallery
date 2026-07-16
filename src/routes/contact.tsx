@@ -95,18 +95,13 @@ function Contact() {
 
         <div className="md:col-span-7">
           {sent ? (
-            <div className="border border-border bg-card p-10 text-center">
+            <div className="border border-border bg-[color:var(--brand-deep-moss)] p-10 text-center">
               <p className="eyebrow">Thank you</p>
               <h2 className="mt-4 font-serif text-2xl text-foreground">Your note is on its way.</h2>
               <p className="mt-3 text-sm text-muted-foreground">I'll be in touch soon.</p>
             </div>
           ) : (
-            <form
-              action={formEndpoint}
-              method="POST"
-              onSubmit={onSubmit}
-              className="space-y-7"
-            >
+            <form action={formEndpoint} method="POST" onSubmit={onSubmit} className="space-y-7">
               <input type="hidden" name="_subject" value="New Mylie Jane Design inquiry" />
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_captcha" value="false" />
@@ -135,13 +130,11 @@ function Contact() {
                 />
               </div>
               {error && (
-                <p className="text-sm leading-relaxed text-[color:var(--brand-forest-green)]">
-                  {error}
-                </p>
+                <p className="text-sm leading-relaxed text-[color:var(--brand-cream)]">{error}</p>
               )}
               <button
                 type="submit"
-                className="bg-primary px-7 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-primary/90"
+                className="border border-[color:var(--brand-cream)]/25 bg-primary px-7 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-[color:var(--brand-deep-moss)]"
               >
                 Send note
               </button>
