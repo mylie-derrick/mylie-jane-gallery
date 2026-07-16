@@ -38,26 +38,25 @@ export interface Painting {
   featured: boolean;
 }
 
-export const collections: { id: CollectionId; title: string; description: string }[] =
-  [
-    {
-      id: "still-lifes",
-      title: "Still Lifes",
-      description:
-        "Paintings meant to capture light, color, and quiet moments. Fruit on a table, flowers in a jar, everyday things worth looking at twice.",
-    },
-    {
-      id: "landscapes",
-      title: "Landscapes",
-      description:
-        "Paintings inspired by the places I've traveled and keep returning to. Mountains, open skies, and scenes that hold a little bit of light.",
-    },
-    {
-      id: "other-work",
-      title: "Other Work",
-      description: "Portraits, studies, and other work.",
-    },
-  ];
+export const collections: { id: CollectionId; title: string; description: string }[] = [
+  {
+    id: "still-lifes",
+    title: "Still Lifes",
+    description:
+      "Paintings meant to capture light, color, and quiet moments. Fruit on a table, flowers in a jar, everyday things worth looking at twice.",
+  },
+  {
+    id: "landscapes",
+    title: "Landscapes",
+    description:
+      "Paintings inspired by the places I've traveled and keep returning to. Mountains, open skies, and scenes that hold a little bit of light.",
+  },
+  {
+    id: "other-work",
+    title: "Other Work",
+    description: "Portraits, studies, and other work.",
+  },
+];
 
 const collectionByCategory: Record<PaintingCategory, CollectionId> = {
   "Still Life": "still-lifes",
@@ -92,8 +91,7 @@ const paintingEntries: PaintingEntry[] = [
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2025,
-    description:
-      "Citrus and pink flowers on a wood surface against a dark ground.",
+    description: "Citrus and pink flowers on a wood surface against a dark ground.",
     status: "available",
     featured: true,
     medium: "Oil on Board",
@@ -107,8 +105,7 @@ const paintingEntries: PaintingEntry[] = [
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2022,
-    description:
-      "Bread, lemons, lavender in a glass jar, and dark bottle.",
+    description: "Bread, lemons, lavender in a glass jar, and dark bottle.",
     status: "sold",
     medium: "Oil on Board",
     size: "TBD",
@@ -187,8 +184,7 @@ const paintingEntries: PaintingEntry[] = [
     secondaryImageFilename: "",
     category: "Landscape",
     year: 2026,
-    description:
-      "Painting of Lake Louise in Canada iced over in January. ",
+    description: "Painting of Lake Louise in Canada iced over in January. ",
     status: "available",
     medium: "Oil on Canvas",
     size: "TBD",
