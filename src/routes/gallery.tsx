@@ -31,6 +31,11 @@ const filters: { id: FilterId; label: string }[] = [
   { id: "other-work", label: "Other Work" },
 ];
 
+const eventStartedInArtwork = (event: PointerEvent) =>
+  event
+    .composedPath()
+    .some((target) => target instanceof Element && target.hasAttribute("data-gallery-artwork"));
+
 function Gallery() {
   const { category } = Route.useSearch();
   const [activePainting, setActivePainting] = useState<string | null>(null);
@@ -43,7 +48,7 @@ function Gallery() {
 
   useEffect(() => {
     const dismissOverlay = (event: PointerEvent) => {
-      if (!(event.target as Element | null)?.closest("[data-gallery-artwork]")) {
+      if (!eventStartedInArtwork(event)) {
         activePaintingRef.current = null;
         setActivePainting(null);
         suppressClickForSlug.current = null;
@@ -56,6 +61,8 @@ function Gallery() {
 
   const handleArtworkPointerDown = (slug: string, event: ReactPointerEvent<HTMLAnchorElement>) => {
     if (event.pointerType !== "mouse") {
+      event.stopPropagation();
+
       if (activePaintingRef.current !== slug) {
         event.preventDefault();
         activePaintingRef.current = slug;
