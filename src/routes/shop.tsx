@@ -19,10 +19,13 @@ function Shop() {
   const soldPaintings = paintings.filter((painting) => painting.status === "sold");
   const shopPaintings = [...availablePaintings, ...soldPaintings];
   const getColumns = (columnCount: number) =>
-    shopPaintings.reduce<Array<typeof shopPaintings>>((columns, painting, index) => {
-      columns[index % columnCount].push(painting);
-      return columns;
-    }, Array.from({ length: columnCount }, () => []));
+    shopPaintings.reduce<Array<typeof shopPaintings>>(
+      (columns, painting, index) => {
+        columns[index % columnCount].push(painting);
+        return columns;
+      },
+      Array.from({ length: columnCount }, () => []),
+    );
 
   const twoColumnPaintings = getColumns(2);
   const threeColumnPaintings = getColumns(3);
@@ -106,9 +109,7 @@ function Shop() {
         </p>
       </header>
 
-      <div className="mt-16 space-y-16 md:hidden">
-        {shopPaintings.map(renderPainting)}
-      </div>
+      <div className="mt-16 space-y-16 md:hidden">{shopPaintings.map(renderPainting)}</div>
       <div className="mt-16 hidden gap-10 md:grid md:grid-cols-2 xl:hidden">
         {twoColumnPaintings.map((column, index) => (
           <div key={index} className="space-y-16">
