@@ -86,6 +86,20 @@ function Contact() {
             </p>
             <p>I personally respond to every message and usually reply within a day or two.</p>
           </div>
+          <div
+            aria-hidden="true"
+            className="mt-8 h-12 w-[155px] bg-[color:var(--brand-cream)] md:mt-9 md:h-14 md:w-[168px]"
+            style={{
+              WebkitMaskImage: "url('/images/myliederrick-signature.svg')",
+              WebkitMaskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
+              WebkitMaskSize: "285px auto",
+              maskImage: "url('/images/myliederrick-signature.svg')",
+              maskRepeat: "no-repeat",
+              maskPosition: "center",
+              maskSize: "285px auto",
+            }}
+          />
           <div className="mt-10 text-sm text-foreground">
             <p className="eyebrow">Studio</p>
             <p className="mt-2">Salt Lake City, Utah</p>
