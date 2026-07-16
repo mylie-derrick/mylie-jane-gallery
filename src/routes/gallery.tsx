@@ -34,7 +34,8 @@ const filters: { id: FilterId; label: string }[] = [
 function Gallery() {
   const { category } = Route.useSearch();
   const [activePainting, setActivePainting] = useState<string | null>(null);
-  const activatedOnPointer = useRef<string | null>(null);
+  const activePaintingRef = useRef<string | null>(null);
+  const suppressClickForSlug = useRef<string | null>(null);
   const filter = category ?? "all";
   const selectedCollection = collections.find((collection) => collection.id === filter);
   const visiblePaintings =
@@ -43,8 +44,9 @@ function Gallery() {
   useEffect(() => {
     const dismissOverlay = (event: PointerEvent) => {
       if (!(event.target as Element | null)?.closest("[data-gallery-artwork]")) {
+        activePaintingRef.current = null;
         setActivePainting(null);
-        activatedOnPointer.current = null;
+        suppressClickForSlug.current = null;
       }
     };
 
@@ -54,19 +56,21 @@ function Gallery() {
 
   const handleArtworkPointerDown = (slug: string, event: ReactPointerEvent<HTMLAnchorElement>) => {
     if (event.pointerType !== "mouse") {
-      if (activePainting !== slug) {
+      if (activePaintingRef.current !== slug) {
+        event.preventDefault();
+        activePaintingRef.current = slug;
         setActivePainting(slug);
-        activatedOnPointer.current = slug;
+        suppressClickForSlug.current = slug;
       } else {
-        activatedOnPointer.current = null;
+        suppressClickForSlug.current = null;
       }
     }
   };
 
   const handleArtworkClick = (slug: string, event: MouseEvent<HTMLAnchorElement>) => {
-    if (activatedOnPointer.current === slug) {
+    if (suppressClickForSlug.current === slug) {
       event.preventDefault();
-      activatedOnPointer.current = null;
+      suppressClickForSlug.current = null;
     }
   };
 
