@@ -101,11 +101,11 @@ function Shop() {
       <header className="max-w-3xl">
         <p className="eyebrow">Available Work</p>
         <h1 className="mt-4 font-serif text-4xl italic leading-tight text-foreground md:text-6xl">
-          Available original paintings, purchased by inquiry.
+          Available original paintings.
         </h1>
         <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-          Each painting is one of a kind. Available works can be requested through the contact form,
-          and sold or not-for-sale works are marked clearly.
+          Each painting is one of a kind. Available works may be purchased by inquiry. Sold and
+          not-for-sale works are clearly marked.
         </p>
       </header>
 
