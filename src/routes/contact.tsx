@@ -88,7 +88,7 @@ function Contact() {
           </div>
           <div
             aria-hidden="true"
-            className="mt-5 h-24 w-[300px] max-w-[calc(100vw-3rem)] bg-[color:var(--brand-cream)] md:mt-6 md:h-28 md:w-[320px]"
+            className="-ml-2 mt-5 h-24 w-[300px] max-w-[calc(100vw-3rem)] bg-[color:var(--brand-cream)] md:-ml-3 md:mt-6 md:h-28 md:w-[320px]"
             style={{
               WebkitMaskImage: "url('/images/myliederrick-signature.svg')",
               WebkitMaskRepeat: "no-repeat",
