@@ -159,7 +159,7 @@ function Index() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(circle at center, rgba(46,59,36,0.48) 0%, rgba(46,59,36,0.64) 46%, rgba(46,59,36,0.78) 100%), linear-gradient(rgba(46,59,36,0.62), rgba(46,59,36,0.62))",
+              "radial-gradient(circle at center, rgba(46,59,36,0.34) 0%, rgba(46,59,36,0.5) 46%, rgba(46,59,36,0.68) 100%), linear-gradient(rgba(46,59,36,0.46), rgba(46,59,36,0.46))",
           }}
         />
         <div className="relative z-10 mx-auto max-w-4xl">
