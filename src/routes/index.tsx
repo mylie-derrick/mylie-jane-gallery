@@ -148,7 +148,7 @@ function Index() {
       </section>
 
       <section
-        className="mt-24 px-6 py-20 text-center md:mt-32 md:px-10 md:py-24"
+        className="mt-24 border-y border-[rgba(247,243,236,0.18)] px-6 py-20 text-center md:mt-32 md:px-10 md:py-24"
         style={{ backgroundColor: "var(--brand-deep-moss)" }}
       >
         <div className="mx-auto max-w-4xl">
@@ -168,7 +168,7 @@ function Index() {
           </p>
           <Link
             to="/contact"
-            className="mt-8 inline-flex items-center justify-center border border-[color:var(--brand-cream)]/35 bg-[color:var(--brand-header-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-forest-green)]"
+            className="mt-8 inline-flex items-center justify-center border border-[color:var(--brand-cream)] bg-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-transparent hover:text-[color:var(--brand-cream)]"
           >
             Start an Inquiry
           </Link>
