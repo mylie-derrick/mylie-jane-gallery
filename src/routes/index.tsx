@@ -148,8 +148,8 @@ function Index() {
       </section>
 
       <section
-        className="mt-24 px-6 py-20 text-center md:mt-32 md:px-10 md:py-24"
-        style={{ backgroundColor: "var(--brand-deep-moss)" }}
+        className="mt-24 border-y border-[rgba(247,243,236,0.14)] px-6 py-20 text-center md:mt-32 md:px-10 md:py-24"
+        style={{ backgroundColor: "#53654a" }}
       >
         <div className="mx-auto max-w-4xl">
           <p className="eyebrow">Commissions</p>
@@ -161,14 +161,15 @@ function Index() {
           </h2>
           <p
             className="mx-auto mt-5 max-w-2xl text-base leading-relaxed md:text-lg"
-            style={{ color: "rgba(247, 243, 236, 0.78)" }}
+            style={{ color: "rgba(247, 243, 236, 0.82)" }}
           >
-            Commission a custom piece for your home, a meaningful gift, or a place you want to
-            remember. Share what you're imagining and I'll help shape it into an original painting.
+            Commission a custom oil painting of a meaningful place, still life, floral arrangement,
+            or memory you want to hold onto. Share what you're imagining and I'll help shape it into
+            an original piece.
           </p>
           <Link
             to="/contact"
-            className="mt-8 inline-flex items-center justify-center border border-[color:var(--brand-cream)]/35 bg-[color:var(--brand-header-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-forest-green)]"
+            className="mt-8 inline-flex items-center justify-center border border-[color:var(--brand-cream)] bg-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-transparent hover:text-[color:var(--brand-cream)]"
           >
             Start an Inquiry
           </Link>

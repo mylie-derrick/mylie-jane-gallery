@@ -5,9 +5,9 @@ import { artworkAlt, seo } from "@/lib/seo";
 export const Route = createFileRoute("/shop")({
   head: () =>
     seo({
-      title: "Shop Original Oil Paintings | Mylie Jane Design",
+      title: "Available Original Oil Paintings | Mylie Jane Design",
       description:
-        "Shop available original oil paintings by Utah artist Mylie Jane Derrick. Inquire about still life and landscape paintings from Mylie Jane Design.",
+        "View available original oil paintings by Utah artist Mylie Jane Derrick. Inquire about still life and landscape paintings from Mylie Jane Design.",
       path: "/shop",
       image: "/images/oranges-and-blooms.jpg",
     }),
@@ -99,9 +99,9 @@ function Shop() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
       <header className="max-w-3xl">
-        <p className="eyebrow">Shop</p>
+        <p className="eyebrow">Available Work</p>
         <h1 className="mt-4 font-serif text-4xl italic leading-tight text-foreground md:text-6xl">
-          Original paintings, purchased by inquiry.
+          Available original paintings, purchased by inquiry.
         </h1>
         <p className="mt-6 text-base leading-relaxed text-muted-foreground">
           Each painting is one of a kind. Available works can be requested through the contact form,
