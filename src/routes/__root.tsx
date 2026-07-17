@@ -12,6 +12,7 @@ import { Instagram, Menu } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import type { BeforeSendEvent } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -158,6 +159,7 @@ function RootShell({ children }: { children: ReactNode }) {
         {children}
         <Scripts />
         <Analytics beforeSend={filterMylieAnalytics} />
+        <SpeedInsights />
       </body>
     </html>
   );
