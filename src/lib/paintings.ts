@@ -77,7 +77,7 @@ const paintingEntries: PaintingEntry[] = [
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2024,
-    description: "Peonies in glass jar.",
+    description: "Freshly gathered peonies arranged in a glass jar, set in a dark floater frame that gives the soft blooms a quiet, elevated presence.",
     status: "available",
     featured: true,
     medium: "Oil on Board",
