@@ -11,6 +11,7 @@ import {
 import { Instagram, Menu } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import type { BeforeSendEvent } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -23,6 +24,27 @@ import {
   websiteSchema,
   absoluteUrl,
 } from "../lib/seo";
+
+const ANALYTICS_OPT_OUT_KEY = "myliejanedesign:analytics-opt-out";
+const ANALYTICS_OPT_OUT_PATH = "/analytics-opt-out";
+
+function filterMylieAnalytics(event: BeforeSendEvent) {
+  if (event.url.includes(ANALYTICS_OPT_OUT_PATH)) {
+    return null;
+  }
+
+  if (typeof window !== "undefined") {
+    try {
+      if (window.localStorage.getItem(ANALYTICS_OPT_OUT_KEY) === "true") {
+        return null;
+      }
+    } catch {
+      return event;
+    }
+  }
+
+  return event;
+}
 
 function NotFoundComponent() {
   return (
@@ -135,7 +157,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
-        <Analytics />
+        <Analytics beforeSend={filterMylieAnalytics} />
       </body>
     </html>
   );
