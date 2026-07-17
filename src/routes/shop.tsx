@@ -1,6 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { paintings } from "@/lib/paintings";
+import { useState } from "react";
+import { paintings, type CollectionId } from "@/lib/paintings";
 import { artworkAlt, seo } from "@/lib/seo";
+
+type ShopFilterId = "all" | CollectionId | "lake-powell";
+
+const shopFilters: { id: ShopFilterId; label: string; helper?: string }[] = [
+  { id: "all", label: "All" },
+  { id: "still-lifes", label: "Still Lifes" },
+  { id: "landscapes", label: "Landscapes" },
+  { id: "other-work", label: "Other Work" },
+  { id: "lake-powell", label: "Lake Powell", helper: "Collection preview" },
+];
+
+const lakePowellSlugs = new Set(["wahweap"]);
 
 export const Route = createFileRoute("/shop")({
   head: () =>
@@ -15,9 +28,15 @@ export const Route = createFileRoute("/shop")({
 });
 
 function Shop() {
+  const [activeFilter, setActiveFilter] = useState<ShopFilterId>("all");
   const availablePaintings = paintings.filter((painting) => painting.status === "available");
   const soldPaintings = paintings.filter((painting) => painting.status === "sold");
-  const shopPaintings = [...availablePaintings, ...soldPaintings];
+  const allShopPaintings = [...availablePaintings, ...soldPaintings];
+  const shopPaintings = allShopPaintings.filter((painting) => {
+    if (activeFilter === "all") return true;
+    if (activeFilter === "lake-powell") return lakePowellSlugs.has(painting.slug);
+    return painting.collection === activeFilter;
+  });
   const getColumns = (columnCount: number) =>
     shopPaintings.reduce<Array<typeof shopPaintings>>(
       (columns, painting, index) => {
@@ -108,6 +127,38 @@ function Shop() {
           not-for-sale works are clearly marked.
         </p>
       </header>
+
+      <div className="mt-10 border-y border-border/60 py-6">
+        <p className="mb-4 text-xs uppercase tracking-[0.24em] text-muted-foreground">
+          Browse by category or collection
+        </p>
+        <div className="flex flex-wrap gap-3">
+          {shopFilters.map((filter) => {
+            const active = activeFilter === filter.id;
+
+            return (
+              <button
+                key={filter.id}
+                type="button"
+                onClick={() => setActiveFilter(filter.id)}
+                className="border px-4 py-2 text-left text-xs uppercase tracking-[0.22em] transition-colors"
+                style={{
+                  borderColor: active ? "var(--brand-header-green)" : "var(--brand-deep-moss)",
+                  backgroundColor: active ? "var(--brand-header-green)" : "transparent",
+                  color: active ? "var(--brand-cream)" : "var(--brand-ink)",
+                }}
+              >
+                <span>{filter.label}</span>
+                {filter.helper && (
+                  <span className="mt-1 block text-[0.6rem] tracking-[0.16em] opacity-75">
+                    {filter.helper}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
       <div className="mt-16 space-y-16 md:hidden">{shopPaintings.map(renderPainting)}</div>
       <div className="mt-16 hidden gap-10 md:grid md:grid-cols-2 xl:hidden">
