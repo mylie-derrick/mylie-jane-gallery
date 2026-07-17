@@ -88,7 +88,7 @@ function Contact() {
           </div>
           <div
             aria-hidden="true"
-            className="mt-8 h-28 w-[240px] max-w-full bg-[color:var(--brand-cream)] md:mt-9 md:h-32 md:w-[260px]"
+            className="mt-5 h-24 w-[240px] max-w-full bg-[color:var(--brand-cream)] md:mt-6 md:h-28 md:w-[260px]"
             style={{
               WebkitMaskImage: "url('/images/myliederrick-signature.svg')",
               WebkitMaskRepeat: "no-repeat",
@@ -100,7 +100,7 @@ function Contact() {
               maskSize: "285px auto",
             }}
           />
-          <div className="mt-4 text-sm text-foreground md:mt-5">
+          <div className="mt-1 text-sm text-foreground md:mt-2">
             <p className="eyebrow">Studio</p>
             <p className="mt-2">Salt Lake City, Utah</p>
             <p className="mt-1 text-muted-foreground">myliederrick@icloud.com</p>
