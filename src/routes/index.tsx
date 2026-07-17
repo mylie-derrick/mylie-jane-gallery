@@ -2,6 +2,21 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { paintings } from "@/lib/paintings";
 import { artworkAlt, defaultSeoImage, seo, websiteSchema } from "@/lib/seo";
 
+const commissionSteps = [
+  {
+    title: "Share your idea",
+    copy: "Send a note with the place, memory, still life, or gift you have in mind.",
+  },
+  {
+    title: "Shape the details",
+    copy: "We’ll talk through subject, size, timeline, pricing, and any reference photos.",
+  },
+  {
+    title: "Create the painting",
+    copy: "I’ll paint an original piece made for your home, your story, or someone you love.",
+  },
+];
+
 export const Route = createFileRoute("/")({
   head: () => {
     const head = seo({
@@ -163,12 +178,41 @@ function Index() {
             className="mx-auto mt-5 max-w-2xl text-base leading-relaxed md:text-lg"
             style={{ color: "rgba(247, 243, 236, 0.82)" }}
           >
-            Commission a custom piece for your home, a meaningful gift, or a place you want to
-            remember. Share what you're imagining and I'll help shape it into an original painting.
+            Commission a custom oil painting of a meaningful place, still life, floral arrangement,
+            or memory you want to hold onto. Share what you're imagining and I'll help shape it into
+            an original piece.
           </p>
+          <div className="mx-auto mt-10 grid max-w-5xl gap-5 text-left md:grid-cols-3">
+            {commissionSteps.map((step, index) => (
+              <div
+                key={step.title}
+                className="border border-[rgba(247,243,236,0.24)] px-6 py-6"
+                style={{ backgroundColor: "rgba(247, 243, 236, 0.055)" }}
+              >
+                <p
+                  className="text-xs uppercase tracking-[0.24em]"
+                  style={{ color: "rgba(247, 243, 236, 0.68)" }}
+                >
+                  Step {index + 1}
+                </p>
+                <h3
+                  className="mt-3 font-serif text-2xl italic leading-tight"
+                  style={{ color: "var(--brand-cream)" }}
+                >
+                  {step.title}
+                </h3>
+                <p
+                  className="mt-3 text-sm leading-relaxed"
+                  style={{ color: "rgba(247, 243, 236, 0.84)" }}
+                >
+                  {step.copy}
+                </p>
+              </div>
+            ))}
+          </div>
           <Link
             to="/contact"
-            className="mt-8 inline-flex items-center justify-center border border-[color:var(--brand-cream)] bg-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-transparent hover:text-[color:var(--brand-cream)]"
+            className="mt-10 inline-flex items-center justify-center border border-[color:var(--brand-cream)] bg-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-transparent hover:text-[color:var(--brand-cream)]"
           >
             Start an Inquiry
           </Link>

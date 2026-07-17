@@ -225,7 +225,7 @@ function SiteHeader() {
                 style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
               >
-                Shop
+                Available Work
               </Link>
               <Link
                 to="/about"
@@ -264,7 +264,7 @@ function SiteHeader() {
             style={{ color: navTextColor }}
             activeProps={desktopActive}
           >
-            Shop
+            Available Work
           </Link>
           <Link
             to="/about"
@@ -313,7 +313,7 @@ function SiteFooter() {
             Gallery
           </Link>
           <Link to="/shop" className={linkCls}>
-            Shop
+            Available Work
           </Link>
           <Link to="/about" className={linkCls}>
             About
