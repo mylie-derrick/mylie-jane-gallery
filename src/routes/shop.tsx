@@ -72,10 +72,12 @@ function Shop() {
               <dt className="text-muted-foreground">Size</dt>
               <dd className="text-right text-foreground">{painting.size}</dd>
             </div>
-            <div className="flex justify-between gap-6 border-b border-border/50 pb-2">
-              <dt className="text-muted-foreground">Price</dt>
-              <dd className="text-right text-foreground">{painting.price}</dd>
-            </div>
+            {available && (
+              <div className="flex justify-between gap-6 border-b border-border/50 pb-2">
+                <dt className="text-muted-foreground">Price</dt>
+                <dd className="text-right text-foreground">{painting.price}</dd>
+              </div>
+            )}
           </dl>
 
           {available ? (
