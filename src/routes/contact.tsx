@@ -74,6 +74,8 @@ function Contact() {
           <img
             src="/images/mylie-contact-portrait.jpg"
             alt="Mylie Jane Derrick smiling in a studio portrait."
+            width={724}
+            height={1086}
             loading="lazy"
             decoding="async"
             className="mt-8 h-36 w-36 rounded-full object-cover md:h-40 md:w-40"

@@ -36,6 +36,8 @@ function About() {
           <img
             src="/images/mylie-studio-portrait.jpg"
             alt="Mylie Jane Derrick in her studio with an oil painting."
+            width={724}
+            height={1086}
             loading="lazy"
             decoding="async"
             className="aspect-[4/5] w-full object-cover object-center"

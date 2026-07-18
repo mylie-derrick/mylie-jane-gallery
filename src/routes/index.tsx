@@ -32,6 +32,8 @@ function Index() {
         <img
           src="/images/hero-painting-process.jpg"
           alt="Mylie Jane Derrick painting oranges and blooms in the studio."
+          width={721}
+          height={1092}
           fetchPriority="high"
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
@@ -129,6 +131,8 @@ function Index() {
                 <img
                   src={p.image}
                   alt={artworkAlt(p)}
+                  width={p.imageWidth}
+                  height={p.imageHeight}
                   loading="lazy"
                   decoding="async"
                   className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"

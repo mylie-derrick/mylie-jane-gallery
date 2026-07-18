@@ -6,6 +6,8 @@ export interface PaintingEntry {
   slug: string;
   title: string;
   imageFilename: string;
+  imageWidth: number;
+  imageHeight: number;
   secondaryImageFilename: string;
   category: PaintingCategory;
   year: number | "TBD";
@@ -22,6 +24,8 @@ export interface Painting {
   slug: string;
   title: string;
   imageFilename: string;
+  imageWidth: number;
+  imageHeight: number;
   secondaryImageFilename: string;
   year: number | "TBD";
   medium: string;
@@ -74,6 +78,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "freshly-cut",
     title: "Freshly Cut",
     imageFilename: "freshly-cut.jpg",
+    imageWidth: 2413,
+    imageHeight: 2414,
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2024,
@@ -88,6 +94,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "oranges-and-blooms",
     title: "Oranges and Blooms",
     imageFilename: "oranges-and-blooms.jpg",
+    imageWidth: 3608,
+    imageHeight: 2600,
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2025,
@@ -102,6 +110,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "lavender-and-lemons",
     title: "Lavender and Lemons",
     imageFilename: "lavender-and-lemons.jpg",
+    imageWidth: 1763,
+    imageHeight: 1092,
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2022,
@@ -115,6 +125,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "peonies",
     title: "Peonies",
     imageFilename: "peonies.jpg",
+    imageWidth: 1869,
+    imageHeight: 2631,
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2025,
@@ -128,6 +140,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "grandma",
     title: "Grandma",
     imageFilename: "grandma.jpg",
+    imageWidth: 2044,
+    imageHeight: 1169,
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2022,
@@ -141,6 +155,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "happy-flowers",
     title: "Happy Flowers",
     imageFilename: "happy-flowers.jpg",
+    imageWidth: 883,
+    imageHeight: 890,
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2023,
@@ -154,6 +170,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "wahweap",
     title: "Wahweap",
     imageFilename: "wahweap.jpg",
+    imageWidth: 2102,
+    imageHeight: 1185,
     secondaryImageFilename: "",
     category: "Landscape",
     year: 2023,
@@ -168,6 +186,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "sunset-on-the-tetons",
     title: "Sunset on the Tetons",
     imageFilename: "sunset-on-the-tetons.jpg",
+    imageWidth: 360,
+    imageHeight: 454,
     secondaryImageFilename: "",
     category: "Landscape",
     year: 2025,
@@ -181,6 +201,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "lake-louise-iced-over",
     title: "Lake Louise Iced Over",
     imageFilename: "lake-louise-iced-over.jpeg",
+    imageWidth: 2718,
+    imageHeight: 3686,
     secondaryImageFilename: "",
     category: "Landscape",
     year: 2026,
@@ -194,6 +216,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "livin",
     title: "Livin",
     imageFilename: "livin.jpg",
+    imageWidth: 1664,
+    imageHeight: 2241,
     secondaryImageFilename: "",
     category: "Landscape",
     year: 2026,
@@ -207,6 +231,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "untitled-portrait-study",
     title: "Untitled Portrait Study",
     imageFilename: "untitled-portrait-study.jpg",
+    imageWidth: 2682,
+    imageHeight: 3452,
     secondaryImageFilename: "",
     category: "Other Work",
     year: "2025",
@@ -220,6 +246,8 @@ const paintingEntries: PaintingEntry[] = [
     slug: "last-of-spring",
     title: "Last of Spring",
     imageFilename: "Last-of-Spring.jpeg",
+    imageWidth: 2580,
+    imageHeight: 3162,
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2026,

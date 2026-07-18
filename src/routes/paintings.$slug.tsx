@@ -60,8 +60,8 @@ function PaintingPage() {
           <img
             src={painting.image}
             alt={artworkAlt(painting)}
-            width={1024}
-            height={1024}
+            width={painting.imageWidth}
+            height={painting.imageHeight}
             decoding="async"
             className="w-full object-contain shadow-[0_30px_80px_-40px_rgba(60,40,20,0.35)]"
           />
@@ -138,8 +138,8 @@ function PaintingPage() {
                     src={p.image}
                     alt={artworkAlt(p)}
                     loading="lazy"
-                    width={1024}
-                    height={1024}
+                    width={p.imageWidth}
+                    height={p.imageHeight}
                     decoding="async"
                     className="aspect-square w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                   />

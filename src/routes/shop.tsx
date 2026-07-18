@@ -40,6 +40,8 @@ function Shop() {
             <img
               src={painting.image}
               alt={artworkAlt(painting)}
+              width={painting.imageWidth}
+              height={painting.imageHeight}
               loading="lazy"
               decoding="async"
               className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
