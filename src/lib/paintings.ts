@@ -87,7 +87,7 @@ const paintingEntries: PaintingEntry[] = [
     status: "available",
     featured: true,
     medium: "Oil on Board",
-    size: "15.5 x 15.5",
+    size: "16 x 16",
     price: "$1000.00",
   },
   {
