@@ -88,7 +88,7 @@ const paintingEntries: PaintingEntry[] = [
     featured: true,
     medium: "Oil on Board",
     size: "16 x 16",
-    price: "$1000.00",
+    price: "$1,300.00",
   },
   {
     slug: "oranges-and-blooms",
