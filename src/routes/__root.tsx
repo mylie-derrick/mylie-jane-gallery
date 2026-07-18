@@ -223,17 +223,18 @@ function SiteHeader() {
               Mylie Jane Design · Oil Paintings
             </p>
           </Link>
-          <details className="relative md:hidden">
-            <summary
+          <div className="group relative md:hidden">
+            <button
+              type="button"
               aria-label="Navigation menu"
-              className="flex h-10 w-10 cursor-pointer list-none items-center justify-center border transition-colors duration-300 [&::-webkit-details-marker]:hidden"
+              className="flex h-10 w-10 cursor-default items-center justify-center border transition-colors duration-300"
               style={{ borderColor: navTextMuted, color: navTextColor }}
             >
               <Menu size={18} />
-            </summary>
+            </button>
             <nav
               aria-label="Mobile navigation"
-              className="absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)]"
+              className="pointer-events-none absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 opacity-0 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)] transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100"
             >
               <Link
                 to="/gallery"
@@ -268,7 +269,7 @@ function SiteHeader() {
                 Contact
               </Link>
             </nav>
-          </details>
+          </div>
         </div>
         <nav
           aria-label="Main navigation"
