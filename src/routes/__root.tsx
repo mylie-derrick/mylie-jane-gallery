@@ -9,7 +9,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { Instagram, Menu } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import type { BeforeSendEvent } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -170,6 +170,9 @@ function SiteHeader() {
   const isHome = pathname === "/";
   const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const closeMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navTextColor = scrolled
     ? "var(--brand-cream)"
     : isDarkPage
@@ -198,6 +201,54 @@ function SiteHeader() {
     return () => window.removeEventListener("scroll", updateScrolled);
   }, []);
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const closeOnOutsideClick = (event: MouseEvent | TouchEvent) => {
+      if (!mobileMenuRef.current?.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", closeOnOutsideClick);
+    document.addEventListener("touchstart", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("mousedown", closeOnOutsideClick);
+      document.removeEventListener("touchstart", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (closeMenuTimerRef.current) {
+        clearTimeout(closeMenuTimerRef.current);
+      }
+    };
+  }, []);
+
+  const keepMenuOpen = () => {
+    if (closeMenuTimerRef.current) {
+      clearTimeout(closeMenuTimerRef.current);
+      closeMenuTimerRef.current = null;
+    }
+  };
+
+  const closeMenuSoon = () => {
+    keepMenuOpen();
+    closeMenuTimerRef.current = setTimeout(() => setMenuOpen(false), 350);
+  };
+
   return (
     <header
       className="fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 ease-out"
@@ -223,24 +274,42 @@ function SiteHeader() {
               Mylie Jane Design · Oil Paintings
             </p>
           </Link>
-          <div className="group relative md:hidden">
+          <div
+            ref={mobileMenuRef}
+            className="relative md:hidden"
+            onMouseEnter={keepMenuOpen}
+            onMouseLeave={closeMenuSoon}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) {
+                closeMenuSoon();
+              }
+            }}
+          >
             <button
               type="button"
               aria-label="Navigation menu"
-              className="flex h-10 w-10 cursor-default items-center justify-center border transition-colors duration-300"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
+              onClick={() => setMenuOpen((open) => !open)}
+              onFocus={keepMenuOpen}
+              className="flex h-10 w-10 cursor-pointer items-center justify-center border transition-colors duration-300"
               style={{ borderColor: navTextMuted, color: navTextColor }}
             >
               <Menu size={18} />
             </button>
             <nav
+              id="mobile-navigation"
               aria-label="Mobile navigation"
-              className="pointer-events-none absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 opacity-0 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)] transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100"
+              className={`absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)] transition-opacity duration-200 ${
+                menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+              }`}
             >
               <Link
                 to="/gallery"
                 className={`${linkBase} opacity-80`}
                 style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
+                onClick={() => setMenuOpen(false)}
               >
                 Gallery
               </Link>
@@ -249,6 +318,7 @@ function SiteHeader() {
                 className={`${linkBase} opacity-80`}
                 style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
+                onClick={() => setMenuOpen(false)}
               >
                 Available Work
               </Link>
@@ -257,6 +327,7 @@ function SiteHeader() {
                 className={`${linkBase} opacity-80`}
                 style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
+                onClick={() => setMenuOpen(false)}
               >
                 About
               </Link>
@@ -265,6 +336,7 @@ function SiteHeader() {
                 className={`${linkBase} opacity-80`}
                 style={{ color: "var(--brand-forest-green)" }}
                 activeProps={mobileActive}
+                onClick={() => setMenuOpen(false)}
               >
                 Contact
               </Link>
