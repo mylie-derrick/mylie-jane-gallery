@@ -151,11 +151,24 @@ function Index() {
         </div>
       </section>
 
-      <section
-        className="mt-24 border-y border-[rgba(247,243,236,0.14)] px-6 py-20 text-center md:mt-32 md:px-10 md:py-24"
-        style={{ backgroundColor: "#53654a" }}
-      >
-        <div className="mx-auto max-w-4xl">
+      <section className="relative mt-24 overflow-hidden border-y border-[rgba(247,243,236,0.18)] px-6 py-24 text-center md:mt-32 md:px-10 md:py-28">
+        <img
+          src="/images/commissions-process.jpeg"
+          alt="Mylie Jane Derrick mixing paint in the studio."
+          width={724}
+          height={1086}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover object-[center_84%]"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at center, rgba(46,59,36,0.34) 0%, rgba(46,59,36,0.5) 46%, rgba(46,59,36,0.68) 100%), linear-gradient(rgba(46,59,36,0.46), rgba(46,59,36,0.46))",
+          }}
+        />
+        <div className="relative z-10 mx-auto max-w-4xl">
           <p className="eyebrow">Commissions</p>
           <h2
             className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl"
@@ -165,7 +178,7 @@ function Index() {
           </h2>
           <p
             className="mx-auto mt-5 max-w-2xl text-base leading-relaxed md:text-lg"
-            style={{ color: "rgba(247, 243, 236, 0.82)" }}
+            style={{ color: "rgba(247, 243, 236, 0.86)" }}
           >
             Commission a custom oil painting of a meaningful place, still life, floral arrangement,
             or memory you want to hold onto. Share what you're imagining and I'll help shape it into
