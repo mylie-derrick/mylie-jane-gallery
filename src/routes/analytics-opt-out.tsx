@@ -14,10 +14,7 @@ export const Route = createFileRoute("/analytics-opt-out")({
 
     return {
       ...head,
-      meta: [
-        ...head.meta,
-        { name: "robots", content: "noindex, nofollow" },
-      ],
+      meta: [...head.meta, { name: "robots", content: "noindex, nofollow" }],
     };
   },
   component: AnalyticsOptOut,
@@ -38,8 +35,8 @@ function AnalyticsOptOut() {
         {saved ? "Analytics opt-out is on." : "Turning analytics opt-out on…"}
       </h1>
       <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-        This browser will no longer send Vercel Analytics pageviews for Mylie Jane Design. Repeat this
-        once on each phone, tablet, computer, or browser you use to visit the site.
+        This browser will no longer send Vercel Analytics pageviews for Mylie Jane Design. Repeat
+        this once on each phone, tablet, computer, or browser you use to visit the site.
       </p>
       <Link
         to="/"
