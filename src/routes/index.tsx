@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { paintings } from "@/lib/paintings";
+import { getFeaturedArtworks } from "@/lib/sanity.artworks";
 import { artworkAlt, defaultSeoImage, seo, websiteSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
@@ -17,11 +17,12 @@ export const Route = createFileRoute("/")({
       meta: [...head.meta, { "script:ld+json": websiteSchema }],
     };
   },
+  loader: () => getFeaturedArtworks(),
   component: Index,
 });
 
 function Index() {
-  const featured = paintings.filter((p) => p.featured);
+  const featured = Route.useLoaderData();
 
   return (
     <>

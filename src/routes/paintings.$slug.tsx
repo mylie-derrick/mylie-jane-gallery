@@ -1,12 +1,16 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getCollection, getPainting, paintings } from "@/lib/paintings";
+import { getAllArtworks, getArtworkBySlug, getCollectionBySlug } from "@/lib/sanity.artworks";
 import { artworkAlt, artworkSchema, seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/paintings/$slug")({
-  loader: ({ params }) => {
-    const painting = getPainting(params.slug);
+  loader: async ({ params }) => {
+    const painting = await getArtworkBySlug(params.slug);
     if (!painting) throw notFound();
-    return { painting };
+    const [allPaintings, collection] = await Promise.all([
+      getAllArtworks(),
+      getCollectionBySlug(painting.collection),
+    ]);
+    return { painting, allPaintings, collection };
   },
   head: ({ loaderData }) => {
     const p = loaderData?.painting;
@@ -16,7 +20,7 @@ export const Route = createFileRoute("/paintings/$slug")({
       title: `${p.title} | Original ${p.category} Oil Painting`,
       description,
       path: `/paintings/${p.slug}`,
-      image: p.image,
+      image: p.socialImage || p.image,
       type: "article",
     });
 
@@ -41,9 +45,10 @@ export const Route = createFileRoute("/paintings/$slug")({
 });
 
 function PaintingPage() {
-  const { painting } = Route.useLoaderData();
-  const collection = getCollection(painting.collection);
-  const others = paintings.filter((p) => p.slug !== painting.slug).slice(0, 3);
+  const { painting, allPaintings, collection } = Route.useLoaderData();
+  const others = allPaintings
+    .filter((p) => p.slug !== painting.slug && p.status !== "archived")
+    .slice(0, 3);
   const available = painting.status === "available";
 
   return (
@@ -86,10 +91,12 @@ function PaintingPage() {
               <dt className="text-muted-foreground">Size</dt>
               <dd className="text-foreground">{painting.size}</dd>
             </div>
-            <div className="flex justify-between border-b border-border/60 pb-2">
-              <dt className="text-muted-foreground">Price</dt>
-              <dd className="text-foreground">{painting.price}</dd>
-            </div>
+            {available && (
+              <div className="flex justify-between border-b border-border/60 pb-2">
+                <dt className="text-muted-foreground">Price</dt>
+                <dd className="text-foreground">{painting.price}</dd>
+              </div>
+            )}
             <div className="flex justify-between border-b border-border/60 pb-2">
               <dt className="text-muted-foreground">Status</dt>
               <dd className="text-foreground">{painting.statusLabel}</dd>

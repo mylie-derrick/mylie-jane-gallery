@@ -1,6 +1,6 @@
 export type CollectionId = "still-lifes" | "landscapes" | "other-work";
 export type PaintingCategory = "Still Life" | "Landscape" | "Other Work";
-export type PaintingStatus = "available" | "sold";
+export type PaintingStatus = "available" | "sold" | "privateCollection" | "notForSale" | "archived";
 
 export interface PaintingEntry {
   slug: string;
@@ -32,7 +32,7 @@ export interface Painting {
   size: string;
   price: string;
   status: PaintingStatus;
-  statusLabel: "Available" | "Sold";
+  statusLabel: "Available" | "Sold" | "Private Collection" | "Not for Sale" | "Archived";
   collection: CollectionId;
   category: PaintingCategory;
   image: string;
@@ -40,6 +40,11 @@ export interface Painting {
   description: string;
   note: string;
   featured: boolean;
+  altText?: string;
+  hoverAltText?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  socialImage?: string;
 }
 
 export const collections: { id: CollectionId; title: string; description: string }[] = [
@@ -71,6 +76,9 @@ const collectionByCategory: Record<PaintingCategory, CollectionId> = {
 const statusLabelByStatus: Record<PaintingStatus, Painting["statusLabel"]> = {
   available: "Available",
   sold: "Sold",
+  privateCollection: "Private Collection",
+  notForSale: "Not for Sale",
+  archived: "Archived",
 };
 
 const paintingEntries: PaintingEntry[] = [
@@ -83,7 +91,8 @@ const paintingEntries: PaintingEntry[] = [
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2024,
-    description: "Freshly gathered peonies arranged in a glass jar, set in a dark floater frame that gives the soft blooms a quiet, elevated presence.",
+    description:
+      "Freshly gathered peonies arranged in a glass jar, set in a dark floater frame that gives the soft blooms a quiet, elevated presence.",
     status: "available",
     featured: true,
     medium: "Oil on Board",
@@ -99,7 +108,8 @@ const paintingEntries: PaintingEntry[] = [
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2025,
-    description: "I arranged this composition around color first. The warm oranges, muted greens, and soft pink flowers each play a distinct role, creating a balance between boldness and delicacy that drew me to paint the scene.",
+    description:
+      "I arranged this composition around color first. The warm oranges, muted greens, and soft pink flowers each play a distinct role, creating a balance between boldness and delicacy that drew me to paint the scene.",
     status: "available",
     featured: true,
     medium: "Oil on Board",
@@ -115,7 +125,8 @@ const paintingEntries: PaintingEntry[] = [
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2022,
-    description: "Inspired by the simple beauty of everyday life, this still life reflects the warmth of home and the joy found in gathering around the table. The familiar objects and soft light are a reminder that some of life’s most meaningful moments are often the simplest.",
+    description:
+      "Inspired by the simple beauty of everyday life, this still life reflects the warmth of home and the joy found in gathering around the table. The familiar objects and soft light are a reminder that some of life’s most meaningful moments are often the simplest.",
     status: "sold",
     medium: "Oil on Board",
     size: "12 x 24",
@@ -145,7 +156,8 @@ const paintingEntries: PaintingEntry[] = [
     secondaryImageFilename: "",
     category: "Still Life",
     year: 2022,
-    description: "Inspired by my grandmother’s perfume collection, this painting is a portrait told through a still life. The objects, colors, and timeless style are all reminders of her and the quiet elegance she carried. Professionally framed and ready to hang.",
+    description:
+      "Inspired by my grandmother’s perfume collection, this painting is a portrait told through a still life. The objects, colors, and timeless style are all reminders of her and the quiet elegance she carried. Professionally framed and ready to hang.",
     status: "available",
     medium: "Oil on Board",
     size: "24 x 48",
@@ -175,7 +187,8 @@ const paintingEntries: PaintingEntry[] = [
     secondaryImageFilename: "",
     category: "Landscape",
     year: 2023,
-    description: "Inspired by the remarkable scenery of Lake Powell, this painting reflects both the beauty of the landscape and the feeling of nostalgia that places like this can hold.",
+    description:
+      "Inspired by the remarkable scenery of Lake Powell, this painting reflects both the beauty of the landscape and the feeling of nostalgia that places like this can hold.",
     status: "available",
     featured: true,
     medium: "Oil on Board",
@@ -191,7 +204,8 @@ const paintingEntries: PaintingEntry[] = [
     secondaryImageFilename: "",
     category: "Landscape",
     year: 2025,
-    description: "Inspired by a landscape in Jackson Hole, this painting reflects one of those moments when the sky seemed to transform the entire scene. My hope is that it evokes a favorite place or memory for whoever spends time with it.",
+    description:
+      "Inspired by a landscape in Jackson Hole, this painting reflects one of those moments when the sky seemed to transform the entire scene. My hope is that it evokes a favorite place or memory for whoever spends time with it.",
     status: "available",
     medium: "Oil on Board",
     size: "24 x 30",
@@ -235,7 +249,7 @@ const paintingEntries: PaintingEntry[] = [
     imageHeight: 3452,
     secondaryImageFilename: "",
     category: "Other Work",
-    year: "2025",
+    year: 2025,
     description: "Portrait profile study created during Mylie's time at the Grand Central Atelier",
     status: "sold",
     medium: "Oil",

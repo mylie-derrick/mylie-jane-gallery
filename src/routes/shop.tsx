@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { paintings } from "@/lib/paintings";
+import { getAllArtworks } from "@/lib/sanity.artworks";
 import { artworkAlt, seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/shop")({
+  loader: () => getAllArtworks(),
   head: () =>
     seo({
       title: "Available Original Oil Paintings | Mylie Jane Design",
@@ -15,8 +16,11 @@ export const Route = createFileRoute("/shop")({
 });
 
 function Shop() {
+  const paintings = Route.useLoaderData();
   const availablePaintings = paintings.filter((painting) => painting.status === "available");
-  const soldPaintings = paintings.filter((painting) => painting.status === "sold");
+  const soldPaintings = paintings.filter((painting) =>
+    ["sold", "privateCollection", "notForSale"].includes(painting.status),
+  );
   const shopPaintings = [...availablePaintings, ...soldPaintings];
   const getColumns = (columnCount: number) =>
     shopPaintings.reduce<Array<typeof shopPaintings>>(
