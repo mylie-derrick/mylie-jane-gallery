@@ -12,10 +12,10 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/gallery")({
   validateSearch: searchSchema,
-  loader: async () => ({
-    paintings: await getAllArtworks(),
-    collections: await getCollections(),
-  }),
+  loader: async () => {
+    const [paintings, collections] = await Promise.all([getAllArtworks(), getCollections()]);
+    return { paintings, collections };
+  },
   head: () =>
     seo({
       title: "Original Oil Painting Gallery | Mylie Jane Design",
@@ -143,6 +143,8 @@ function Gallery() {
             <div className="relative overflow-hidden">
               <img
                 src={painting.image}
+                srcSet={painting.imageSrcSet}
+                sizes={painting.imageSizes}
                 alt={artworkAlt(painting)}
                 width={painting.imageWidth}
                 height={painting.imageHeight}

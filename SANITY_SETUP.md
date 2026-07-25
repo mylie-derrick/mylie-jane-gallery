@@ -96,7 +96,15 @@ These are public read-only config values. Do not add write tokens to the fronten
 VITE_SANITY_PROJECT_ID=upolphdd
 VITE_SANITY_DATASET=production
 VITE_SANITY_API_VERSION=2026-07-20
+VITE_SANITY_CONTENT_MODE=fallback
 ```
+
+`VITE_SANITY_CONTENT_MODE` accepts:
+
+- `fallback`: do not make Sanity artwork or collection requests; use `src/lib/paintings.ts` immediately. This is the safest mode until artwork content has been imported and published in Sanity.
+- `sanity`: query Sanity first, then use the local fallback if Sanity errors or returns no usable records.
+
+Missing or invalid values default to `fallback`.
 
 Optional existing site URL variable:
 

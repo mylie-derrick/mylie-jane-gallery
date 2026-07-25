@@ -25,3 +25,20 @@ export function optimizedSanityImageUrl(
   if (options.fit) image = image.fit(options.fit);
   return image.url();
 }
+
+export function optimizedSanityImageSrcSet(
+  source: SanityImageSource | undefined,
+  widths: number[],
+  options: {
+    height?: number;
+    fit?: "clip" | "crop" | "fill" | "fillmax" | "max" | "scale" | "min";
+  } = {},
+) {
+  if (!source) return "";
+  return widths
+    .map((width) => {
+      const url = optimizedSanityImageUrl(source, { ...options, width });
+      return `${url} ${width}w`;
+    })
+    .join(", ");
+}

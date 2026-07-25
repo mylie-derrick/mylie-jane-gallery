@@ -11,7 +11,8 @@ import {
   type PaintingStatus,
 } from "./paintings";
 import { sanityClient } from "./sanityClient";
-import { optimizedSanityImageUrl } from "./sanity.image";
+import { shouldUseSanityContent } from "./sanity.config";
+import { optimizedSanityImageSrcSet, optimizedSanityImageUrl } from "./sanity.image";
 import {
   allArtworksQuery,
   artworkBySlugQuery,
@@ -47,6 +48,11 @@ const collectionBySlug: Record<string, CollectionId> = {
   landscapes: "landscapes",
   "other-work": "other-work",
 };
+
+const cardImageWidths = [480, 768, 1200];
+const detailImageWidths = [768, 1200, 1600, 2000];
+const cardImageSizes = "(min-width: 1280px) 31vw, (min-width: 640px) 47vw, 100vw";
+const detailImageSizes = "(min-width: 768px) 64rem, 100vw";
 
 function safePlainText(blocks: SanityArtworkRecord["description"]) {
   if (!blocks?.length) return "";
@@ -93,6 +99,11 @@ export function mapSanityArtwork(record: SanityArtworkRecord): Painting | null {
   const publicStatus = status === "archived" ? "archived" : status;
   const primaryWidth = imageWidth(record);
   const primaryHeight = imageHeight(record);
+  const statusLabel = statusLabelByStatus[publicStatus];
+  const displayPrice =
+    status === "available"
+      ? formatPrice(record.price, record.currency)
+      : record.soldNote || statusLabel;
   const primaryImage = optimizedSanityImageUrl(record.primaryImage, {
     width: Math.min(primaryWidth, 1800),
     fit: "max",
@@ -115,16 +126,23 @@ export function mapSanityArtwork(record: SanityArtworkRecord): Painting | null {
     year: record.year ?? "TBD",
     medium: record.medium || "Oil painting",
     size: formatDimensions(record.dimensions),
-    price:
-      status === "available"
-        ? formatPrice(record.price, record.currency)
-        : record.soldNote || statusLabelByStatus[publicStatus],
+    price: displayPrice,
     status: publicStatus,
-    statusLabel: record.soldNote || statusLabelByStatus[publicStatus],
+    statusLabel,
     collection: collectionBySlug[collectionSlug] || "other-work",
     category: categoryByCollectionSlug[collectionSlug] || "Other Work",
     image: primaryImage,
     secondaryImage: hoverImage,
+    imageSrcSet: optimizedSanityImageSrcSet(record.primaryImage, cardImageWidths, { fit: "max" }),
+    imageSizes: cardImageSizes,
+    detailImage: optimizedSanityImageUrl(record.primaryImage, {
+      width: Math.min(primaryWidth, 2000),
+      fit: "max",
+    }),
+    detailImageSrcSet: optimizedSanityImageSrcSet(record.primaryImage, detailImageWidths, {
+      fit: "max",
+    }),
+    detailImageSizes,
     description: safePlainText(record.description),
     note: safePlainText(record.description),
     featured: record.featured ?? false,
@@ -157,11 +175,15 @@ function mappedOrFallback(records: SanityArtworkRecord[] | null, fallback: Paint
 }
 
 export async function getAllArtworks() {
+  if (!shouldUseSanityContent) return fallbackPaintings;
   const records = await fetchSanity<SanityArtworkRecord[]>(allArtworksQuery);
   return mappedOrFallback(records, fallbackPaintings);
 }
 
 export async function getAvailableArtworks() {
+  if (!shouldUseSanityContent) {
+    return fallbackPaintings.filter((painting) => painting.status === "available");
+  }
   const records = await fetchSanity<SanityArtworkRecord[]>(availableArtworksQuery);
   return mappedOrFallback(
     records,
@@ -170,6 +192,7 @@ export async function getAvailableArtworks() {
 }
 
 export async function getFeaturedArtworks() {
+  if (!shouldUseSanityContent) return fallbackPaintings.filter((painting) => painting.featured);
   const records = await fetchSanity<SanityArtworkRecord[]>(featuredArtworksQuery);
   return mappedOrFallback(
     records,
@@ -178,11 +201,13 @@ export async function getFeaturedArtworks() {
 }
 
 export async function getArtworkBySlug(slug: string) {
+  if (!shouldUseSanityContent) return getFallbackPainting(slug);
   const record = await fetchSanity<SanityArtworkRecord | null>(artworkBySlugQuery, { slug });
   return record ? mapSanityArtwork(record) : getFallbackPainting(slug);
 }
 
 export async function getCollections() {
+  if (!shouldUseSanityContent) return fallbackCollections;
   const records = await fetchSanity<SanityCollectionRecord[]>(collectionsQuery);
   if (!records?.length) return fallbackCollections;
   return records.map((record) => ({
@@ -193,6 +218,7 @@ export async function getCollections() {
 }
 
 export async function getCollectionBySlug(slug: string) {
+  if (!shouldUseSanityContent) return getFallbackCollection(slug);
   const record = await fetchSanity<SanityCollectionRecord | null>(collectionBySlugQuery, { slug });
   if (record) {
     return {
@@ -205,5 +231,35 @@ export async function getCollectionBySlug(slug: string) {
 }
 
 export async function getSiteSettings() {
+  if (!shouldUseSanityContent) return null;
   return fetchSanity<SiteSettings>(siteSettingsQuery);
+}
+
+export async function getArtworkPageData(slug: string) {
+  if (!shouldUseSanityContent) {
+    const painting = getFallbackPainting(slug);
+    return {
+      painting,
+      allPaintings: fallbackPaintings,
+      collection: painting ? getFallbackCollection(painting.collection) : undefined,
+    };
+  }
+
+  const record = await fetchSanity<SanityArtworkRecord | null>(artworkBySlugQuery, { slug });
+  const painting = record ? mapSanityArtwork(record) : getFallbackPainting(slug);
+
+  if (!painting || !record) {
+    return {
+      painting,
+      allPaintings: fallbackPaintings,
+      collection: painting ? getFallbackCollection(painting.collection) : undefined,
+    };
+  }
+
+  const [allPaintings, collections] = await Promise.all([getAllArtworks(), getCollections()]);
+  return {
+    painting,
+    allPaintings,
+    collection: collections.find((collection) => collection.id === painting.collection),
+  };
 }

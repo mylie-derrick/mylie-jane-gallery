@@ -1,16 +1,17 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getAllArtworks, getArtworkBySlug, getCollectionBySlug } from "@/lib/sanity.artworks";
+import { getArtworkPageData } from "@/lib/sanity.artworks";
 import { artworkAlt, artworkSchema, seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/paintings/$slug")({
   loader: async ({ params }) => {
-    const painting = await getArtworkBySlug(params.slug);
+    const pageData = await getArtworkPageData(params.slug);
+    const painting = pageData.painting;
     if (!painting) throw notFound();
-    const [allPaintings, collection] = await Promise.all([
-      getAllArtworks(),
-      getCollectionBySlug(painting.collection),
-    ]);
-    return { painting, allPaintings, collection };
+    return {
+      painting,
+      allPaintings: pageData.allPaintings,
+      collection: pageData.collection,
+    };
   },
   head: ({ loaderData }) => {
     const p = loaderData?.painting;
@@ -63,7 +64,9 @@ function PaintingPage() {
       <div className="mt-10 grid gap-12 md:grid-cols-12 md:gap-16">
         <figure className="md:col-span-8">
           <img
-            src={painting.image}
+            src={painting.detailImage || painting.image}
+            srcSet={painting.detailImageSrcSet || painting.imageSrcSet}
+            sizes={painting.detailImageSizes || painting.imageSizes}
             alt={artworkAlt(painting)}
             width={painting.imageWidth}
             height={painting.imageHeight}
@@ -142,7 +145,9 @@ function PaintingPage() {
               >
                 <div className="overflow-hidden bg-muted">
                   <img
-                    src={p.image}
+                    src={p.detailImage || p.image}
+                    srcSet={p.detailImageSrcSet || p.imageSrcSet}
+                    sizes={p.detailImageSizes || p.imageSizes}
                     alt={artworkAlt(p)}
                     loading="lazy"
                     width={p.imageWidth}

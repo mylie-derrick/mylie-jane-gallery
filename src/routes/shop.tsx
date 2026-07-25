@@ -43,6 +43,8 @@ function Shop() {
           <div className="overflow-hidden">
             <img
               src={painting.image}
+              srcSet={painting.imageSrcSet}
+              sizes={painting.imageSizes}
               alt={artworkAlt(painting)}
               width={painting.imageWidth}
               height={painting.imageHeight}

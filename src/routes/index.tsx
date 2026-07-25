@@ -131,6 +131,8 @@ function Index() {
               <div className="overflow-hidden">
                 <img
                   src={p.image}
+                  srcSet={p.imageSrcSet}
+                  sizes={p.imageSizes}
                   alt={artworkAlt(p)}
                   width={p.imageWidth}
                   height={p.imageHeight}

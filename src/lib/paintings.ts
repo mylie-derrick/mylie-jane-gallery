@@ -37,6 +37,11 @@ export interface Painting {
   category: PaintingCategory;
   image: string;
   secondaryImage: string;
+  imageSrcSet?: string;
+  imageSizes?: string;
+  detailImage?: string;
+  detailImageSrcSet?: string;
+  detailImageSizes?: string;
   description: string;
   note: string;
   featured: boolean;
@@ -80,6 +85,26 @@ const statusLabelByStatus: Record<PaintingStatus, Painting["statusLabel"]> = {
   notForSale: "Not for Sale",
   archived: "Archived",
 };
+
+const optimizedArtworkWidths = [480, 768, 1200, 1600, 2000];
+
+function optimizedArtworkImage(slug: string, width: number) {
+  return `/images/optimized/${slug}-${width}.jpg`;
+}
+
+function optimizedArtworkSrcSet(slug: string, maxWidth: number) {
+  return optimizedArtworkWidths
+    .filter((width) => width <= maxWidth)
+    .map((width) => `${optimizedArtworkImage(slug, width)} ${width}w`)
+    .join(", ");
+}
+
+function largestOptimizedArtworkWidth(maxWidth: number) {
+  return (
+    [...optimizedArtworkWidths].reverse().find((width) => width <= maxWidth) ||
+    optimizedArtworkWidths[0]
+  );
+}
 
 const paintingEntries: PaintingEntry[] = [
   {
@@ -279,6 +304,14 @@ export const paintings: Painting[] = paintingEntries.map((entry) => ({
   id: entry.slug,
   image: `/images/${entry.imageFilename}`,
   secondaryImage: entry.secondaryImageFilename ? `/images/${entry.secondaryImageFilename}` : "",
+  imageSrcSet: optimizedArtworkSrcSet(entry.slug, Math.min(entry.imageWidth, 1200)),
+  imageSizes: "(min-width: 1280px) 31vw, (min-width: 640px) 47vw, 100vw",
+  detailImage: optimizedArtworkImage(
+    entry.slug,
+    largestOptimizedArtworkWidth(Math.min(entry.imageWidth, 2000)),
+  ),
+  detailImageSrcSet: optimizedArtworkSrcSet(entry.slug, Math.min(entry.imageWidth, 2000)),
+  detailImageSizes: "(min-width: 768px) 64rem, 100vw",
   collection: collectionByCategory[entry.category],
   note: entry.description,
   statusLabel: statusLabelByStatus[entry.status],
