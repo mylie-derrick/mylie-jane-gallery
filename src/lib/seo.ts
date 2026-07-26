@@ -14,7 +14,10 @@ export function absoluteUrl(path = "/") {
 }
 
 export function artworkAlt(painting: Painting) {
-  return `${painting.title}, an original ${painting.category.toLowerCase()} oil painting by ${artistName}.`;
+  return (
+    painting.altText ||
+    `${painting.title}, an original ${painting.category.toLowerCase()} oil painting by ${artistName}.`
+  );
 }
 
 export function seo({

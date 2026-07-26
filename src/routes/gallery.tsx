@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
-import { collections, paintings, type CollectionId } from "@/lib/paintings";
+import type { CollectionId } from "@/lib/paintings";
+import { getAllArtworks, getCollections } from "@/lib/sanity.artworks";
 import { artworkAlt, seo } from "@/lib/seo";
 
 const searchSchema = z.object({
@@ -11,6 +12,10 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/gallery")({
   validateSearch: searchSchema,
+  loader: async () => {
+    const [paintings, collections] = await Promise.all([getAllArtworks(), getCollections()]);
+    return { paintings, collections };
+  },
   head: () =>
     seo({
       title: "Original Oil Painting Gallery | Mylie Jane Design",
@@ -38,6 +43,7 @@ const eventStartedInArtwork = (event: PointerEvent) =>
 
 function Gallery() {
   const { category } = Route.useSearch();
+  const { paintings, collections } = Route.useLoaderData();
   const [activePainting, setActivePainting] = useState<string | null>(null);
   const activePaintingRef = useRef<string | null>(null);
   const suppressClickForSlug = useRef<string | null>(null);
@@ -137,6 +143,8 @@ function Gallery() {
             <div className="relative overflow-hidden">
               <img
                 src={painting.image}
+                srcSet={painting.imageSrcSet}
+                sizes={painting.imageSizes}
                 alt={artworkAlt(painting)}
                 width={painting.imageWidth}
                 height={painting.imageHeight}

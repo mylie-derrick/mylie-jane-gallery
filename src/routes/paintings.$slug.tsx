@@ -1,12 +1,17 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getCollection, getPainting, paintings } from "@/lib/paintings";
+import { getArtworkPageData } from "@/lib/sanity.artworks";
 import { artworkAlt, artworkSchema, seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/paintings/$slug")({
-  loader: ({ params }) => {
-    const painting = getPainting(params.slug);
+  loader: async ({ params }) => {
+    const pageData = await getArtworkPageData(params.slug);
+    const painting = pageData.painting;
     if (!painting) throw notFound();
-    return { painting };
+    return {
+      painting,
+      allPaintings: pageData.allPaintings,
+      collection: pageData.collection,
+    };
   },
   head: ({ loaderData }) => {
     const p = loaderData?.painting;
@@ -16,7 +21,7 @@ export const Route = createFileRoute("/paintings/$slug")({
       title: `${p.title} | Original ${p.category} Oil Painting`,
       description,
       path: `/paintings/${p.slug}`,
-      image: p.image,
+      image: p.socialImage || p.image,
       type: "article",
     });
 
@@ -41,9 +46,10 @@ export const Route = createFileRoute("/paintings/$slug")({
 });
 
 function PaintingPage() {
-  const { painting } = Route.useLoaderData();
-  const collection = getCollection(painting.collection);
-  const others = paintings.filter((p) => p.slug !== painting.slug).slice(0, 3);
+  const { painting, allPaintings, collection } = Route.useLoaderData();
+  const others = allPaintings
+    .filter((p) => p.slug !== painting.slug && p.status !== "archived")
+    .slice(0, 3);
   const available = painting.status === "available";
 
   return (
@@ -58,7 +64,9 @@ function PaintingPage() {
       <div className="mt-10 grid gap-12 md:grid-cols-12 md:gap-16">
         <figure className="md:col-span-8">
           <img
-            src={painting.image}
+            src={painting.detailImage || painting.image}
+            srcSet={painting.detailImageSrcSet || painting.imageSrcSet}
+            sizes={painting.detailImageSizes || painting.imageSizes}
             alt={artworkAlt(painting)}
             width={painting.imageWidth}
             height={painting.imageHeight}
@@ -86,10 +94,12 @@ function PaintingPage() {
               <dt className="text-muted-foreground">Size</dt>
               <dd className="text-foreground">{painting.size}</dd>
             </div>
-            <div className="flex justify-between border-b border-border/60 pb-2">
-              <dt className="text-muted-foreground">Price</dt>
-              <dd className="text-foreground">{painting.price}</dd>
-            </div>
+            {available && (
+              <div className="flex justify-between border-b border-border/60 pb-2">
+                <dt className="text-muted-foreground">Price</dt>
+                <dd className="text-foreground">{painting.price}</dd>
+              </div>
+            )}
             <div className="flex justify-between border-b border-border/60 pb-2">
               <dt className="text-muted-foreground">Status</dt>
               <dd className="text-foreground">{painting.statusLabel}</dd>
@@ -135,7 +145,9 @@ function PaintingPage() {
               >
                 <div className="overflow-hidden bg-muted">
                   <img
-                    src={p.image}
+                    src={p.detailImage || p.image}
+                    srcSet={p.detailImageSrcSet || p.imageSrcSet}
+                    sizes={p.detailImageSizes || p.imageSizes}
                     alt={artworkAlt(p)}
                     loading="lazy"
                     width={p.imageWidth}

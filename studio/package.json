@@ -1,0 +1,25 @@
+{
+  "name": "mylie-jane-design-studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "schema:deploy": "sanity schema deploy"
+  },
+  "dependencies": {
+    "@sanity/vision": "^6.5.0",
+    "sanity": "^6.5.0",
+    "styled-components": "^6.4.4"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^6.0.0",
+    "@types/node": "^26.1.1",
+    "eslint": "^9.39.5",
+    "prettier": "^3.9.5",
+    "typescript": "^6.0.3"
+  }
+}
