@@ -74,11 +74,40 @@ function orientationFromDimensions(dimensions) {
   if (ratio < 0.92) return "portrait";
   return "square";
 }
+function stableKey(...parts) {
+  return parts
+    .filter(Boolean)
+    .join("-")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
 function blockText(text) {
-  return [{ _type: "block", style: "normal", children: [{ _type: "span", text: text || "" }] }];
+  return [
+    {
+      _key: "description-block",
+      _type: "block",
+      style: "normal",
+      children: [{ _key: "description-span", _type: "span", text: text || "" }],
+    },
+  ];
 }
 async function uploadImage(filename, title) {
   if (!filename) return undefined;
+  const existing = await client.fetch(
+    '*[_type == "sanity.imageAsset" && originalFilename == $filename][0]{_id}',
+    {
+      filename,
+    },
+  );
+  if (existing?._id) {
+    return {
+      _type: "image",
+      asset: { _type: "reference", _ref: existing._id },
+      alt: `${title} by Mylie Jane Derrick`,
+    };
+  }
   const filePath = path.join(rootDir, "public", "images", filename);
   const buffer = await fs.readFile(filePath);
   const asset = await client.assets.upload("image", buffer, { filename, title });
@@ -232,7 +261,13 @@ async function main() {
       currency: "USD",
       saleMethod: artwork.status === "available" ? "inquiry" : "none",
       soldNote: artwork.status === "sold" ? "Sold" : undefined,
-      collections: [{ _type: "reference", _ref: `collection-${artwork.collection}` }],
+      collections: [
+        {
+          _key: stableKey("collection", artwork.collection),
+          _type: "reference",
+          _ref: `collection-${artwork.collection}`,
+        },
+      ],
       featured: Boolean(artwork.featured),
       displayOrder: index,
     });
