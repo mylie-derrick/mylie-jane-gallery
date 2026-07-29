@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { PolishedImage } from "@/components/PolishedImage";
 import { getFeaturedArtworks } from "@/lib/sanity.artworks";
 import { artworkAlt, defaultSeoImage, seo, websiteSchema } from "@/lib/seo";
 
@@ -59,6 +60,8 @@ function Index() {
           </h1>
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
+              preload="intent"
+              preloadDelay={80}
               to="/gallery"
               className="inline-flex items-center justify-center border border-[color:var(--brand-cream)]/30 bg-[color:var(--brand-header-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-deep-moss)]"
             >
@@ -113,6 +116,8 @@ function Index() {
             </h2>
           </div>
           <Link
+            preload="intent"
+            preloadDelay={80}
             to="/gallery"
             className="hidden text-sm uppercase tracking-[0.22em] md:inline"
             style={{ color: "var(--brand-cream)" }}
@@ -124,12 +129,14 @@ function Index() {
           {featured.map((p) => (
             <Link
               key={p.slug}
+              preload="intent"
+              preloadDelay={80}
               to="/paintings/$slug"
               params={{ slug: p.slug }}
               className="group mb-12 block break-inside-avoid"
             >
               <div className="overflow-hidden">
-                <img
+                <PolishedImage
                   src={p.image}
                   srcSet={p.imageSrcSet}
                   sizes={p.imageSizes}

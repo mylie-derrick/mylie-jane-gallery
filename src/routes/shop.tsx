@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { PolishedImage } from "@/components/PolishedImage";
 import { getAllArtworks } from "@/lib/sanity.artworks";
 import { artworkAlt, seo } from "@/lib/seo";
 
@@ -39,9 +40,15 @@ function Shop() {
 
     return (
       <article key={painting.slug} className="group">
-        <Link to="/paintings/$slug" params={{ slug: painting.slug }} className="block">
+        <Link
+          preload="intent"
+          preloadDelay={80}
+          to="/paintings/$slug"
+          params={{ slug: painting.slug }}
+          className="block"
+        >
           <div className="overflow-hidden">
-            <img
+            <PolishedImage
               src={painting.image}
               srcSet={painting.imageSrcSet}
               sizes={painting.imageSizes}

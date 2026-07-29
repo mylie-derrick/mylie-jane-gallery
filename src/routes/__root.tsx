@@ -28,6 +28,7 @@ import {
 
 const ANALYTICS_OPT_OUT_KEY = "myliejanedesign:analytics-opt-out";
 const ANALYTICS_OPT_OUT_PATH = "/analytics-opt-out";
+const preloadIntent = { preload: "intent" as const, preloadDelay: 80 };
 
 function filterMylieAnalytics(event: BeforeSendEvent) {
   if (event.url.includes(ANALYTICS_OPT_OUT_PATH)) {
@@ -305,6 +306,7 @@ function SiteHeader() {
               }`}
             >
               <Link
+                {...preloadIntent}
                 to="/gallery"
                 className={`${linkBase} opacity-80`}
                 style={{ color: "var(--brand-forest-green)" }}
@@ -314,6 +316,7 @@ function SiteHeader() {
                 Gallery
               </Link>
               <Link
+                {...preloadIntent}
                 to="/shop"
                 className={`${linkBase} opacity-80`}
                 style={{ color: "var(--brand-forest-green)" }}
@@ -348,6 +351,7 @@ function SiteHeader() {
           className="hidden flex-col gap-4 pt-3 md:flex md:flex-row md:flex-wrap md:items-center md:gap-x-8 md:gap-y-3 md:pt-0"
         >
           <Link
+            {...preloadIntent}
             to="/gallery"
             className={`${linkBase} opacity-80`}
             style={{ color: navTextColor }}
@@ -356,6 +360,7 @@ function SiteHeader() {
             Gallery
           </Link>
           <Link
+            {...preloadIntent}
             to="/shop"
             className={`${linkBase} opacity-80`}
             style={{ color: navTextColor }}
@@ -406,10 +411,10 @@ function SiteFooter() {
           </p>
         </div>
         <div className="flex flex-wrap gap-x-8 gap-y-2">
-          <Link to="/gallery" className={linkCls}>
+          <Link {...preloadIntent} to="/gallery" className={linkCls}>
             Gallery
           </Link>
-          <Link to="/shop" className={linkCls}>
+          <Link {...preloadIntent} to="/shop" className={linkCls}>
             Available Work
           </Link>
           <Link to="/about" className={linkCls}>
@@ -440,6 +445,7 @@ function SiteFooter() {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const isRouteLoading = useRouterState({ select: (state) => state.status === "pending" });
   const isHome = pathname === "/";
   const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
   const pageThemeClass = isDarkPage ? "theme-dark" : "theme-light";
@@ -448,7 +454,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}>
         <SiteHeader />
-        <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
+        <main
+          key={pathname}
+          data-route-loading={isRouteLoading ? "true" : "false"}
+          className={`route-transition-surface flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}
+        >
           <Outlet />
         </main>
         <SiteFooter />

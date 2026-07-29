@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { PolishedImage } from "@/components/PolishedImage";
 import { getArtworkPageData } from "@/lib/sanity.artworks";
 import { artworkAlt, artworkSchema, seo } from "@/lib/seo";
 
@@ -55,6 +56,8 @@ function PaintingPage() {
   return (
     <article className="mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-24">
       <Link
+        preload="intent"
+        preloadDelay={80}
         to="/gallery"
         className="text-sm uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground"
       >
@@ -63,7 +66,7 @@ function PaintingPage() {
 
       <div className="mt-10 grid gap-12 md:grid-cols-12 md:gap-16">
         <figure className="md:col-span-8">
-          <img
+          <PolishedImage
             src={painting.detailImage || painting.image}
             srcSet={painting.detailImageSrcSet || painting.imageSrcSet}
             sizes={painting.detailImageSizes || painting.imageSizes}
@@ -139,12 +142,14 @@ function PaintingPage() {
             {others.map((p) => (
               <Link
                 key={p.slug}
+                preload="intent"
+                preloadDelay={80}
                 to="/paintings/$slug"
                 params={{ slug: p.slug }}
                 className="group block"
               >
                 <div className="overflow-hidden bg-muted">
-                  <img
+                  <PolishedImage
                     src={p.detailImage || p.image}
                     srcSet={p.detailImageSrcSet || p.imageSrcSet}
                     sizes={p.detailImageSizes || p.imageSizes}

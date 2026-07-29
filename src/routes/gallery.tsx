@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
+import { PolishedImage } from "@/components/PolishedImage";
 import type { CollectionId } from "@/lib/paintings";
 import { getAllArtworks, getCollections } from "@/lib/sanity.artworks";
 import { artworkAlt, seo } from "@/lib/seo";
@@ -132,6 +133,8 @@ function Gallery() {
         {visiblePaintings.map((painting) => (
           <Link
             key={painting.slug}
+            preload="intent"
+            preloadDelay={80}
             to="/paintings/$slug"
             params={{ slug: painting.slug }}
             data-gallery-artwork
@@ -141,7 +144,7 @@ function Gallery() {
             aria-label={`${painting.title}, ${painting.statusLabel}`}
           >
             <div className="relative overflow-hidden">
-              <img
+              <PolishedImage
                 src={painting.image}
                 srcSet={painting.imageSrcSet}
                 sizes={painting.imageSizes}
