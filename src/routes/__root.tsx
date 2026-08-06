@@ -445,7 +445,6 @@ function SiteFooter() {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  const isRouteLoading = useRouterState({ select: (state) => state.status === "pending" });
   const isHome = pathname === "/";
   const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
   const pageThemeClass = isDarkPage ? "theme-dark" : "theme-light";
@@ -456,7 +455,6 @@ function RootComponent() {
         <SiteHeader />
         <main
           key={pathname}
-          data-route-loading={isRouteLoading ? "true" : "false"}
           className={`route-transition-surface flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}
         >
           <Outlet />
