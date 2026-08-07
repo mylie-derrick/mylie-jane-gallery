@@ -1,64 +1,79 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <title>Commission Section Design Previews</title>
-  <style>
-    :root {
-      --cream: #f7f3ec;
-      --cream-deep: #eae2d3;
-      --sage: #94a87c;
-      --header: #4a5d3a;
-      --moss: #43523a;
-      --forest: #2e3b24;
-      --ink: #1a1a1a;
-      --warm: #5a4e44;
-      --mauve: #c4a8a0;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--cream); color: var(--ink); font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-    .site-header { height: 126px; background: var(--header); color: var(--cream); display:flex; align-items:center; justify-content:space-between; padding: 0 50px; border-bottom: 1px solid rgba(247,243,236,.22); }
-    .brand { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; line-height:.85; }
-    .tag { margin-top: 24px; font-size: 13px; letter-spacing: .34em; text-transform: uppercase; opacity:.78; }
-    nav { display:flex; gap: 68px; font-size: 14px; letter-spacing:.34em; text-transform: uppercase; opacity:.82; }
-    .page { min-height: calc(100vh - 126px); }
-    .eyebrow { font-size: 12px; letter-spacing:.32em; text-transform: uppercase; color: var(--forest); font-weight:500; }
-    h1, h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight:400; letter-spacing:-.015em; color: var(--ink); }
-    h1 { font-size: clamp(48px, 6vw, 88px); line-height:.95; }
-    h2 { font-size: clamp(42px, 4vw, 64px); line-height:1; }
-    p { color: var(--warm); line-height:1.75; font-size: 18px; }
-    .button { display:inline-flex; align-items:center; gap:16px; text-decoration:none; color: var(--cream); background: var(--forest); padding: 19px 30px; text-transform:uppercase; letter-spacing:.28em; font-size:12px; transition: transform .25s ease, background .25s ease; }
-    .button:hover { transform: translateY(-2px); background: var(--header); }
-    .button.light { color: var(--forest); background: var(--cream); border:1px solid rgba(46,59,36,.25); }
-    .button.light:hover { background: #fffaf2; }
-    img { display:block; max-width:100%; object-fit:cover; }
-    .variant-label { position: fixed; right: 24px; bottom: 20px; z-index:10; color: rgba(46,59,36,.7); font-size:11px; letter-spacing:.22em; text-transform:uppercase; }
-    @media (max-width: 900px) { .site-header {height:auto; padding:28px 24px; flex-direction:column; align-items:flex-start; gap:28px;} nav {gap:20px; flex-wrap:wrap; font-size:11px;} }
-  </style>
-</head>
-<body>
-  <header class="site-header">
-    <div>
-      <div class="brand">Mylie Jane Derrick</div>
-      <div class="tag">Mylie Jane Design · Oil Paintings</div>
-    </div>
-    <nav><span>Gallery</span><span>Available Work</span><span>About</span><span>Contact</span></nav>
-  </header>
-
-  <main class="page" style="padding:80px 7vw 100px;">
-    <section style="max-width:1050px;margin:0 auto;">
-      <div class="eyebrow">Design previews</div>
-      <h1 style="margin-top:22px;max-width:850px;">Three quieter directions for the commissions section.</h1>
-      <p style="margin-top:28px;max-width:760px;">These are standalone previews only — they do not change the live site. Each option moves away from the heavy blurred banner and toward something warmer, more editorial, and more artist-led.</p>
-      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:54px;">
-        <a class="button" href="./soft-editorial-split/" style="justify-content:center;text-align:center;">Preview 1</a>
-        <a class="button" href="./collector-note-card/" style="justify-content:center;text-align:center;">Preview 2</a>
-        <a class="button" href="./artwork-led-invitation/" style="justify-content:center;text-align:center;">Preview 3</a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Commission previews</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f7f3ec;
+        color: #1a1a1a;
+        font-family: Inter, system-ui, sans-serif;
+        padding: 64px 24px;
+      }
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      p {
+        color: #5a4e44;
+        line-height: 1.7;
+      }
+      h1 {
+        font-family: Georgia, serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(38px, 6vw, 68px);
+        line-height: 1;
+      }
+      .grid {
+        display: grid;
+        gap: 18px;
+        margin-top: 36px;
+      }
+      a {
+        display: block;
+        border: 1px solid rgba(196, 168, 160, 0.8);
+        padding: 24px;
+        text-decoration: none;
+        color: #2e3b24;
+        background: #fffaf2;
+      }
+      strong {
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+      span {
+        color: #5a4e44;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Commission previews in the actual homepage layout.</h1>
+      <p>
+        I replaced the wonky standalone mockups with links that load the real homepage and swap only
+        the commissions section. This should make the previews fit the main page around it.
+      </p>
+      <div class="grid">
+        <a href="/?commissionPreview=soft-editorial#commission-preview"
+          ><strong>Preview 1</strong
+          ><span>Soft editorial split section inside the homepage.</span></a
+        ><a href="/?commissionPreview=collector-card#commission-preview"
+          ><strong>Preview 2</strong
+          ><span>Collector note card section inside the homepage.</span></a
+        ><a href="/?commissionPreview=artwork-led#commission-preview"
+          ><strong>Preview 3</strong><span>Artwork-led dark section inside the homepage.</span></a
+        >
       </div>
-    </section>
-  </main>
-</body></html>
+    </main>
+  </body>
+</html>

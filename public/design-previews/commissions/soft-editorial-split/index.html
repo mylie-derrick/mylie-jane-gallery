@@ -1,83 +1,21 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <title>Preview 1 — Soft Editorial Split</title>
-  <style>
-    :root {
-      --cream: #f7f3ec;
-      --cream-deep: #eae2d3;
-      --sage: #94a87c;
-      --header: #4a5d3a;
-      --moss: #43523a;
-      --forest: #2e3b24;
-      --ink: #1a1a1a;
-      --warm: #5a4e44;
-      --mauve: #c4a8a0;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--cream); color: var(--ink); font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-    .site-header { height: 126px; background: var(--header); color: var(--cream); display:flex; align-items:center; justify-content:space-between; padding: 0 50px; border-bottom: 1px solid rgba(247,243,236,.22); }
-    .brand { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; line-height:.85; }
-    .tag { margin-top: 24px; font-size: 13px; letter-spacing: .34em; text-transform: uppercase; opacity:.78; }
-    nav { display:flex; gap: 68px; font-size: 14px; letter-spacing:.34em; text-transform: uppercase; opacity:.82; }
-    .page { min-height: calc(100vh - 126px); }
-    .eyebrow { font-size: 12px; letter-spacing:.32em; text-transform: uppercase; color: var(--forest); font-weight:500; }
-    h1, h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight:400; letter-spacing:-.015em; color: var(--ink); }
-    h1 { font-size: clamp(48px, 6vw, 88px); line-height:.95; }
-    h2 { font-size: clamp(42px, 4vw, 64px); line-height:1; }
-    p { color: var(--warm); line-height:1.75; font-size: 18px; }
-    .button { display:inline-flex; align-items:center; gap:16px; text-decoration:none; color: var(--cream); background: var(--forest); padding: 19px 30px; text-transform:uppercase; letter-spacing:.28em; font-size:12px; transition: transform .25s ease, background .25s ease; }
-    .button:hover { transform: translateY(-2px); background: var(--header); }
-    .button.light { color: var(--forest); background: var(--cream); border:1px solid rgba(46,59,36,.25); }
-    .button.light:hover { background: #fffaf2; }
-    img { display:block; max-width:100%; object-fit:cover; }
-    .variant-label { position: fixed; right: 24px; bottom: 20px; z-index:10; color: rgba(46,59,36,.7); font-size:11px; letter-spacing:.22em; text-transform:uppercase; }
-    @media (max-width: 900px) { .site-header {height:auto; padding:28px 24px; flex-direction:column; align-items:flex-start; gap:28px;} nav {gap:20px; flex-wrap:wrap; font-size:11px;} }
-  </style>
-</head>
-<body>
-  <header class="site-header">
-    <div>
-      <div class="brand">Mylie Jane Derrick</div>
-      <div class="tag">Mylie Jane Design · Oil Paintings</div>
-    </div>
-
-  <main class="page split-page">
-    <style>
-      .split-page { padding: 88px 7vw 96px; }
-      .split { max-width: 1220px; margin: 0 auto; display:grid; grid-template-columns: .92fr 1.08fr; align-items:center; gap:72px; }
-      .copy { padding: 48px 0; }
-      .copy h1 { margin-top: 20px; max-width: 650px; }
-      .copy p { margin-top: 30px; max-width: 610px; }
-      .note { margin-top: 32px; padding-left: 22px; border-left: 1px solid var(--mauve); color: var(--warm); font-size:15px; line-height:1.8; max-width: 500px; }
-      .actions { margin-top: 44px; display:flex; align-items:center; gap:28px; flex-wrap:wrap; }
-      .secondary { color: var(--forest); text-transform:uppercase; letter-spacing:.24em; font-size:12px; text-decoration:none; border-bottom:1px solid var(--mauve); padding-bottom:7px; }
-      .image-wrap { position:relative; min-height: 650px; }
-      .sage-block { position:absolute; inset: 50px 0 0 84px; background: var(--sage); opacity:.58; }
-      .image-main { position:absolute; width: 78%; height: 560px; left:0; top:0; box-shadow: 0 32px 80px -45px rgba(46,59,36,.55); }
-      .image-small { position:absolute; width: 42%; height: 250px; right:0; bottom:0; border: 12px solid var(--cream); box-shadow: 0 22px 60px -42px rgba(26,26,26,.55); }
-      .caption { position:absolute; left: 28px; bottom: 34px; background: rgba(247,243,236,.88); color: var(--forest); padding: 12px 16px; font-size:11px; letter-spacing:.22em; text-transform:uppercase; }
-      @media(max-width: 900px){ .split { grid-template-columns: 1fr; } .image-wrap { min-height:520px;} .image-main{height:430px;} }
-    </style>
-    <section class="split">
-      <div class="copy">
-        <div class="eyebrow">Commissions</div>
-        <h1>A painting made for a place, memory, or season you want to keep.</h1>
-        <p>I take on a limited number of custom oil paintings inspired by meaningful landscapes, florals, homes, still lifes, and memories. If you have an idea that feels connected to my work, I’d love to hear about it.</p>
-        <div class="note">Best for a homepage section that should feel calm, elevated, personal, and artist-led — less like a sales banner, more like a studio invitation.</div>
-        <div class="actions"><a class="button" href="#">Start an inquiry</a><a class="secondary" href="#">View past work</a></div>
-      </div>
-      <div class="image-wrap">
-        <div class="sage-block"></div>
-        <img class="image-main" src="/images/hero-painting-process.jpg" alt="Painting process at Mylie's studio">
-        <img class="image-small" src="/images/optimized/peonies-768.jpg" alt="Peonies oil painting detail">
-        <div class="caption">Studio process · oil on canvas</div>
-      </div>
-    </section>
-  </main>
-</body></html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="refresh"
+      content="0; url=/?commissionPreview=soft-editorial#commission-preview"
+    />
+    <script>
+      location.replace("/?commissionPreview=soft-editorial#commission-preview");
+    </script>
+    <title>Redirecting</title>
+  </head>
+  <body>
+    <p>
+      <a href="/?commissionPreview=soft-editorial#commission-preview"
+        >Open preview in homepage layout</a
+      >
+    </p>
+  </body>
+</html>

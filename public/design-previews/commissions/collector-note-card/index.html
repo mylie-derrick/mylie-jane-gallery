@@ -1,86 +1,21 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <title>Preview 2 — Collector Note Card</title>
-  <style>
-    :root {
-      --cream: #f7f3ec;
-      --cream-deep: #eae2d3;
-      --sage: #94a87c;
-      --header: #4a5d3a;
-      --moss: #43523a;
-      --forest: #2e3b24;
-      --ink: #1a1a1a;
-      --warm: #5a4e44;
-      --mauve: #c4a8a0;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--cream); color: var(--ink); font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-    .site-header { height: 126px; background: var(--header); color: var(--cream); display:flex; align-items:center; justify-content:space-between; padding: 0 50px; border-bottom: 1px solid rgba(247,243,236,.22); }
-    .brand { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; line-height:.85; }
-    .tag { margin-top: 24px; font-size: 13px; letter-spacing: .34em; text-transform: uppercase; opacity:.78; }
-    nav { display:flex; gap: 68px; font-size: 14px; letter-spacing:.34em; text-transform: uppercase; opacity:.82; }
-    .page { min-height: calc(100vh - 126px); }
-    .eyebrow { font-size: 12px; letter-spacing:.32em; text-transform: uppercase; color: var(--forest); font-weight:500; }
-    h1, h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight:400; letter-spacing:-.015em; color: var(--ink); }
-    h1 { font-size: clamp(48px, 6vw, 88px); line-height:.95; }
-    h2 { font-size: clamp(42px, 4vw, 64px); line-height:1; }
-    p { color: var(--warm); line-height:1.75; font-size: 18px; }
-    .button { display:inline-flex; align-items:center; gap:16px; text-decoration:none; color: var(--cream); background: var(--forest); padding: 19px 30px; text-transform:uppercase; letter-spacing:.28em; font-size:12px; transition: transform .25s ease, background .25s ease; }
-    .button:hover { transform: translateY(-2px); background: var(--header); }
-    .button.light { color: var(--forest); background: var(--cream); border:1px solid rgba(46,59,36,.25); }
-    .button.light:hover { background: #fffaf2; }
-    img { display:block; max-width:100%; object-fit:cover; }
-    .variant-label { position: fixed; right: 24px; bottom: 20px; z-index:10; color: rgba(46,59,36,.7); font-size:11px; letter-spacing:.22em; text-transform:uppercase; }
-    @media (max-width: 900px) { .site-header {height:auto; padding:28px 24px; flex-direction:column; align-items:flex-start; gap:28px;} nav {gap:20px; flex-wrap:wrap; font-size:11px;} }
-  </style>
-</head>
-<body>
-  <header class="site-header">
-    <div>
-      <div class="brand">Mylie Jane Derrick</div>
-      <div class="tag">Mylie Jane Design · Oil Paintings</div>
-    </div>
-
-  <main class="page card-page">
-    <style>
-      .card-page { background: linear-gradient(180deg, var(--cream) 0%, #eee6d8 100%); padding: 88px 6vw 110px; }
-      .frame { max-width: 1180px; margin: 0 auto; border:1px solid rgba(46,59,36,.28); background: rgba(247,243,236,.76); padding: 24px; box-shadow: 0 40px 100px -76px rgba(46,59,36,.7); }
-      .card { display:grid; grid-template-columns: 1fr 1.06fr; min-height: 620px; background: var(--cream); }
-      .image-panel { position:relative; background:var(--moss); padding:28px; display:grid; grid-template-rows: 1fr auto; gap:22px; }
-      .image-panel img { width:100%; height:100%; min-height: 440px; filter:saturate(.94); }
-      .mini-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; height:130px; }
-      .mini-row img { min-height:0; }
-      .content { padding: 76px clamp(42px, 6vw, 88px); display:flex; flex-direction:column; justify-content:center; }
-      .content h1 { margin-top: 22px; font-size: clamp(46px, 5vw, 74px); }
-      .content p { margin-top: 28px; }
-      .list { margin-top: 34px; display:grid; gap:16px; color:var(--forest); font-size:15px; }
-      .list span { padding-bottom:14px; border-bottom:1px solid rgba(196,168,160,.55); }
-      .actions { margin-top: 42px; }
-      @media(max-width:900px){ .card{grid-template-columns:1fr;} .content{padding:48px 28px;} }
-    </style>
-    <section class="frame">
-      <div class="card">
-        <div class="image-panel">
-          <img src="/images/commissions-process.jpeg" alt="Paint and palette in the studio">
-          <div class="mini-row">
-            <img src="/images/optimized/oranges-and-blooms-768.jpg" alt="Still life painting detail">
-            <img src="/images/optimized/wahweap-768.jpg" alt="Landscape painting detail">
-          </div>
-        </div>
-        <div class="content">
-          <div class="eyebrow">Commissioned paintings</div>
-          <h1>For meaningful places, gifts, and memories.</h1>
-          <p>Custom paintings begin with a photo, a place, a flower, a home, or a feeling you want translated into paint. From there, we’ll talk through size, timeline, and whether the subject feels like the right fit.</p>
-          <div class="list"><span>Landscapes from places you love</span><span>Florals, still lifes, homes, and personal gifts</span><span>A limited number of pieces each season</span></div>
-          <div class="actions"><a class="button" href="#">Ask about a commission</a></div>
-        </div>
-      </div>
-    </section>
-  </main>
-</body></html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="refresh"
+      content="0; url=/?commissionPreview=collector-card#commission-preview"
+    />
+    <script>
+      location.replace("/?commissionPreview=collector-card#commission-preview");
+    </script>
+    <title>Redirecting</title>
+  </head>
+  <body>
+    <p>
+      <a href="/?commissionPreview=collector-card#commission-preview"
+        >Open preview in homepage layout</a
+      >
+    </p>
+  </body>
+</html>
