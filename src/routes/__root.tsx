@@ -326,6 +326,7 @@ function SiteHeader() {
                 Available Work
               </Link>
               <Link
+                {...preloadIntent}
                 to="/about"
                 className={`${linkBase} opacity-80`}
                 style={{ color: "var(--brand-forest-green)" }}
@@ -335,6 +336,7 @@ function SiteHeader() {
                 About
               </Link>
               <Link
+                {...preloadIntent}
                 to="/contact"
                 className={`${linkBase} opacity-80`}
                 style={{ color: "var(--brand-forest-green)" }}
@@ -369,6 +371,7 @@ function SiteHeader() {
             Available Work
           </Link>
           <Link
+            {...preloadIntent}
             to="/about"
             className={`${linkBase} opacity-80`}
             style={{ color: navTextColor }}
@@ -377,6 +380,7 @@ function SiteHeader() {
             About
           </Link>
           <Link
+            {...preloadIntent}
             to="/contact"
             className={`${linkBase} opacity-80`}
             style={{ color: navTextColor }}
@@ -453,10 +457,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}>
         <SiteHeader />
-        <main
-          key={pathname}
-          className={`route-transition-surface flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}
-        >
+        <main className={`route-transition-surface flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
           <Outlet />
         </main>
         <SiteFooter />

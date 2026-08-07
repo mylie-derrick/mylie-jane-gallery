@@ -54,7 +54,7 @@ function About() {
             className="mt-4 font-serif text-4xl italic leading-tight md:text-5xl"
             style={{ color: "var(--brand-ink)" }}
           >
-            Utah oil painter creating original still life and landscape paintings.
+            Hi, I'm Mylie.
           </h1>
 
           <div className="mt-10 space-y-5 text-base leading-8 md:text-lg">
