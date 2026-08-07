@@ -19,9 +19,9 @@ export const Route = createFileRoute("/gallery")({
   },
   head: () =>
     seo({
-      title: "Original Oil Painting Gallery | Mylie Jane Design",
+      title: "Utah Oil Painting Gallery | Landscapes & Still Lifes by Mylie Jane",
       description:
-        "Browse Mylie Jane Derrick's original oil painting gallery, including still life paintings, Utah-inspired landscapes, portraits, and studies.",
+        "Browse original oil paintings by Utah artist Mylie Jane Derrick, including nature-inspired landscapes, still lifes, portraits, and studies.",
       path: "/gallery",
       image: "/images/freshly-cut.jpg",
     }),
@@ -94,10 +94,11 @@ function Gallery() {
         <div className="max-w-2xl md:col-span-7">
           <p className="eyebrow">Gallery</p>
           <h1 className="mt-4 font-serif text-4xl italic leading-tight text-foreground md:text-6xl">
-            Original paintings, gathered by series.
+            Original oil paintings, landscapes, still lifes, and studies.
           </h1>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            Browse still lifes, landscapes, portraits, and studies.
+            Browse original oil paintings by Utah artist Mylie Jane Derrick, including
+            nature-inspired landscapes, still lifes, portraits, and studies.
           </p>
         </div>
         <div className="md:col-span-5">

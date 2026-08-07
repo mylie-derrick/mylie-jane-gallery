@@ -6,9 +6,9 @@ import { artworkAlt, defaultSeoImage, seo, websiteSchema } from "@/lib/seo";
 export const Route = createFileRoute("/")({
   head: () => {
     const head = seo({
-      title: "Mylie Jane Design | Original Oil Paintings by Mylie Jane Derrick",
+      title: "Utah Oil Painter | Original Paintings by Mylie Jane Derrick",
       description:
-        "Explore original oil paintings, still lifes, landscapes, and commission inquiries by Utah artist Mylie Jane Derrick of Mylie Jane Design.",
+        "Original still life and landscape oil paintings by Utah artist Mylie Jane Derrick, created for nature lovers, collectors, and art-filled homes.",
       path: "/",
       image: defaultSeoImage,
     });
@@ -56,8 +56,18 @@ function Index() {
               textShadow: "0 2px 30px rgba(0,0,0,0.35)",
             }}
           >
-            Art that elevates the everyday.
+            Original oil paintings inspired by Utah, nature, and home.
           </h1>
+          <p
+            className="mt-6 max-w-2xl text-base leading-relaxed md:text-lg"
+            style={{
+              color: "rgba(247, 243, 236, 0.88)",
+              textShadow: "0 2px 20px rgba(0,0,0,0.28)",
+            }}
+          >
+            I'm Mylie Jane Derrick, a Utah oil painter creating still life and landscape paintings
+            for collectors, nature lovers, and thoughtfully designed homes.
+          </p>
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
               preload="intent"
@@ -112,7 +122,7 @@ function Index() {
               className="mt-3 font-serif text-3xl md:text-4xl"
               style={{ color: "var(--brand-ink)" }}
             >
-              Still lifes, landscapes, and studies
+              Original still lifes, landscapes, and studies
             </h2>
           </div>
           <Link
@@ -190,9 +200,9 @@ function Index() {
             className="mx-auto mt-5 max-w-2xl text-base leading-relaxed md:text-lg"
             style={{ color: "rgba(247, 243, 236, 0.86)" }}
           >
-            Commission a custom oil painting of a meaningful place, still life, floral arrangement,
-            or memory you want to hold onto. Share what you're imagining and I'll help shape it into
-            an original piece.
+            Commission a custom oil painting of a meaningful Utah landscape, still life, floral
+            arrangement, or memory you want to hold onto. Share what you're imagining and I'll help
+            shape it into an original piece.
           </p>
           <Link
             to="/contact"
@@ -210,8 +220,8 @@ function Index() {
           style={{ color: "var(--brand-ink)" }}
         >
           Thank you for being here. It means a great deal to me that these paintings find homes of
-          their own. My hope is that they bring beauty, warmth, and joy to the spaces they're part
-          of.
+          their own. My hope is that they bring beauty, warmth, nature, and joy to the spaces
+          they're part of.
         </p>
       </section>
     </>

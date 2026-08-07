@@ -3,18 +3,18 @@ import { personSchema, seo } from "@/lib/seo";
 
 const aboutCopy = [
   "Hi, I'm Mylie.",
-  "I'm a 22-year-old oil painter, designer, and marketing student at BYU from Utah.",
+  "I'm a 22-year-old Utah oil painter, designer, and marketing student at BYU.",
   "I started oil painting in high school after growing up around my mom's work as a professional oil painter. Last summer I studied at Grand Central Atelier in New York, where I continued developing my representational painting skills. Since then, I've continued painting while balancing school and work.",
-  "Creating art is one of my greatest passions. I love spending time outdoors and traveling, and many of my paintings are inspired by places I've been and experiences I want to remember. Whether it's a landscape or a still life, I'm drawn to subjects that feel familiar and meaningful.",
-  "I hope my paintings bring a little more beauty into people's homes and remind them of places they've loved or memories they want to hold onto. Thank you for being here. I'm excited to share my work with you.",
+  "Creating art is one of my greatest passions. I love spending time outdoors in Utah and the Mountain West, and many of my paintings are inspired by landscapes, places I've been, and experiences I want to remember. Whether it's a landscape or a still life, I'm drawn to subjects that feel familiar and meaningful.",
+  "I hope my original oil paintings bring a little more beauty into people's homes and remind them of places they've loved or memories they want to hold onto. Thank you for being here. I'm excited to share my work with you.",
 ];
 
 export const Route = createFileRoute("/about")({
   head: () => {
     const head = seo({
-      title: "About Mylie Jane Derrick | Utah Oil Painter",
+      title: "Mylie Jane Derrick | Utah Oil Painter & Landscape Artist",
       description:
-        "Meet Mylie Jane Derrick, the Utah oil painter behind Mylie Jane Design, creating original still life and landscape paintings.",
+        "Meet Mylie Jane Derrick, a Utah oil painter creating original still life and landscape paintings inspired by nature, memory, and home.",
       path: "/about",
       image: "/images/mylie-studio-portrait.jpg",
       type: "profile",
@@ -54,7 +54,7 @@ function About() {
             className="mt-4 font-serif text-4xl italic leading-tight md:text-5xl"
             style={{ color: "var(--brand-ink)" }}
           >
-            Hi, I'm Mylie.
+            Utah oil painter creating original still life and landscape paintings.
           </h1>
 
           <div className="mt-10 space-y-5 text-base leading-8 md:text-lg">

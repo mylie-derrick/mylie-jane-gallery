@@ -13,9 +13,9 @@ export const Route = createFileRoute("/contact")({
   validateSearch: searchSchema,
   head: () =>
     seo({
-      title: "Contact Mylie Jane Derrick | Painting Inquiries",
+      title: "Commission & Painting Inquiries | Mylie Jane Derrick",
       description:
-        "Contact Mylie Jane Derrick to inquire about an available original oil painting, request a custom commission, or send a note.",
+        "Contact Utah oil painter Mylie Jane Derrick to inquire about an available original painting, custom commission, landscape, or still life.",
       path: "/contact",
       image: "/images/mylie-studio-portrait.jpg",
     }),
@@ -70,7 +70,9 @@ function Contact() {
       <div className="grid gap-16 md:grid-cols-12">
         <header className="md:col-span-5">
           <p className="eyebrow">Inquiries</p>
-          <h1 className="mt-4 font-serif text-4xl text-foreground md:text-5xl">Let's talk.</h1>
+          <h1 className="mt-4 font-serif text-4xl text-foreground md:text-5xl">
+            Inquire about an original oil painting or commission.
+          </h1>
           <img
             src="/images/mylie-contact-portrait.jpg"
             alt="Mylie Jane Derrick smiling in a studio portrait."
@@ -83,8 +85,9 @@ function Contact() {
           />
           <div className="mt-8 space-y-5 text-base leading-relaxed text-muted-foreground">
             <p>
-              Thanks for stopping by. If you're interested in a painting, have a question, or would
-              like to talk about a commission, I'd love to hear from you.
+              Thanks for stopping by. If you're interested in an available painting, have a
+              question, or would like to talk about a custom still life or landscape commission, I'd
+              love to hear from you.
             </p>
             <p>I personally respond to every message and usually reply within a day or two.</p>
           </div>

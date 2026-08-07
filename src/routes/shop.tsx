@@ -7,9 +7,9 @@ export const Route = createFileRoute("/shop")({
   loader: () => getAllArtworks(),
   head: () =>
     seo({
-      title: "Available Original Oil Paintings | Mylie Jane Design",
+      title: "Original Oil Paintings for Sale in Utah | Mylie Jane Design",
       description:
-        "View available original oil paintings by Utah artist Mylie Jane Derrick. Inquire about still life and landscape paintings from Mylie Jane Design.",
+        "View available original oil paintings by Utah artist Mylie Jane Derrick, including still lifes and landscapes for collectors and art-filled homes.",
       path: "/shop",
       image: "/images/oranges-and-blooms.jpg",
     }),
@@ -118,11 +118,12 @@ function Shop() {
       <header className="max-w-3xl">
         <p className="eyebrow">Available Work</p>
         <h1 className="mt-4 font-serif text-4xl italic leading-tight text-foreground md:text-6xl">
-          Available original paintings.
+          Available original oil paintings for Utah collectors and art-filled homes.
         </h1>
         <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-          Each painting is one of a kind. Available works may be purchased by inquiry. Sold and
-          not-for-sale works are clearly marked.
+          Each painting is one of a kind. Explore available still life and landscape oil paintings
+          for nature lovers, collectors, and thoughtfully designed homes. Sold and not-for-sale
+          works are clearly marked.
         </p>
       </header>
 
