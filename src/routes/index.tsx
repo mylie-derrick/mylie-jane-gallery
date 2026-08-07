@@ -281,22 +281,25 @@ function SimpleCommissionSection() {
       className="mx-auto mt-24 max-w-7xl scroll-mt-32 px-6 md:mt-32 md:px-10"
       aria-label="Commissions"
     >
-      <div className="grid gap-10 border-y border-[color:var(--brand-mauve)]/55 py-14 md:grid-cols-12 md:items-center md:py-16">
+      <div className="grid gap-10 bg-[color:var(--brand-footer-moss)] px-6 py-12 md:grid-cols-12 md:items-center md:px-10 md:py-14">
         <div className="md:col-span-6 lg:col-span-5">
           <p className="eyebrow">Commissions</p>
-          <h2 className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl">
-            Custom oil paintings by inquiry.
+          <h2
+            className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl"
+            style={{ color: "var(--brand-forest-green)" }}
+          >
+            A painting made for something meaningful.
           </h2>
           <p
             className="mt-5 max-w-xl text-base leading-relaxed md:text-lg"
-            style={{ color: "rgba(247,243,236,0.82)" }}
+            style={{ color: "var(--brand-forest-green)" }}
           >
-            A small number of custom paintings are available for meaningful places, florals, still
-            lifes, and memories.
+            Custom oil paintings are available by inquiry for places, florals, still lifes, and
+            memories you want to keep close.
           </p>
           <Link
             to="/contact"
-            className="mt-7 inline-flex items-center justify-center border border-[color:var(--brand-cream)] bg-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-transparent hover:text-[color:var(--brand-cream)]"
+            className="mt-7 inline-flex items-center justify-center border border-[color:var(--brand-forest-green)] bg-[color:var(--brand-forest-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-header-green)]"
           >
             Start an Inquiry
           </Link>
