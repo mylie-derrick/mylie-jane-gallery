@@ -157,6 +157,23 @@
     contain: layout;
   }
 
+  .page-loading-veil {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(247, 243, 236, 0.5), rgba(247, 243, 236, 0.18)),
+      rgba(247, 243, 236, 0.12);
+    opacity: 0;
+    transition: opacity 220ms ease-out;
+  }
+
+  .page-loading-veil--visible {
+    opacity: 1;
+    transition-duration: 280ms;
+  }
+
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none;
@@ -203,6 +220,10 @@
 
     .route-transition-surface {
       animation: none;
+    }
+
+    .page-loading-veil {
+      display: none;
     }
 
     .artwork-image-fade {

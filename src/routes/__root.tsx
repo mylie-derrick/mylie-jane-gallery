@@ -30,6 +30,15 @@ const ANALYTICS_OPT_OUT_KEY = "myliejanedesign:analytics-opt-out";
 const ANALYTICS_OPT_OUT_PATH = "/analytics-opt-out";
 const preloadIntent = { preload: "intent" as const, preloadDelay: 80 };
 
+function useVisualPathname() {
+  return useRouterState({
+    select: (state) =>
+      state.status === "pending"
+        ? (state.resolvedLocation?.pathname ?? state.location.pathname)
+        : state.location.pathname,
+  });
+}
+
 function filterMylieAnalytics(event: BeforeSendEvent) {
   if (event.url.includes(ANALYTICS_OPT_OUT_PATH)) {
     return null;
@@ -167,7 +176,7 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function SiteHeader() {
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const pathname = useVisualPathname();
   const isHome = pathname === "/";
   const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
   const [scrolled, setScrolled] = useState(false);
@@ -395,7 +404,7 @@ function SiteHeader() {
 }
 
 function SiteFooter() {
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const pathname = useVisualPathname();
   const isDarkPage = pathname === "/" || pathname === "/gallery" || pathname === "/contact";
   const footerBackground = isDarkPage ? "var(--brand-deep-moss)" : "var(--brand-footer-moss)";
   const footerColor = isDarkPage ? "var(--brand-cream)" : "var(--brand-deep-moss)";
@@ -448,7 +457,8 @@ function SiteFooter() {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const pathname = useVisualPathname();
+  const isRouteLoading = useRouterState({ select: (state) => state.isLoading });
   const isHome = pathname === "/";
   const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
   const pageThemeClass = isDarkPage ? "theme-dark" : "theme-light";
@@ -460,6 +470,10 @@ function RootComponent() {
         <main className={`route-transition-surface flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
           <Outlet />
         </main>
+        <div
+          aria-hidden="true"
+          className={`page-loading-veil ${isRouteLoading ? "page-loading-veil--visible" : ""}`}
+        />
         <SiteFooter />
       </div>
     </QueryClientProvider>
