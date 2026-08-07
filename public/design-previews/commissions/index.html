@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Commission section previews</title>
+    <title>Commission section preview</title>
     <style>
       * {
         box-sizing: border-box;
@@ -16,84 +16,44 @@
         padding: 64px 24px;
       }
       main {
-        max-width: 920px;
+        max-width: 820px;
         margin: 0 auto;
       }
       h1 {
         font-family: Georgia, serif;
         font-style: italic;
         font-weight: 400;
-        font-size: clamp(38px, 6vw, 68px);
+        font-size: clamp(38px, 6vw, 64px);
         line-height: 1;
         margin: 0;
       }
       p {
         color: #5a4e44;
         line-height: 1.7;
-        max-width: 720px;
-      }
-      .grid {
-        display: grid;
-        gap: 18px;
-        margin-top: 36px;
+        max-width: 680px;
       }
       a {
-        display: block;
+        display: inline-block;
+        margin-top: 28px;
         border: 1px solid rgba(196, 168, 160, 0.85);
-        padding: 24px;
+        padding: 18px 22px;
         text-decoration: none;
         color: #2e3b24;
         background: #fffaf2;
-        transition:
-          transform 0.2s ease,
-          border-color 0.2s ease;
-      }
-      a:hover {
-        transform: translateY(-2px);
-        border-color: #4a5d3a;
-      }
-      strong {
-        display: block;
         text-transform: uppercase;
-        letter-spacing: 0.2em;
+        letter-spacing: 0.18em;
         font-size: 12px;
-        margin-bottom: 10px;
-      }
-      span {
-        display: block;
-        color: #5a4e44;
-        line-height: 1.6;
       }
     </style>
   </head>
   <body>
     <main>
-      <h1>Commission previews in the actual homepage flow.</h1>
+      <h1>Simple commission section preview.</h1>
       <p>
-        These open the real homepage and swap only the commissions section, so the design can be
-        judged with the hero, Recent Work, note, header, and footer around it.
+        This opens the real homepage with the simplified commissions section: very short copy, one
+        image on the right, and no extra process/details.
       </p>
-      <div class="grid">
-        <a href="/?commissionPreview=soft-editorial#commission-preview"
-          ><strong>Option 1 — Collection Continuation</strong
-          ><span
-            >A quiet bridge from Recent Work into commissions, with artwork examples and a soft
-            artist-led invitation.</span
-          ></a
-        ><a href="/?commissionPreview=collector-card#commission-preview"
-          ><strong>Option 2 — Guided Inquiry</strong
-          ><span
-            >A fuller section with a simple process, what-to-include checklist, and a practical but
-            warm inquiry path.</span
-          ></a
-        ><a href="/?commissionPreview=artwork-led#commission-preview"
-          ><strong>Option 3 — Artwork-Led Invitation</strong
-          ><span
-            >A visual-first version that keeps commissions tied directly to paintings and meaningful
-            places.</span
-          ></a
-        >
-      </div>
+      <a href="/?commissionPreview=soft-editorial#commission-preview">Open homepage preview</a>
     </main>
   </body>
 </html>

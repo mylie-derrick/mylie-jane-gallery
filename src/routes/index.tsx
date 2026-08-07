@@ -263,270 +263,54 @@ function CurrentCommissionSection() {
 }
 
 function SoftEditorialCommissionSection() {
-  return (
-    <section
-      id="commission-preview"
-      className="mx-auto mt-24 max-w-7xl scroll-mt-32 px-6 md:mt-32 md:px-10"
-      aria-label="Commissions preview option 1"
-    >
-      <div className="border-y border-[color:var(--brand-mauve)]/55 py-14 md:py-18">
-        <div className="grid gap-10 md:grid-cols-12 md:items-start">
-          <div className="md:col-span-4">
-            <p className="eyebrow">Commissions</p>
-            <h2 className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl">
-              A custom painting, made with the same care as the collection.
-            </h2>
-          </div>
-          <div className="space-y-6 md:col-span-4">
-            <p
-              className="text-base leading-relaxed md:text-lg"
-              style={{ color: "rgba(247,243,236,0.82)" }}
-            >
-              If a place, flower, home, or memory feels connected to my work, I take on a small
-              number of commissioned oil paintings each season. This is for pieces that feel
-              personal, beautiful, and aligned with the subjects I already love to paint.
-            </p>
-            <div
-              className="grid grid-cols-2 gap-3 text-xs uppercase tracking-[0.18em]"
-              style={{ color: "rgba(247,243,236,0.8)" }}
-            >
-              <p className="border-t border-[rgba(247,243,236,0.24)] pt-3">Landscapes</p>
-              <p className="border-t border-[rgba(247,243,236,0.24)] pt-3">Still lifes</p>
-              <p className="border-t border-[rgba(247,243,236,0.24)] pt-3">Florals</p>
-              <p className="border-t border-[rgba(247,243,236,0.24)] pt-3">Homes & gifts</p>
-            </div>
-            <Link
-              to="/contact"
-              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)] bg-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-transparent hover:text-[color:var(--brand-cream)]"
-            >
-              Start an Inquiry
-            </Link>
-          </div>
-          <div className="grid grid-cols-3 gap-3 md:col-span-4">
-            <img
-              src="/images/optimized/wahweap-768.jpg"
-              alt="Wahweap landscape oil painting."
-              width={768}
-              height={960}
-              loading="lazy"
-              decoding="async"
-              className="aspect-[3/4] w-full object-cover"
-            />
-            <img
-              src="/images/optimized/oranges-and-blooms-768.jpg"
-              alt="Oranges and Blooms still life oil painting."
-              width={768}
-              height={960}
-              loading="lazy"
-              decoding="async"
-              className="mt-8 aspect-[3/4] w-full object-cover"
-            />
-            <img
-              src="/images/optimized/peonies-768.jpg"
-              alt="Peonies oil painting."
-              width={768}
-              height={960}
-              loading="lazy"
-              decoding="async"
-              className="aspect-[3/4] w-full object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <SimpleCommissionSection />;
 }
 
 function CollectorCardCommissionSection() {
-  return (
-    <section
-      id="commission-preview"
-      className="mx-auto mt-24 max-w-7xl scroll-mt-32 px-6 md:mt-32 md:px-10"
-      aria-label="Commissions preview option 2"
-    >
-      <div className="grid gap-10 border-y border-[color:var(--brand-mauve)]/55 py-14 md:grid-cols-12 md:py-18">
-        <div className="md:col-span-5">
-          <p className="eyebrow">Commissions</p>
-          <h2 className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl">
-            Have a subject you keep coming back to?
-          </h2>
-          <p
-            className="mt-6 text-base leading-relaxed md:text-lg"
-            style={{ color: "rgba(247,243,236,0.82)" }}
-          >
-            Commission requests work best when you already connect with my paintings and have a
-            subject that belongs in that world — a meaningful place, a flower arrangement, a home,
-            or a memory you want to hold onto.
-          </p>
-          <Link
-            to="/contact"
-            className="mt-8 inline-flex items-center justify-center border border-[color:var(--brand-cream)] bg-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-transparent hover:text-[color:var(--brand-cream)]"
-          >
-            Ask About a Commission
-          </Link>
-        </div>
-        <div className="md:col-span-7">
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="border border-[rgba(247,243,236,0.22)] p-5">
-              <p className="font-serif text-2xl italic" style={{ color: "var(--brand-cream)" }}>
-                1.
-              </p>
-              <h3
-                className="mt-4 font-sans text-xs uppercase tracking-[0.24em]"
-                style={{ color: "var(--brand-cream)" }}
-              >
-                Send the idea
-              </h3>
-              <p
-                className="mt-3 text-sm leading-relaxed"
-                style={{ color: "rgba(247,243,236,0.76)" }}
-              >
-                Share the subject, size hopes, reference photos, and any timing or gift details.
-              </p>
-            </div>
-            <div className="border border-[rgba(247,243,236,0.22)] p-5">
-              <p className="font-serif text-2xl italic" style={{ color: "var(--brand-cream)" }}>
-                2.
-              </p>
-              <h3
-                className="mt-4 font-sans text-xs uppercase tracking-[0.24em]"
-                style={{ color: "var(--brand-cream)" }}
-              >
-                Review the fit
-              </h3>
-              <p
-                className="mt-3 text-sm leading-relaxed"
-                style={{ color: "rgba(247,243,236,0.76)" }}
-              >
-                I’ll look at the subject, timeline, and whether it feels aligned with my work.
-              </p>
-            </div>
-            <div className="border border-[rgba(247,243,236,0.22)] p-5">
-              <p className="font-serif text-2xl italic" style={{ color: "var(--brand-cream)" }}>
-                3.
-              </p>
-              <h3
-                className="mt-4 font-sans text-xs uppercase tracking-[0.24em]"
-                style={{ color: "var(--brand-cream)" }}
-              >
-                Begin the painting
-              </h3>
-              <p
-                className="mt-3 text-sm leading-relaxed"
-                style={{ color: "rgba(247,243,236,0.76)" }}
-              >
-                If it’s a good fit, we’ll confirm size, timeline, payment, and studio calendar.
-              </p>
-            </div>
-          </div>
-          <div className="mt-5 grid gap-5 bg-[color:var(--brand-cream)] p-6 md:grid-cols-[0.75fr_1fr] md:p-7">
-            <img
-              src="/images/commissions-process.jpeg"
-              alt="Paint and palette in Mylie Jane Derrick's studio."
-              width={724}
-              height={1086}
-              loading="lazy"
-              decoding="async"
-              className="aspect-[5/4] w-full object-cover object-[center_84%]"
-            />
-            <div>
-              <p
-                className="text-xs uppercase tracking-[0.24em]"
-                style={{ color: "var(--brand-forest-green)" }}
-              >
-                Helpful to include
-              </p>
-              <ul className="mt-4 grid gap-2 text-sm leading-relaxed" style={{ color: "#5A4E44" }}>
-                <li>• Desired size or wall location</li>
-                <li>• Reference photos or favorite paintings of mine</li>
-                <li>• Timeline, occasion, or gift date if there is one</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <SimpleCommissionSection />;
 }
 
 function ArtworkLedCommissionSection() {
+  return <SimpleCommissionSection />;
+}
+
+function SimpleCommissionSection() {
   return (
     <section
       id="commission-preview"
       className="mx-auto mt-24 max-w-7xl scroll-mt-32 px-6 md:mt-32 md:px-10"
-      aria-label="Commissions preview option 3"
+      aria-label="Commissions"
     >
-      <div className="border-y border-[color:var(--brand-mauve)]/55 py-14 md:py-18">
-        <div className="grid gap-10 md:grid-cols-12 md:items-center">
-          <div className="md:col-span-5">
-            <div className="grid grid-cols-2 gap-4">
-              <img
-                src="/images/optimized/lake-louise-iced-over-768.jpg"
-                alt="Lake Louise Iced Over oil painting."
-                width={768}
-                height={960}
-                loading="lazy"
-                decoding="async"
-                className="aspect-[4/5] w-full object-cover"
-              />
-              <div className="space-y-4 pt-8">
-                <img
-                  src="/images/optimized/freshly-cut-768.jpg"
-                  alt="Freshly Cut oil painting."
-                  width={768}
-                  height={960}
-                  loading="lazy"
-                  decoding="async"
-                  className="aspect-[4/5] w-full object-cover"
-                />
-                <img
-                  src="/images/optimized/sunset-on-the-tetons-768.jpg"
-                  alt="Sunset on the Tetons oil painting."
-                  width={768}
-                  height={960}
-                  loading="lazy"
-                  decoding="async"
-                  className="aspect-[4/5] w-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="md:col-span-7">
-            <p className="eyebrow">Commissions</p>
-            <h2 className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl">
-              For the places and small scenes that feel like home.
-            </h2>
-            <p
-              className="mt-6 max-w-2xl text-base leading-relaxed md:text-lg"
-              style={{ color: "rgba(247,243,236,0.82)" }}
-            >
-              This option keeps commissions tied directly to the artwork: landscapes, florals, and
-              still lifes as the visual proof, with the invitation tucked beside them rather than
-              treated like a separate marketing block.
-            </p>
-            <div className="mt-8 grid gap-4 md:grid-cols-2">
-              <p
-                className="border-l border-[rgba(247,243,236,0.24)] pl-5 text-sm leading-relaxed"
-                style={{ color: "rgba(247,243,236,0.76)" }}
-              >
-                Good commission subjects include favorite views, family places, flowers, homes,
-                meaningful gifts, and memories with strong visual references.
-              </p>
-              <p
-                className="border-l border-[rgba(247,243,236,0.24)] pl-5 text-sm leading-relaxed"
-                style={{ color: "rgba(247,243,236,0.76)" }}
-              >
-                I take a limited number so each piece has enough time, attention, and space in the
-                studio calendar.
-              </p>
-            </div>
-            <Link
-              to="/contact"
-              className="mt-8 inline-flex items-center justify-center border border-[color:var(--brand-cream)] bg-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-transparent hover:text-[color:var(--brand-cream)]"
-            >
-              Start an Inquiry
-            </Link>
-          </div>
+      <div className="grid gap-10 border-y border-[color:var(--brand-mauve)]/55 py-14 md:grid-cols-12 md:items-center md:py-16">
+        <div className="md:col-span-6 lg:col-span-5">
+          <p className="eyebrow">Commissions</p>
+          <h2 className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl">
+            Custom oil paintings by inquiry.
+          </h2>
+          <p
+            className="mt-5 max-w-xl text-base leading-relaxed md:text-lg"
+            style={{ color: "rgba(247,243,236,0.82)" }}
+          >
+            A small number of custom paintings are available for meaningful places, florals, still
+            lifes, and memories.
+          </p>
+          <Link
+            to="/contact"
+            className="mt-7 inline-flex items-center justify-center border border-[color:var(--brand-cream)] bg-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-transparent hover:text-[color:var(--brand-cream)]"
+          >
+            Start an Inquiry
+          </Link>
+        </div>
+        <div className="md:col-span-6 lg:col-span-7">
+          <img
+            src="/images/commissions-process.jpeg"
+            alt="Paint and palette in Mylie Jane Derrick's studio."
+            width={724}
+            height={1086}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[16/10] w-full object-cover object-[center_84%]"
+          />
         </div>
       </div>
     </section>
