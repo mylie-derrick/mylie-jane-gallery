@@ -193,20 +193,16 @@
 .hero-float-title .hero-title-word {
   display: inline-block;
   white-space: nowrap;
+  opacity: 0;
+  animation: hero-word-appear 1.2s ease-out both;
+  animation-delay: var(--word-delay, 0ms);
 }
 
 .hero-float-title .hero-title-word:not(:last-of-type) {
   margin-right: 0.23em;
 }
 
-.hero-float-title span[aria-hidden="true"] {
-  display: inline-block;
-  opacity: 0;
-  animation: hero-letter-appear 1.55s ease-out both;
-  animation-delay: var(--appear-delay, 0ms);
-}
-
-@keyframes hero-letter-appear {
+@keyframes hero-word-appear {
   0% {
     opacity: 0;
   }
@@ -217,7 +213,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-float-title span[aria-hidden="true"] {
+  .hero-float-title .hero-title-word {
     animation: none;
     opacity: 1;
   }

@@ -50,36 +50,23 @@ function Index() {
         />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-28 pt-32 md:px-10 md:pb-32 md:pt-36">
           <h1
-            className="hero-float-title max-w-3xl italic leading-[1.04] text-4xl md:text-6xl lg:text-7xl"
+            className="hero-float-title max-w-6xl text-balance italic leading-[1.04] text-4xl md:text-6xl xl:max-w-none xl:whitespace-nowrap xl:text-7xl"
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               color: "var(--brand-cream)",
               textShadow: "0 2px 30px rgba(0,0,0,0.35)",
             }}
           >
-            {heroWords.map((word, wordIndex) => {
-              const previousLetters = heroWords
-                .slice(0, wordIndex)
-                .reduce((count, previousWord) => count + previousWord.length, 0);
-
-              return (
-                <span className="hero-title-word" key={word}>
-                  {word.split("").map((letter, letterIndex) => (
-                    <span
-                      key={`${letter}-${letterIndex}`}
-                      aria-hidden="true"
-                      style={
-                        {
-                          "--appear-delay": `${(previousLetters + letterIndex) * 55}ms`,
-                        } as React.CSSProperties
-                      }
-                    >
-                      {letter}
-                    </span>
-                  ))}
-                </span>
-              );
-            })}
+            {heroWords.map((word, wordIndex) => (
+              <span
+                className="hero-title-word"
+                key={word}
+                aria-hidden="true"
+                style={{ "--word-delay": `${wordIndex * 220}ms` } as React.CSSProperties}
+              >
+                {word}
+              </span>
+            ))}
             <span className="sr-only">{heroTitle}</span>
           </h1>
           <div className="mt-9 flex flex-wrap gap-4">
