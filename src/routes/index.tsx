@@ -50,7 +50,7 @@ function Index() {
         />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-28 pt-32 md:px-10 md:pb-32 md:pt-36">
           <h1
-            className="hero-float-title inline-block max-w-full italic leading-[1.04] text-4xl md:text-6xl lg:text-[clamp(3.75rem,6.35vw,5.9rem)]"
+            className="hero-float-title inline-block max-w-full italic leading-[1.04] text-[clamp(2.65rem,7.4vw,3.75rem)] md:text-[clamp(3.35rem,6.1vw,5.25rem)] xl:text-[5.8rem]"
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               color: "var(--brand-cream)",
