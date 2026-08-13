@@ -188,13 +188,21 @@
 
 .hero-float-title {
   font-kerning: normal;
+  text-wrap: normal;
+  white-space: normal;
+}
+
+@media (min-width: 1180px) {
+  .hero-float-title {
+    white-space: nowrap;
+  }
 }
 
 .hero-float-title .hero-title-word {
   display: inline-block;
   white-space: nowrap;
   opacity: 0;
-  animation: hero-word-appear 1.2s ease-out both;
+  animation: hero-word-appear 1.75s ease-out both;
   animation-delay: var(--word-delay, 0ms);
 }
 

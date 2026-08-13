@@ -50,7 +50,7 @@ function Index() {
         />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-28 pt-32 md:px-10 md:pb-32 md:pt-36">
           <h1
-            className="hero-float-title max-w-6xl text-balance italic leading-[1.04] text-4xl md:text-6xl xl:max-w-none xl:whitespace-nowrap xl:text-7xl"
+            className="hero-float-title inline-block max-w-full italic leading-[1.04] text-4xl md:text-6xl lg:text-[clamp(3.75rem,6.35vw,5.9rem)]"
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               color: "var(--brand-cream)",
@@ -62,7 +62,7 @@ function Index() {
                 className="hero-title-word"
                 key={word}
                 aria-hidden="true"
-                style={{ "--word-delay": `${wordIndex * 220}ms` } as React.CSSProperties}
+                style={{ "--word-delay": `${wordIndex * 340}ms` } as React.CSSProperties}
               >
                 {word}
               </span>
