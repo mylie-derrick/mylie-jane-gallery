@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { personSchema, seo } from "@/lib/seo";
 
 const aboutCopy = [
-  "Hi, I'm Mylie.",
   "I'm a 22-year-old oil painter, designer, and marketing student at BYU from Utah.",
   "I started oil painting in high school after growing up around my mom's work as a professional oil painter. Last summer I studied at Grand Central Atelier in New York, where I continued developing my representational painting skills. Since then, I've continued painting while balancing school and work.",
   "Creating art is one of my greatest passions. I love spending time outdoors and traveling, and many of my paintings are inspired by places I've been and experiences I want to remember. Whether it's a landscape or a still life, I'm drawn to subjects that feel familiar and meaningful.",
