@@ -23,6 +23,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const featured = Route.useLoaderData();
+  const heroTitle = "Art that elevates the everyday.";
 
   return (
     <>
@@ -48,14 +49,24 @@ function Index() {
         />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-28 pt-32 md:px-10 md:pb-32 md:pt-36">
           <h1
-            className="max-w-3xl italic leading-[1.04] text-4xl md:text-6xl lg:text-7xl"
+            className="hero-float-title max-w-3xl italic leading-[1.04] text-4xl md:text-6xl lg:text-7xl"
             style={{
               fontFamily: '"Cormorant Garamond", Georgia, serif',
               color: "var(--brand-cream)",
               textShadow: "0 2px 30px rgba(0,0,0,0.35)",
             }}
           >
-            Art that elevates the everyday.
+            {heroTitle.split("").map((letter, index) => (
+              <span
+                key={`${letter}-${index}`}
+                className={letter === " " ? "hero-title-space" : undefined}
+                aria-hidden="true"
+                style={{ "--float-delay": `${index * 55}ms` } as React.CSSProperties}
+              >
+                {letter === " " ? "\u00A0" : letter}
+              </span>
+            ))}
+            <span className="sr-only">{heroTitle}</span>
           </h1>
           <div className="mt-9 flex flex-wrap gap-4">
             <Link

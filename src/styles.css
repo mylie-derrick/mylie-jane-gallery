@@ -185,3 +185,47 @@
 .theme-dark .eyebrow {
   color: #f7f3ec;
 }
+
+.hero-float-title {
+  font-kerning: none;
+}
+
+.hero-float-title span[aria-hidden="true"] {
+  display: inline-block;
+  animation: hero-letter-drift 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--float-delay, 0ms);
+  will-change: transform, opacity, filter;
+}
+
+.hero-float-title .hero-title-space {
+  width: 0.28em;
+}
+
+@keyframes hero-letter-drift {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translate3d(-0.36em, 0.48em, 0) rotate(-2deg);
+  }
+
+  45% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  72% {
+    transform: translate3d(0.025em, -0.045em, 0) rotate(0.35deg);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-float-title span[aria-hidden="true"] {
+    animation: none;
+  }
+}
