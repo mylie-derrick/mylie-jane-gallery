@@ -185,3 +185,32 @@
 .theme-dark .eyebrow {
   color: #f7f3ec;
 }
+
+.hero-float-title span {
+  display: inline-block;
+  animation: hero-title-float 1.6s ease-out both;
+  animation-delay: var(--float-delay, 0ms);
+  will-change: transform, opacity;
+}
+
+@keyframes hero-title-float {
+  0% {
+    opacity: 0;
+    transform: translate3d(-0.22em, 0.42em, 0) rotate(-1.5deg);
+  }
+
+  58% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-float-title span {
+    animation: none;
+  }
+}
