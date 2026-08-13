@@ -23,7 +23,8 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const featured = Route.useLoaderData();
-  const heroTitle = "Art that elevates the everyday.";
+  const heroWords = ["Art", "that", "elevates", "the", "everyday."];
+  const heroTitle = heroWords.join(" ");
 
   return (
     <>
@@ -56,16 +57,29 @@ function Index() {
               textShadow: "0 2px 30px rgba(0,0,0,0.35)",
             }}
           >
-            {heroTitle.split("").map((letter, index) => (
-              <span
-                key={`${letter}-${index}`}
-                className={letter === " " ? "hero-title-space" : undefined}
-                aria-hidden="true"
-                style={{ "--float-delay": `${index * 55}ms` } as React.CSSProperties}
-              >
-                {letter === " " ? "\u00A0" : letter}
-              </span>
-            ))}
+            {heroWords.map((word, wordIndex) => {
+              const previousLetters = heroWords
+                .slice(0, wordIndex)
+                .reduce((count, previousWord) => count + previousWord.length, 0);
+
+              return (
+                <span className="hero-title-word" key={word}>
+                  {word.split("").map((letter, letterIndex) => (
+                    <span
+                      key={`${letter}-${letterIndex}`}
+                      aria-hidden="true"
+                      style={
+                        {
+                          "--appear-delay": `${(previousLetters + letterIndex) * 55}ms`,
+                        } as React.CSSProperties
+                      }
+                    >
+                      {letter}
+                    </span>
+                  ))}
+                </span>
+              );
+            })}
             <span className="sr-only">{heroTitle}</span>
           </h1>
           <div className="mt-9 flex flex-wrap gap-4">
