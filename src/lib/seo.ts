@@ -16,7 +16,7 @@ export function absoluteUrl(path = "/") {
 export function artworkAlt(painting: Painting) {
   return (
     painting.altText ||
-    `${painting.title}, an original ${painting.category.toLowerCase()} oil painting by ${artistName}.`
+    `${painting.title}, an original ${painting.category.toLowerCase()} ${painting.medium.toLowerCase().includes("acrylic") ? "acrylic" : "oil"} painting by ${artistName}.`
   );
 }
 
@@ -105,9 +105,9 @@ export function artworkSchema(painting: Painting) {
     url: absoluteUrl(`/paintings/${painting.slug}`),
     image: absoluteUrl(painting.image),
     description: painting.description,
-    artform: "Oil painting",
+    artform: painting.medium.toLowerCase().includes("acrylic") ? "Acrylic painting" : "Oil painting",
     artMedium: painting.medium,
-    dateCreated: String(painting.year),
+    dateCreated: painting.year === "TBD" ? undefined : String(painting.year),
     creator: { "@id": absoluteUrl("/#mylie-jane-derrick") },
     artist: { "@id": absoluteUrl("/#mylie-jane-derrick") },
     offers:

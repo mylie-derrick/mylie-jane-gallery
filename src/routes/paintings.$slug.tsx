@@ -16,9 +16,10 @@ export const Route = createFileRoute("/paintings/$slug")({
   head: ({ loaderData }) => {
     const p = loaderData?.painting;
     if (!p) return {};
-    const description = `${p.description} View ${p.title}, an original ${p.category.toLowerCase()} oil painting by Utah artist Mylie Jane Derrick.`;
+    const mediumLabel = p.medium.toLowerCase().includes("acrylic") ? "Acrylic" : "Oil";
+    const description = `${p.description} View ${p.title}, an original ${p.category.toLowerCase()} ${mediumLabel.toLowerCase()} painting by Utah artist Mylie Jane Derrick.`;
     const head = seo({
-      title: `${p.title} | Original ${p.category} Oil Painting`,
+      title: `${p.title} | Original ${p.category} ${mediumLabel} Painting`,
       description,
       path: `/paintings/${p.slug}`,
       image: p.socialImage || p.image,
@@ -82,10 +83,12 @@ function PaintingPage() {
           </h1>
 
           <dl className="mt-8 space-y-3 text-sm">
-            <div className="flex justify-between border-b border-border/60 pb-2">
-              <dt className="text-muted-foreground">Year</dt>
-              <dd className="text-foreground">{painting.year}</dd>
-            </div>
+            {painting.year !== "TBD" && (
+              <div className="flex justify-between border-b border-border/60 pb-2">
+                <dt className="text-muted-foreground">Year</dt>
+                <dd className="text-foreground">{painting.year}</dd>
+              </div>
+            )}
             <div className="flex justify-between border-b border-border/60 pb-2">
               <dt className="text-muted-foreground">Medium</dt>
               <dd className="text-foreground">{painting.medium}</dd>

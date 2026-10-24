@@ -108,6 +108,23 @@ function largestOptimizedArtworkWidth(maxWidth: number) {
 
 const paintingEntries: PaintingEntry[] = [
   {
+    slug: "view-from-saddleback-ranch",
+    title: "View from Saddleback Ranch",
+    imageFilename: "view-from-saddleback-ranch.jpg",
+    imageWidth: 951,
+    imageHeight: 1280,
+    secondaryImageFilename: "",
+    category: "Landscape",
+    year: "TBD",
+    description:
+      "The view from my grandparents' ranch in Wallsburg, Utah, where I often go riding with them. This painting sold at the UCAIR auction in support of clean, healthy air in Utah.",
+    status: "sold",
+    featured: false,
+    medium: "Acrylic on Board",
+    size: "14 x 16",
+    price: "TBD",
+  },
+  {
     slug: "freshly-cut",
     title: "Freshly Cut",
     imageFilename: "freshly-cut.jpg",
