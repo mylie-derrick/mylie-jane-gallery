@@ -491,7 +491,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}>
+      <div
+        className={`flex min-h-screen flex-col bg-background text-foreground transition-colors duration-700 ease-in-out ${pageThemeClass}`}
+      >
         <PageTransitionScreen />
         <SiteHeader />
         <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>

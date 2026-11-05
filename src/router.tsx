@@ -9,6 +9,8 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     scrollRestoration: true,
+    // Cross-fade the whole page (header, background, content) between routes.
+    defaultViewTransition: true,
     // Start loading a page's data when a visitor hovers or touches its link.
     defaultPreload: "intent",
     // Reuse loaded artwork for a few minutes instead of refetching on every click.
