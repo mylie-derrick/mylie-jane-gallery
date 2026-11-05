@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
+  type ErrorComponentProps,
   Outlet,
   Link,
   createRootRouteWithContext,
@@ -10,6 +11,17 @@ import {
 } from "@tanstack/react-router";
 import { Instagram, Menu } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  VEIL_FADE_IN_MS,
+  VEIL_FADE_OUT_MS,
+  VEIL_MONOGRAM_DELAY_MS,
+  coverBeforeNavigating,
+  isPageCovered,
+  onVeilChange,
+  setShownPathname,
+  uncoverPage,
+  waitForVisibleImages,
+} from "@/lib/page-veil";
 import { Analytics } from "@vercel/analytics/react";
 import type { BeforeSendEvent } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -69,7 +81,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -106,6 +118,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  // Fade the green veil over the page before switching to a new one.
+  beforeLoad: async ({ location, preload }) => {
+    await coverBeforeNavigating(location.pathname, preload);
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -172,15 +188,6 @@ function RootShell({ children }: { children: ReactNode }) {
 function useDisplayedPathname() {
   return useRouterState({
     select: (state) => state.resolvedLocation?.pathname ?? state.location.pathname,
-  });
-}
-
-/** True from the moment a link is clicked until the next page is on screen. */
-function useIsLeavingPage() {
-  return useRouterState({
-    select: (state) =>
-      state.status === "pending" &&
-      state.location.pathname !== (state.resolvedLocation?.pathname ?? state.location.pathname),
   });
 }
 
@@ -456,41 +463,67 @@ function SiteFooter() {
   );
 }
 
-/** How long a page may take before the branded transition screen appears. */
-const TRANSITION_SCREEN_DELAY_MS = 700;
-
 /**
- * Soft, editorial page transitions:
- * - quick loads simply fade the new page in (see .page-enter in styles.css)
- * - slow loads fade in a forest-green screen with the MJD monogram until the page is ready
+ * Soft green veil between pages (see src/lib/page-veil.ts). The new page is swapped
+ * in only while the veil fully covers the screen, so nothing is seen jumping into place.
  */
-function PageTransitionScreen() {
-  const isLoading = useRouterState({
-    select: (state) => state.status === "pending" && state.isLoading,
-  });
+function PageVeil() {
+  const router = useRouter();
   const [visible, setVisible] = useState(false);
+  const [showMonogram, setShowMonogram] = useState(false);
 
   useEffect(() => {
-    if (!isLoading) {
-      setVisible(false);
+    // Remember which page the visitor landed on, so the first click also gets the veil.
+    setShownPathname(router.state.resolvedLocation?.pathname ?? window.location.pathname);
+    return onVeilChange(setVisible);
+  }, [router]);
+
+  // Once the new page is on screen (and its visible paintings have loaded), lift the veil.
+  useEffect(
+    () =>
+      router.subscribe("onResolved", async ({ toLocation }) => {
+        setShownPathname(toLocation.pathname);
+        if (!isPageCovered()) return;
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        await waitForVisibleImages();
+        window.setTimeout(uncoverPage, 120);
+      }),
+    [router],
+  );
+
+  // Safety net: never leave the veil up if a page fails to load.
+  useEffect(() => {
+    if (!visible) return;
+    const timer = window.setTimeout(uncoverPage, 10000);
+    return () => window.clearTimeout(timer);
+  }, [visible]);
+
+  // On slow loads, the MJD monogram fades in on the green.
+  useEffect(() => {
+    if (!visible) {
+      setShowMonogram(false);
       return;
     }
-    const timer = window.setTimeout(() => setVisible(true), TRANSITION_SCREEN_DELAY_MS);
+    const timer = window.setTimeout(() => setShowMonogram(true), VEIL_MONOGRAM_DELAY_MS);
     return () => window.clearTimeout(timer);
-  }, [isLoading]);
+  }, [visible]);
 
   return (
     <div
       aria-hidden={!visible}
       role={visible ? "status" : undefined}
-      className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity ease-in-out ${
-        visible ? "opacity-100 duration-500" : "pointer-events-none opacity-0 duration-700"
+      className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity ${
+        visible ? "opacity-100" : "pointer-events-none opacity-0"
       }`}
-      style={{ backgroundColor: "var(--brand-forest-green)" }}
+      style={{
+        backgroundColor: "var(--brand-forest-green)",
+        transitionDuration: `${visible ? VEIL_FADE_IN_MS : VEIL_FADE_OUT_MS}ms`,
+        transitionTimingFunction: "cubic-bezier(0.45, 0, 0.55, 1)",
+      }}
     >
       <p
-        className={`font-serif text-5xl leading-none tracking-[0.18em] transition-[opacity,transform] duration-700 ease-out md:text-6xl ${
-          visible ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+        className={`font-serif text-5xl leading-none tracking-[0.18em] transition-opacity duration-700 ease-in-out md:text-6xl ${
+          showMonogram ? "opacity-100" : "opacity-0"
         }`}
         style={{ color: "var(--brand-cream)" }}
       >
@@ -504,7 +537,6 @@ function PageTransitionScreen() {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useDisplayedPathname();
-  const isLeaving = useIsLeavingPage();
   const isHome = pathname === "/";
   const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
   const pageThemeClass = isDarkPage ? "theme-dark" : "theme-light";
@@ -512,14 +544,12 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div
-        className={`flex min-h-screen flex-col bg-background text-foreground transition-colors duration-700 ease-in-out ${pageThemeClass}`}
+        className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}
       >
-        <PageTransitionScreen />
+        <PageVeil />
         <SiteHeader />
         <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
-          <div key={pathname} className={`page-enter page-stage ${isLeaving ? "is-leaving" : ""}`}>
-            <Outlet />
-          </div>
+          <Outlet />
         </main>
         <SiteFooter />
       </div>
