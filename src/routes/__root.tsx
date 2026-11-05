@@ -437,21 +437,48 @@ function SiteFooter() {
   );
 }
 
-/** Thin bar at the top of the page while the next page is loading. */
-function NavigationProgress() {
+/** How long a page may take before the branded transition screen appears. */
+const TRANSITION_SCREEN_DELAY_MS = 450;
+
+/**
+ * Soft, editorial page transitions:
+ * - quick loads simply fade the new page in (see .page-enter in styles.css)
+ * - slow loads fade in a forest-green screen with the MJD monogram until the page is ready
+ */
+function PageTransitionScreen() {
   const isLoading = useRouterState({
     select: (state) => state.status === "pending" && state.isLoading,
   });
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setVisible(false);
+      return;
+    }
+    const timer = window.setTimeout(() => setVisible(true), TRANSITION_SCREEN_DELAY_MS);
+    return () => window.clearTimeout(timer);
+  }, [isLoading]);
 
   return (
     <div
-      aria-hidden="true"
-      className={`pointer-events-none fixed inset-x-0 top-0 z-[100] h-[2px] origin-left bg-current transition-[transform,opacity] ease-out ${
-        isLoading
-          ? "scale-x-[0.85] opacity-60 duration-[1500ms]"
-          : "scale-x-0 opacity-0 duration-300"
+      aria-hidden={!visible}
+      role={visible ? "status" : undefined}
+      className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity ease-in-out ${
+        visible ? "opacity-100 duration-500" : "pointer-events-none opacity-0 duration-700"
       }`}
-    />
+      style={{ backgroundColor: "var(--brand-forest-green)" }}
+    >
+      <p
+        className={`font-serif text-5xl leading-none tracking-[0.18em] transition-[opacity,transform] duration-700 ease-out md:text-6xl ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+        }`}
+        style={{ color: "var(--brand-cream)" }}
+      >
+        MJD
+      </p>
+      <span className="sr-only">Loading</span>
+    </div>
   );
 }
 
@@ -465,10 +492,12 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}>
-        <NavigationProgress />
+        <PageTransitionScreen />
         <SiteHeader />
         <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
-          <Outlet />
+          <div key={pathname} className="page-enter">
+            <Outlet />
+          </div>
         </main>
         <SiteFooter />
       </div>
