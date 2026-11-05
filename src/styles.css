@@ -187,32 +187,70 @@
 }
 
 /*
- * Soft editorial page transitions.
- * Modern browsers: the whole screen cross-dissolves from the old page to the new one.
+ * Editorial page transitions ("walk" between rooms).
+ * The current page eases aside and fades back while the next page is uncovered
+ * by a soft sweep. Forward in the menu sweeps from the right, back from the left.
  */
+:root {
+  --page-walk-duration: 1000ms;
+  --page-walk-ease: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+::view-transition-image-pair(root) {
+  isolation: auto;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 700ms;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: normal;
+  animation-duration: var(--page-walk-duration);
+  animation-timing-function: var(--page-walk-ease);
+  animation-fill-mode: both;
 }
 
-::view-transition-old(root) {
-  animation-name: page-dissolve-out;
+html:active-view-transition-type(forward)::view-transition-old(root) {
+  animation-name: page-walk-out-left;
+}
+html:active-view-transition-type(forward)::view-transition-new(root) {
+  animation-name: page-walk-in-from-right;
+}
+html:active-view-transition-type(back)::view-transition-old(root) {
+  animation-name: page-walk-out-right;
+}
+html:active-view-transition-type(back)::view-transition-new(root) {
+  animation-name: page-walk-in-from-left;
 }
 
-::view-transition-new(root) {
-  animation-name: page-dissolve-in;
-}
-
-@keyframes page-dissolve-out {
+@keyframes page-walk-out-left {
   to {
-    opacity: 0;
+    opacity: 0.25;
+    transform: translateX(-6vw);
   }
 }
-
-@keyframes page-dissolve-in {
+@keyframes page-walk-out-right {
+  to {
+    opacity: 0.25;
+    transform: translateX(6vw);
+  }
+}
+@keyframes page-walk-in-from-right {
   from {
-    opacity: 0;
+    clip-path: inset(0 0 0 100%);
+    transform: translateX(4vw);
+  }
+  to {
+    clip-path: inset(0);
+    transform: none;
+  }
+}
+@keyframes page-walk-in-from-left {
+  from {
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-4vw);
+  }
+  to {
+    clip-path: inset(0);
+    transform: none;
   }
 }
 
@@ -237,7 +275,7 @@
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation: none;
+    animation: none !important;
   }
 
   .page-enter {
