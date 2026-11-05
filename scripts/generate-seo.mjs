@@ -9,7 +9,12 @@ const publicDir = new URL("../public/", import.meta.url);
 const paintingsFile = new URL("../src/lib/paintings.ts", import.meta.url);
 
 const source = await readFile(paintingsFile, "utf8");
-const slugs = [...source.matchAll(/slug:\s*"([^"]+)"/g)].map((match) => match[1]);
+// Each painting entry runs from its slug to the next one; skip archived (hidden) paintings.
+const slugs = source
+  .split(/(?=slug:\s*")/)
+  .map((entry) => ({ slug: entry.match(/^slug:\s*"([^"]+)"/)?.[1], archived: /status:\s*"archived"/.test(entry) }))
+  .filter((entry) => entry.slug && !entry.archived)
+  .map((entry) => entry.slug);
 const today = new Date().toISOString().slice(0, 10);
 
 const urls = [

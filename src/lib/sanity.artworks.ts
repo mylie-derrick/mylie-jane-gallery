@@ -168,14 +168,19 @@ async function fetchSanity<T>(
   }
 }
 
+/** Archived paintings stay in Sanity but are hidden everywhere on the public site. */
+function isPublic(painting: Painting | null | undefined): painting is Painting {
+  return Boolean(painting) && painting!.status !== "archived";
+}
+
 function mappedOrFallback(records: SanityArtworkRecord[] | null, fallback: Painting[]) {
   const mapped =
     records?.map(mapSanityArtwork).filter((item): item is Painting => Boolean(item)) || [];
-  return mapped.length > 0 ? mapped : fallback;
+  return (mapped.length > 0 ? mapped : fallback).filter(isPublic);
 }
 
 export async function getAllArtworks() {
-  if (!shouldUseSanityContent) return fallbackPaintings;
+  if (!shouldUseSanityContent) return fallbackPaintings.filter(isPublic);
   const records = await fetchSanity<SanityArtworkRecord[]>(allArtworksQuery);
   return mappedOrFallback(records, fallbackPaintings);
 }
@@ -192,7 +197,9 @@ export async function getAvailableArtworks() {
 }
 
 export async function getFeaturedArtworks() {
-  if (!shouldUseSanityContent) return fallbackPaintings.filter((painting) => painting.featured);
+  if (!shouldUseSanityContent) {
+    return fallbackPaintings.filter((painting) => painting.featured && isPublic(painting));
+  }
   const records = await fetchSanity<SanityArtworkRecord[]>(featuredArtworksQuery);
   return mappedOrFallback(
     records,
@@ -201,9 +208,13 @@ export async function getFeaturedArtworks() {
 }
 
 export async function getArtworkBySlug(slug: string) {
-  if (!shouldUseSanityContent) return getFallbackPainting(slug);
+  if (!shouldUseSanityContent) {
+    const fallback = getFallbackPainting(slug);
+    return isPublic(fallback) ? fallback : undefined;
+  }
   const record = await fetchSanity<SanityArtworkRecord | null>(artworkBySlugQuery, { slug });
-  return record ? mapSanityArtwork(record) : getFallbackPainting(slug);
+  const painting = record ? mapSanityArtwork(record) : getFallbackPainting(slug);
+  return isPublic(painting) ? painting : undefined;
 }
 
 export async function getCollections() {
@@ -237,21 +248,23 @@ export async function getSiteSettings() {
 
 export async function getArtworkPageData(slug: string) {
   if (!shouldUseSanityContent) {
-    const painting = getFallbackPainting(slug);
+    const fallback = getFallbackPainting(slug);
+    const painting = isPublic(fallback) ? fallback : undefined;
     return {
       painting,
-      allPaintings: fallbackPaintings,
+      allPaintings: fallbackPaintings.filter(isPublic),
       collection: painting ? getFallbackCollection(painting.collection) : undefined,
     };
   }
 
   const record = await fetchSanity<SanityArtworkRecord | null>(artworkBySlugQuery, { slug });
-  const painting = record ? mapSanityArtwork(record) : getFallbackPainting(slug);
+  const found = record ? mapSanityArtwork(record) : getFallbackPainting(slug);
+  const painting = isPublic(found) ? found : undefined;
 
   if (!painting || !record) {
     return {
       painting,
-      allPaintings: fallbackPaintings,
+      allPaintings: fallbackPaintings.filter(isPublic),
       collection: painting ? getFallbackCollection(painting.collection) : undefined,
     };
   }

@@ -200,7 +200,8 @@ const paintingEntries: PaintingEntry[] = [
     year: 2022,
     description:
       "Inspired by my grandmother’s perfume collection, this painting is a portrait told through a still life. The objects, colors, and timeless style are all reminders of her and the quiet elegance she carried. Professionally framed and ready to hang.",
-    status: "available",
+    // Hidden from the site for now (kept so it can be brought back).
+    status: "archived",
     medium: "Oil on Board",
     size: "24 x 48",
     price: "$1,900.00",
