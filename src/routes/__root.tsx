@@ -165,8 +165,27 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * The page currently on screen. While the next page is still loading we keep the
+ * old page's colours, so nothing flips to the next page's theme mid-transition.
+ */
+function useDisplayedPathname() {
+  return useRouterState({
+    select: (state) => state.resolvedLocation?.pathname ?? state.location.pathname,
+  });
+}
+
+/** True from the moment a link is clicked until the next page is on screen. */
+function useIsLeavingPage() {
+  return useRouterState({
+    select: (state) =>
+      state.status === "pending" &&
+      state.location.pathname !== (state.resolvedLocation?.pathname ?? state.location.pathname),
+  });
+}
+
 function SiteHeader() {
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const pathname = useDisplayedPathname();
   const isHome = pathname === "/";
   const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
   const [scrolled, setScrolled] = useState(false);
@@ -386,7 +405,7 @@ function SiteHeader() {
 }
 
 function SiteFooter() {
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const pathname = useDisplayedPathname();
   const isDarkPage = pathname === "/" || pathname === "/gallery" || pathname === "/contact";
   const footerBackground = isDarkPage ? "var(--brand-deep-moss)" : "var(--brand-footer-moss)";
   const footerColor = isDarkPage ? "var(--brand-cream)" : "var(--brand-deep-moss)";
@@ -438,7 +457,7 @@ function SiteFooter() {
 }
 
 /** How long a page may take before the branded transition screen appears. */
-const TRANSITION_SCREEN_DELAY_MS = 450;
+const TRANSITION_SCREEN_DELAY_MS = 700;
 
 /**
  * Soft, editorial page transitions:
@@ -484,7 +503,8 @@ function PageTransitionScreen() {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const pathname = useDisplayedPathname();
+  const isLeaving = useIsLeavingPage();
   const isHome = pathname === "/";
   const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
   const pageThemeClass = isDarkPage ? "theme-dark" : "theme-light";
@@ -497,7 +517,7 @@ function RootComponent() {
         <PageTransitionScreen />
         <SiteHeader />
         <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
-          <div key={pathname} className="page-enter">
+          <div key={pathname} className={`page-enter page-stage ${isLeaving ? "is-leaving" : ""}`}>
             <Outlet />
           </div>
         </main>
