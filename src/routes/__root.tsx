@@ -437,6 +437,24 @@ function SiteFooter() {
   );
 }
 
+/** Thin bar at the top of the page while the next page is loading. */
+function NavigationProgress() {
+  const isLoading = useRouterState({
+    select: (state) => state.status === "pending" && state.isLoading,
+  });
+
+  return (
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none fixed inset-x-0 top-0 z-[100] h-[2px] origin-left bg-current transition-[transform,opacity] ease-out ${
+        isLoading
+          ? "scale-x-[0.85] opacity-60 duration-[1500ms]"
+          : "scale-x-0 opacity-0 duration-300"
+      }`}
+    />
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
@@ -447,6 +465,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}>
+        <NavigationProgress />
         <SiteHeader />
         <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
           <Outlet />

@@ -129,7 +129,7 @@ function Gallery() {
       </header>
 
       <div className="mt-16 columns-1 gap-10 sm:columns-2 lg:columns-3">
-        {visiblePaintings.map((painting) => (
+        {visiblePaintings.map((painting, index) => (
           <Link
             key={painting.slug}
             to="/paintings/$slug"
@@ -148,7 +148,8 @@ function Gallery() {
                 alt={artworkAlt(painting)}
                 width={painting.imageWidth}
                 height={painting.imageHeight}
-                loading="lazy"
+                loading={index < 3 ? "eager" : "lazy"}
+                fetchPriority={index < 3 ? "high" : "auto"}
                 decoding="async"
                 className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
               />

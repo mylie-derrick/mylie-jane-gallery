@@ -31,3 +31,5 @@ studio/.sanity
 *.njsproj
 *.sln
 *.sw?
+.vercel
+.env*

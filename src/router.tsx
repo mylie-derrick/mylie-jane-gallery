@@ -9,7 +9,11 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     scrollRestoration: true,
-    defaultPreloadStaleTime: 0,
+    // Start loading a page's data when a visitor hovers or touches its link.
+    defaultPreload: "intent",
+    // Reuse loaded artwork for a few minutes instead of refetching on every click.
+    defaultStaleTime: 5 * 60 * 1000,
+    defaultPreloadStaleTime: 5 * 60 * 1000,
   });
 
   return router;

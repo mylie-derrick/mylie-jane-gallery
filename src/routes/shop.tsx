@@ -36,6 +36,7 @@ function Shop() {
 
   const renderPainting = (painting: (typeof paintings)[number]) => {
     const available = painting.status === "available";
+    const aboveFold = shopPaintings.indexOf(painting) < 3;
 
     return (
       <article key={painting.slug} className="group">
@@ -48,7 +49,8 @@ function Shop() {
               alt={artworkAlt(painting)}
               width={painting.imageWidth}
               height={painting.imageHeight}
-              loading="lazy"
+              loading={aboveFold ? "eager" : "lazy"}
+              fetchPriority={aboveFold ? "high" : "auto"}
               decoding="async"
               className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
             />
