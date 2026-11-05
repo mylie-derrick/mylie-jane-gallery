@@ -8,8 +8,8 @@
  *    the veil fades away.
  */
 
-export const VEIL_FADE_IN_MS = 450;
-export const VEIL_FADE_OUT_MS = 750;
+export const VEIL_FADE_IN_MS = 300;
+export const VEIL_FADE_OUT_MS = 500;
 /** If the green is up longer than this, the MJD monogram fades in. */
 export const VEIL_MONOGRAM_DELAY_MS = 900;
 
@@ -65,7 +65,7 @@ export function setShownPathname(pathname: string) {
 }
 
 /** Wait (up to a limit) for images currently in view to finish loading. */
-export function waitForVisibleImages(timeoutMs = 1500): Promise<void> {
+export function waitForVisibleImages(timeoutMs = 800): Promise<void> {
   const pending = Array.from(document.images).filter((img) => {
     if (img.complete) return false;
     const rect = img.getBoundingClientRect();

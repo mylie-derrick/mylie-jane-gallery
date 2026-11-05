@@ -486,7 +486,7 @@ function PageVeil() {
         if (!isPageCovered()) return;
         await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         await waitForVisibleImages();
-        window.setTimeout(uncoverPage, 120);
+        uncoverPage();
       }),
     [router],
   );
