@@ -29,9 +29,11 @@ function Index() {
       <section
         className="sticky top-0 z-0 flex w-full items-center overflow-hidden"
         style={{
-          backgroundColor: "var(--brand-forest-green)",
+          // No background colour here on purpose: iPhone Safari paints its top and bottom
+          // bars with the colour of a pinned (sticky) section, which framed the photo in
+          // green. Without one, the photo runs underneath the bars.
           // Fill the whole phone screen, including the strips behind the clock/battery
-          // bar and Safari's toolbar, so no green or next section peeks in.
+          // bar and Safari's toolbar.
           minHeight: "calc(100lvh + env(safe-area-inset-top) + env(safe-area-inset-bottom))",
         }}
       >
