@@ -478,13 +478,32 @@ function SiteFooter() {
 function PageVeil() {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
+  // While idle the veil is removed from the page entirely (display: none). iPhone Safari
+  // paints its top and bottom bars with the colour of any full-screen fixed element,
+  // even an invisible one, which framed the home cover photo in green.
+  const [idle, setIdle] = useState(true);
   const [showMonogram, setShowMonogram] = useState(false);
 
   useEffect(() => {
     // Remember which page the visitor landed on, so the first click also gets the veil.
     setShownPathname(router.state.resolvedLocation?.pathname ?? window.location.pathname);
-    return onVeilChange(setVisible);
+    return onVeilChange((next) => {
+      if (!next) {
+        setVisible(false);
+        return;
+      }
+      // Put the veil back on the page first, then fade it in on the next frame.
+      setIdle(false);
+      requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)));
+    });
   }, [router]);
+
+  // After fading out, take the veil off the page again.
+  useEffect(() => {
+    if (visible || idle) return;
+    const timer = window.setTimeout(() => setIdle(true), VEIL_FADE_OUT_MS + 50);
+    return () => window.clearTimeout(timer);
+  }, [visible, idle]);
 
   // Once the new page is on screen (and its visible paintings have loaded), lift the veil.
   useEffect(
@@ -520,11 +539,9 @@ function PageVeil() {
     <div
       aria-hidden={!visible}
       role={visible ? "status" : undefined}
-      // Fully hidden (not just transparent) when idle: iPhone Safari otherwise picks up
-      // this green for its top and bottom bars, framing the hero photo in green.
-      className={`fixed inset-0 z-[100] flex items-center justify-center transition-[opacity,visibility] ${
-        visible ? "visible opacity-100" : "pointer-events-none invisible opacity-0"
-      }`}
+      className={`fixed inset-0 z-[100] items-center justify-center transition-opacity ${
+        idle ? "hidden" : "flex"
+      } ${visible ? "opacity-100" : "pointer-events-none opacity-0"}`}
       style={{
         backgroundColor: "var(--brand-forest-green)",
         transitionDuration: `${visible ? VEIL_FADE_IN_MS : VEIL_FADE_OUT_MS}ms`,
