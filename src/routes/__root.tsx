@@ -151,6 +151,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", sizes: "48x48" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -499,7 +503,7 @@ function SiteFooter() {
             height={302}
             loading="lazy"
             decoding="async"
-            className="w-40 opacity-90 md:w-56"
+            className="w-40 opacity-90 md:ml-10 md:mt-8 md:w-56"
           />
           <nav
             aria-label="Footer navigation"

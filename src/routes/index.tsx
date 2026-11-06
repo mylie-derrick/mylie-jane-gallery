@@ -165,13 +165,13 @@ function Index() {
                 See all →
               </Link>
             </div>
-            <div className="mt-12 columns-1 gap-12 md:columns-3">
+            <div className="mt-12 grid grid-cols-1 items-center gap-12 md:grid-cols-3">
               {featured.map((p) => (
                 <Link
                   key={p.slug}
                   to="/paintings/$slug"
                   params={{ slug: p.slug }}
-                  className="group mb-12 block break-inside-avoid"
+                  className="group block"
                 >
                   <div className="overflow-hidden">
                     <img
@@ -253,7 +253,7 @@ function Index() {
               decoding="async"
               className="mx-auto aspect-[4/5] w-full max-w-sm object-cover object-top md:max-w-none"
             />
-            <div className="text-center md:text-left">
+            <div className="mx-auto max-w-xl text-center">
               <p className="eyebrow">A Note</p>
               <p
                 className="mt-6 font-serif text-2xl italic leading-relaxed md:text-3xl"
