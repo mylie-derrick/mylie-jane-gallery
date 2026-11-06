@@ -27,8 +27,13 @@ function Index() {
   return (
     <>
       <section
-        className="sticky top-0 z-0 flex min-h-screen min-h-[100lvh] w-full items-center overflow-hidden"
-        style={{ backgroundColor: "var(--brand-forest-green)" }}
+        className="sticky top-0 z-0 flex w-full items-center overflow-hidden"
+        style={{
+          backgroundColor: "var(--brand-forest-green)",
+          // Fill the whole phone screen, including the strips behind the clock/battery
+          // bar and Safari's toolbar, so no green or next section peeks in.
+          minHeight: "calc(100lvh + env(safe-area-inset-top) + env(safe-area-inset-bottom))",
+        }}
       >
         <img
           src="/images/hero-painting-process.jpg"
@@ -75,8 +80,11 @@ function Index() {
         <a
           href="#recent-work"
           aria-label="Scroll to recent work"
-          className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
-          style={{ color: "var(--brand-cream)" }}
+          className="absolute left-1/2 z-10 -translate-x-1/2"
+          style={{
+            color: "var(--brand-cream)",
+            bottom: "calc(2rem + env(safe-area-inset-bottom) + env(safe-area-inset-top))",
+          }}
         >
           <svg
             width="28"

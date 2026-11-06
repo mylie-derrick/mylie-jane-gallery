@@ -220,12 +220,19 @@ function SiteHeader() {
   };
 
   useEffect(() => {
-    const updateScrolled = () => setScrolled(window.scrollY > 2);
+    // On the home page the header stays see-through over the cover photo and only
+    // turns into the green bar once the photo has been scrolled past.
+    const updateScrolled = () =>
+      setScrolled(window.scrollY > (isHome ? window.innerHeight - 120 : 2));
 
     updateScrolled();
     window.addEventListener("scroll", updateScrolled, { passive: true });
-    return () => window.removeEventListener("scroll", updateScrolled);
-  }, []);
+    window.addEventListener("resize", updateScrolled);
+    return () => {
+      window.removeEventListener("scroll", updateScrolled);
+      window.removeEventListener("resize", updateScrolled);
+    };
+  }, [isHome]);
 
   useEffect(() => {
     setMenuOpen(false);
