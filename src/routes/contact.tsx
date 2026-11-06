@@ -70,7 +70,9 @@ function Contact() {
       <div className="grid gap-16 md:grid-cols-12">
         <header className="md:col-span-5">
           <p className="eyebrow">Inquiries</p>
-          <h1 className="mt-4 font-serif text-4xl text-foreground md:text-5xl">Let's talk.</h1>
+          <h1 className="mt-4 font-serif text-4xl italic text-foreground md:text-5xl">
+            Let's talk.
+          </h1>
           <img
             src="/images/mylie-contact-portrait.jpg"
             alt="Mylie Jane Derrick smiling in a studio portrait."

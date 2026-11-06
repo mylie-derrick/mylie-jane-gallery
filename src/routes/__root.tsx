@@ -198,9 +198,14 @@ function useDisplayedPathname() {
   });
 }
 
-/** True when whatever sits behind the header at height `y` is dark. */
-function isDarkBehind(header: HTMLElement, y: number): boolean {
-  const xs = [window.innerWidth * 0.08, window.innerWidth * 0.5, window.innerWidth * 0.92];
+/**
+ * True when whatever sits behind `part` (a piece of the header) is mostly dark.
+ * Samples a few points across the part, ignoring the header itself.
+ */
+function isDarkBehind(header: HTMLElement, part: HTMLElement): boolean {
+  const rect = part.getBoundingClientRect();
+  const y = Math.min(Math.max(rect.top + rect.height / 2, 1), window.innerHeight - 1);
+  const xs = [0.1, 0.5, 0.9].map((f) => rect.left + rect.width * f);
   let darkVotes = 0;
   for (const x of xs) {
     const el = document
@@ -238,7 +243,9 @@ function SiteHeader() {
 
   const headerRef = useRef<HTMLElement>(null);
   // Whether the header is currently floating over something dark (photo, green section).
-  const [onDark, setOnDark] = useState(true);
+  // Each piece of the header (left links, logo, right links, menu button) picks its own
+  // colour from what is directly behind it, so it stays readable over paintings too.
+  const [darkParts, setDarkParts] = useState<Record<string, boolean>>({});
   // Once the footer reaches the top of the screen, the header steps out of the way.
   const [overFooter, setOverFooter] = useState(false);
 
@@ -255,7 +262,16 @@ function SiteHeader() {
       const header = headerRef.current;
       if (!header) return;
       const y = Math.min(header.getBoundingClientRect().bottom - 8, window.innerHeight - 1);
-      setOnDark(isDarkBehind(header, Math.max(y, 1)));
+      const next: Record<string, boolean> = {};
+      header.querySelectorAll<HTMLElement>("[data-header-part]").forEach((part) => {
+        if (part.offsetWidth > 0) next[part.dataset.headerPart!] = isDarkBehind(header, part);
+      });
+      setDarkParts((prev) =>
+        Object.keys(next).every((k) => prev[k] === next[k]) &&
+        Object.keys(prev).length === Object.keys(next).length
+          ? prev
+          : next,
+      );
       const footer = document.querySelector("footer");
       setOverFooter(Boolean(footer && footer.getBoundingClientRect().top < y + 8));
     };
@@ -319,6 +335,9 @@ function SiteHeader() {
     closeMenuTimerRef.current = setTimeout(() => setMenuOpen(false), 350);
   };
 
+  const partColor = (part: string) =>
+    (darkParts[part] ?? true) ? "var(--brand-cream)" : "var(--brand-forest-green)";
+
   const navLinks = [
     { to: "/gallery", label: "Gallery" },
     { to: "/shop", label: "Available Work" },
@@ -326,7 +345,7 @@ function SiteHeader() {
     { to: "/contact", label: "Contact" },
   ] as const;
   const headerLinkBase =
-    "text-[0.74rem] uppercase tracking-[0.22em] transition-opacity hover:opacity-100";
+    "text-[0.74rem] uppercase tracking-[0.22em] transition-[opacity,color] duration-300 hover:opacity-100";
   const headerActive = { className: `${headerLinkBase} border-b border-current pb-1 opacity-100` };
   const renderHeaderLink = (link: (typeof navLinks)[number]) => (
     <Link
@@ -345,17 +364,18 @@ function SiteHeader() {
       <header
         ref={headerRef}
         aria-hidden={overFooter || undefined}
-        className={`pointer-events-none fixed inset-x-0 top-0 z-50 transition-[color,opacity] duration-300 ${
+        className={`pointer-events-none fixed inset-x-0 top-0 z-50 transition-opacity duration-300 ${
           overFooter ? "invisible opacity-0" : "opacity-100"
         }`}
         style={{
           paddingTop: "env(safe-area-inset-top)",
-          color: onDark ? "var(--brand-cream)" : "var(--brand-forest-green)",
         }}
       >
         <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 py-5 md:px-10 md:py-6">
           <nav
             aria-label="Main navigation"
+            data-header-part="left"
+            style={{ color: partColor("left") }}
             className="pointer-events-auto hidden items-center gap-x-10 md:flex"
           >
             {navLinks.slice(0, 2).map(renderHeaderLink)}
@@ -363,6 +383,8 @@ function SiteHeader() {
           <div className="md:hidden" />
           <Link
             to="/"
+            data-header-part="logo"
+            style={{ color: partColor("logo") }}
             className="pointer-events-auto block text-center"
             aria-label="Mylie Jane Design, home"
           >
@@ -372,12 +394,16 @@ function SiteHeader() {
           </Link>
           <nav
             aria-label="More navigation"
+            data-header-part="right"
+            style={{ color: partColor("right") }}
             className="pointer-events-auto hidden items-center justify-end gap-x-10 md:flex"
           >
             {navLinks.slice(2).map(renderHeaderLink)}
           </nav>
           <div
             ref={mobileMenuRef}
+            data-header-part="menu"
+            style={{ color: partColor("menu") }}
             className="pointer-events-auto flex justify-end md:hidden"
             onMouseEnter={keepMenuOpen}
             onMouseLeave={closeMenuSoon}

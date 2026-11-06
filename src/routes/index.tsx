@@ -68,8 +68,8 @@ function Index() {
           </h1>
         </div>
         <a
-          href="#recent-work"
-          aria-label="Scroll to recent work"
+          href="#intro"
+          aria-label="Scroll down"
           className="absolute left-1/2 z-10 -translate-x-1/2"
           style={{
             color: "var(--brand-cream)",
@@ -99,61 +99,106 @@ function Index() {
         className="relative z-10 bg-background"
         style={{ boxShadow: "0 -24px 60px -30px rgba(0,0,0,0.45)" }}
       >
+        {/* Introduction: who Mylie is, with her portrait on the right. */}
         <section
-          id="recent-work"
-          className="mx-auto max-w-7xl px-6 pb-24 pt-24 md:px-10 md:pb-32 md:pt-32 scroll-mt-16"
+          id="intro"
+          className="intro-pin z-0 flex items-center px-6 py-24 md:px-10 md:py-28"
         >
-          <div className="flex items-end justify-between gap-6 pb-6">
-            <div>
-              <p className="eyebrow">Recent Work</p>
-              <h2
-                className="mt-3 font-serif text-3xl md:text-4xl"
-                style={{ color: "var(--brand-ink)" }}
-              >
-                Still lifes, landscapes, and studies
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-14 md:grid-cols-2 md:gap-20">
+            <div className="text-[color:var(--brand-cream)]">
+              <h2 className="font-serif text-4xl leading-[1.1] md:text-5xl lg:text-[3.4rem]">
+                Finding Beauty in the Everyday
               </h2>
+              <p className="mt-8 max-w-xl text-base leading-relaxed text-[color:var(--brand-cream)]/85 md:text-[1.05rem]">
+                Mylie Jane Derrick is a Utah-based oil painter specializing in representational
+                landscapes and still lifes. Her work is inspired by her travels, the outdoors, and
+                the beauty of everyday life. With an emphasis on light and color, Mylie creates
+                paintings that capture the places and moments that inspire her.
+              </p>
+              <div className="mt-10 flex flex-wrap gap-5">
+                <Link to="/about" className="btn-frame text-[color:var(--brand-cream)]">
+                  Meet the Artist
+                </Link>
+                <Link to="/gallery" className="btn-frame text-[color:var(--brand-cream)]">
+                  View the Gallery
+                </Link>
+              </div>
             </div>
-            <Link
-              to="/gallery"
-              className="hidden text-sm uppercase tracking-[0.22em] md:inline"
-              style={{ color: "var(--brand-cream)" }}
-            >
-              See all →
-            </Link>
-          </div>
-          <div className="mt-12 columns-1 gap-12 md:columns-3">
-            {featured.map((p) => (
-              <Link
-                key={p.slug}
-                to="/paintings/$slug"
-                params={{ slug: p.slug }}
-                className="group mb-12 block break-inside-avoid"
-              >
-                <div className="overflow-hidden">
-                  <img
-                    src={p.image}
-                    srcSet={p.imageSrcSet}
-                    sizes={p.imageSizes}
-                    alt={artworkAlt(p)}
-                    width={p.imageWidth}
-                    height={p.imageHeight}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
-                  />
-                </div>
-                <div className="mt-4">
-                  <p className="font-serif text-xl italic" style={{ color: "var(--brand-ink)" }}>
-                    {p.title}
-                  </p>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {p.category} · {p.year}
-                  </p>
-                </div>
-              </Link>
-            ))}
+            <div className="mx-auto w-full max-w-md md:max-w-none">
+              <img
+                src="/images/mylie-portrait-studio.jpg"
+                alt="Mylie Jane Derrick sitting on the studio floor, smiling."
+                width={1066}
+                height={1600}
+                loading="lazy"
+                decoding="async"
+                className="aspect-[4/5] w-full object-cover object-[center_35%] lg:max-h-[78vh]"
+              />
+            </div>
           </div>
         </section>
+
+        {/* Recent work on cream, sliding up over the introduction. */}
+        <div
+          className="theme-light relative z-10 bg-background text-foreground"
+          style={{ boxShadow: "0 -24px 60px -30px rgba(0,0,0,0.45)" }}
+        >
+          <section
+            id="recent-work"
+            className="mx-auto max-w-7xl px-6 pb-24 pt-24 md:px-10 md:pb-32 md:pt-32 scroll-mt-16"
+          >
+            <div className="flex items-end justify-between gap-6 pb-6">
+              <div>
+                <p className="eyebrow">Recent Work</p>
+                <h2
+                  className="mt-3 font-serif text-3xl md:text-4xl"
+                  style={{ color: "var(--brand-ink)" }}
+                >
+                  Still lifes, landscapes, and studies
+                </h2>
+              </div>
+              <Link
+                to="/gallery"
+                className="hidden text-sm uppercase tracking-[0.22em] md:inline"
+                style={{ color: "var(--brand-forest-green)" }}
+              >
+                See all →
+              </Link>
+            </div>
+            <div className="mt-12 columns-1 gap-12 md:columns-3">
+              {featured.map((p) => (
+                <Link
+                  key={p.slug}
+                  to="/paintings/$slug"
+                  params={{ slug: p.slug }}
+                  className="group mb-12 block break-inside-avoid"
+                >
+                  <div className="overflow-hidden">
+                    <img
+                      src={p.image}
+                      srcSet={p.imageSrcSet}
+                      sizes={p.imageSizes}
+                      alt={artworkAlt(p)}
+                      width={p.imageWidth}
+                      height={p.imageHeight}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
+                    />
+                  </div>
+                  <div className="mt-4">
+                    <p className="font-serif text-xl italic" style={{ color: "var(--brand-ink)" }}>
+                      {p.title}
+                    </p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {p.category} · {p.year}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </div>
 
         <section className="sticky top-0 z-0 flex min-h-[80vh] items-center justify-center overflow-hidden px-6 py-24 text-center md:px-10 md:py-28">
           <img

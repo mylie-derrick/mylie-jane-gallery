@@ -203,6 +203,14 @@
   color: #f7f3ec;
 }
 
+/* A cream section inside a dark page (e.g. Recent Work on the home page). */
+.theme-dark .theme-light :is(h1, h2, h3, h4, h5) {
+  color: #1a1a1a;
+}
+.theme-dark .theme-light .eyebrow {
+  color: #2e3b24;
+}
+
 /* Home cover photo: fills the screen. On phones it runs an extra strip past the visible
    screen so it continues underneath Safari's floating bottom toolbar instead of showing
    the next section's green there. */
@@ -312,4 +320,14 @@
 .btn-frame:hover,
 .btn-frame:focus-visible {
   background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+/* Home intro: stays pinned while Recent Work slides over it, but only on screens tall
+   enough to show the whole section. */
+@media (min-width: 1024px) and (min-height: 860px) {
+  .intro-pin {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+  }
 }
