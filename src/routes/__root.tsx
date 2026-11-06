@@ -9,6 +9,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { IntroCurtain, INTRO_SEEN_SCRIPT } from "@/components/IntroCurtain";
 import { Instagram, Menu } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
@@ -174,8 +175,10 @@ function RootShell({ children }: { children: ReactNode }) {
   const isHome = useDisplayedPathname() === "/";
   const edgeStyle = isHome ? { backgroundColor: HOME_EDGE_COLOR } : undefined;
   return (
-    <html lang="en" style={edgeStyle}>
+    // suppressHydrationWarning: the intro script below may add a class to <html> before React loads.
+    <html lang="en" style={edgeStyle} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: INTRO_SEEN_SCRIPT }} />
         <HeadContent />
       </head>
       <body style={edgeStyle}>
@@ -647,6 +650,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}>
+        {isHome && <IntroCurtain />}
         <PageVeil />
         <SiteHeader />
         <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>
