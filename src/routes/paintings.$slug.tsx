@@ -138,7 +138,7 @@ function PaintingPage() {
       {others.length > 0 && (
         <section className="mt-32">
           <p className="eyebrow">More work</p>
-          <div className="mt-8 grid gap-10 sm:grid-cols-3">
+          <div className="mt-8 grid items-center gap-10 sm:grid-cols-3">
             {others.map((p) => (
               <Link
                 key={p.slug}
@@ -146,7 +146,7 @@ function PaintingPage() {
                 params={{ slug: p.slug }}
                 className="group block"
               >
-                <div className="overflow-hidden bg-muted">
+                <div className="overflow-hidden">
                   <img
                     src={p.detailImage || p.image}
                     srcSet={p.detailImageSrcSet || p.imageSrcSet}
@@ -156,7 +156,7 @@ function PaintingPage() {
                     width={p.imageWidth}
                     height={p.imageHeight}
                     decoding="async"
-                    className="aspect-square w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
                   />
                 </div>
                 <p className="mt-3 font-serif italic text-foreground">{p.title}</p>
