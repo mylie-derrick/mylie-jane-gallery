@@ -491,37 +491,48 @@ function SiteFooter() {
       style={{ backgroundColor: footerBackground, color: footerColor }}
     >
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 pt-16 md:px-10 md:pt-20">
-        <nav
-          aria-label="Footer navigation"
-          className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 md:ml-auto md:w-[52%]"
-        >
-          {columns.map((column) => (
-            <div key={column.heading}>
-              <p className={headingCls}>{column.heading}</p>
-              <ul className="flex flex-col gap-2">
-                {column.links.map((link) => (
-                  <li key={link.label}>
-                    <Link to={link.to} className={linkCls}>
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-                {"instagram" in column && (
-                  <li>
-                    <a
-                      href="https://www.instagram.com/myliejanedesign/"
-                      target="_blank"
-                      rel="noreferrer"
-                      className={linkCls}
-                    >
-                      Instagram
-                    </a>
-                  </li>
-                )}
-              </ul>
-            </div>
-          ))}
-        </nav>
+        <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
+          <img
+            src={isDarkPage ? "/images/mjd-monogram-cream.png" : "/images/mjd-monogram-moss.png"}
+            alt="MJD"
+            width={900}
+            height={302}
+            loading="lazy"
+            decoding="async"
+            className="w-40 opacity-90 md:w-56"
+          />
+          <nav
+            aria-label="Footer navigation"
+            className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 md:w-[52%]"
+          >
+            {columns.map((column) => (
+              <div key={column.heading}>
+                <p className={headingCls}>{column.heading}</p>
+                <ul className="flex flex-col gap-2">
+                  {column.links.map((link) => (
+                    <li key={link.label}>
+                      <Link to={link.to} className={linkCls}>
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                  {"instagram" in column && (
+                    <li>
+                      <a
+                        href="https://www.instagram.com/myliejanedesign/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className={linkCls}
+                      >
+                        Instagram
+                      </a>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            ))}
+          </nav>
+        </div>
 
         <div className="grid gap-6 pb-6 pt-20 md:grid-cols-[1fr_auto_1fr] md:items-end md:pt-28">
           <div className="max-w-xs text-[0.82rem] leading-relaxed opacity-85">

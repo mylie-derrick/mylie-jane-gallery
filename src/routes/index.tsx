@@ -240,19 +240,30 @@ function Index() {
         </section>
 
         <section
-          className="relative z-10 bg-background px-6 py-32 text-center md:px-10"
+          className="relative z-10 bg-background px-6 py-24 md:px-10 md:py-32"
           style={{ boxShadow: "0 -24px 60px -30px rgba(0,0,0,0.45)" }}
         >
-          <div className="mx-auto max-w-3xl">
-            <p className="eyebrow">A Note</p>
-            <p
-              className="mt-6 font-serif text-2xl italic leading-relaxed md:text-3xl"
-              style={{ color: "var(--brand-ink)" }}
-            >
-              Thank you for being here. It means a great deal to me that these paintings find homes
-              of their own. My hope is that they bring beauty, warmth, and joy to the spaces they're
-              part of.
-            </p>
+          <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[5fr_7fr] md:gap-20">
+            <img
+              src="/images/mylie-holding-peonies.jpg"
+              alt="Mylie Jane Derrick holding her framed painting of peonies in a white vase."
+              width={1045}
+              height={1600}
+              loading="lazy"
+              decoding="async"
+              className="mx-auto aspect-[4/5] w-full max-w-sm object-cover object-top md:max-w-none"
+            />
+            <div className="text-center md:text-left">
+              <p className="eyebrow">A Note</p>
+              <p
+                className="mt-6 font-serif text-2xl italic leading-relaxed md:text-3xl"
+                style={{ color: "var(--brand-ink)" }}
+              >
+                Thank you for being here. It means a great deal to me that these paintings find
+                homes of their own. My hope is that they bring beauty, warmth, and joy to the spaces
+                they're part of.
+              </p>
+            </div>
           </div>
         </section>
       </div>
