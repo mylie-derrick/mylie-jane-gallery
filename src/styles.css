@@ -206,16 +206,11 @@
   font-weight: 400;
 }
 
-/* Footer: giant script wordmark sized to span the full width, bottom cropped. */
-.footer-wordmark-crop {
-  height: calc(var(--wordmark-size) * 0.78);
-  overflow: hidden;
-  --wordmark-size: 13.6vw;
-}
+/* Footer: giant script wordmark spanning the full width, shown whole. */
 .footer-wordmark {
-  font-size: var(--wordmark-size);
-  line-height: 1;
+  font-size: 12.6vw;
+  line-height: 1.25;
   white-space: nowrap;
   text-align: center;
-  margin-top: calc(var(--wordmark-size) * 0.02);
+  padding-bottom: 0.4vw;
 }

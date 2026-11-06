@@ -239,6 +239,8 @@ function SiteHeader() {
   const headerRef = useRef<HTMLElement>(null);
   // Whether the header is currently floating over something dark (photo, green section).
   const [onDark, setOnDark] = useState(true);
+  // Once the footer reaches the top of the screen, the header steps out of the way.
+  const [overFooter, setOverFooter] = useState(false);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -254,6 +256,8 @@ function SiteHeader() {
       if (!header) return;
       const y = Math.min(header.getBoundingClientRect().bottom - 8, window.innerHeight - 1);
       setOnDark(isDarkBehind(header, Math.max(y, 1)));
+      const footer = document.querySelector("footer");
+      setOverFooter(Boolean(footer && footer.getBoundingClientRect().top < y + 8));
     };
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(check);
@@ -340,7 +344,10 @@ function SiteHeader() {
       {/* The header floats over the page as you scroll, with no bar behind it. */}
       <header
         ref={headerRef}
-        className="pointer-events-none fixed inset-x-0 top-0 z-50 transition-colors duration-300"
+        aria-hidden={overFooter || undefined}
+        className={`pointer-events-none fixed inset-x-0 top-0 z-50 transition-[color,opacity] duration-300 ${
+          overFooter ? "invisible opacity-0" : "opacity-100"
+        }`}
         style={{
           paddingTop: "env(safe-area-inset-top)",
           color: onDark ? "var(--brand-cream)" : "var(--brand-forest-green)",
@@ -448,7 +455,7 @@ function SiteFooter() {
 
   return (
     <footer
-      className="relative mt-32 flex min-h-[85svh] flex-col overflow-hidden"
+      className="relative flex min-h-[100svh] flex-col overflow-hidden"
       style={{ backgroundColor: footerBackground, color: footerColor }}
     >
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 pt-16 md:px-10 md:pt-20">
@@ -505,10 +512,10 @@ function SiteFooter() {
         </div>
       </div>
 
-      {/* Giant script wordmark, running edge to edge and cropped by the bottom of the page. */}
-      <div aria-hidden="true" className="footer-wordmark-crop">
-        <p className="footer-wordmark font-snell">Mylie Jane Design</p>
-      </div>
+      {/* Giant script wordmark running the full width of the page. */}
+      <p aria-hidden="true" className="footer-wordmark font-snell">
+        Mylie Jane Design
+      </p>
     </footer>
   );
 }
