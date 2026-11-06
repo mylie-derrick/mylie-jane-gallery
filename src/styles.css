@@ -41,12 +41,12 @@
    * Type system (preview)
    * - Script:  Snell Roundhand — the logo and footer wordmark only (.font-snell).
    * - Serif:   Legitima — headlines, section titles, painting titles. Until a Legitima
-   *            web licence is added, IM Fell DW Pica (a free 1690s revival) stands in.
+   *            web licence is added, EB Garamond (a clean old-style serif) stands in.
    * - Sans:    Work Sans — body text, navigation, labels and buttons, set in small
    *            letter-spaced capitals for UI.
    */
-  --font-serif: "Legitima", "IM Fell DW Pica", Georgia, serif;
-  --font-display: "Legitima", "IM Fell DW Pica", Georgia, serif;
+  --font-serif: "Legitima", "EB Garamond", Georgia, serif;
+  --font-display: "Legitima", "EB Garamond", Georgia, serif;
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -154,6 +154,8 @@
   }
 
   body {
+    /* Never fake a bold or italic the font doesn't have (it looks heavy and rough). */
+    font-synthesis: none;
     background-color: #f7f3ec;
     color: #1a1a1a;
     font-family: var(--font-sans);

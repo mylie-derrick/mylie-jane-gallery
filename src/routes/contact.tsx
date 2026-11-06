@@ -141,7 +141,7 @@ function Contact() {
                   name="message"
                   required
                   rows={6}
-                  className="mt-3 w-full border border-input bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 focus:border-foreground focus:outline-none"
+                  className="mt-3 w-full border border-[color:var(--brand-cream)]/70 bg-transparent px-4 py-3 text-base text-foreground placeholder:text-[color:var(--brand-cream)]/55 focus:border-[color:var(--brand-cream)] focus:outline-none"
                   placeholder="Tell me a little about what you're hoping for."
                 />
               </div>
@@ -192,7 +192,7 @@ function Field({
         required={required}
         defaultValue={defaultValue}
         placeholder={placeholder}
-        className="mt-3 w-full border border-input bg-transparent px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 focus:border-foreground focus:outline-none"
+        className="mt-3 w-full border border-[color:var(--brand-cream)]/70 bg-transparent px-4 py-3 text-base text-foreground placeholder:text-[color:var(--brand-cream)]/55 focus:border-[color:var(--brand-cream)] focus:outline-none"
       />
     </div>
   );

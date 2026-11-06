@@ -103,10 +103,7 @@ function Index() {
           id="recent-work"
           className="mx-auto max-w-7xl px-6 pb-24 pt-24 md:px-10 md:pb-32 md:pt-32 scroll-mt-16"
         >
-          <div
-            className="flex items-end justify-between gap-6 pb-6"
-            style={{ borderBottom: "1px solid var(--brand-deep-moss)" }}
-          >
+          <div className="flex items-end justify-between gap-6 pb-6">
             <div>
               <p className="eyebrow">Recent Work</p>
               <h2
