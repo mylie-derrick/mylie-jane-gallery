@@ -150,7 +150,7 @@ function Contact() {
               )}
               <button
                 type="submit"
-                className="border border-[color:var(--brand-cream)]/25 bg-primary px-7 py-3 text-sm uppercase tracking-[0.22em] text-primary-foreground transition-colors hover:bg-[color:var(--brand-deep-moss)]"
+                className="btn-frame text-[color:var(--brand-cream)] disabled:opacity-60"
               >
                 Send note
               </button>

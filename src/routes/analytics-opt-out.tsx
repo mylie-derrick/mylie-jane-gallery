@@ -38,10 +38,7 @@ function AnalyticsOptOut() {
         This browser will no longer send Vercel Analytics pageviews for Mylie Jane Design. Repeat
         this once on each phone, tablet, computer, or browser you use to visit the site.
       </p>
-      <Link
-        to="/"
-        className="mt-10 inline-flex items-center justify-center border border-[color:var(--brand-forest-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-[color:var(--brand-forest-green)] hover:text-[color:var(--brand-cream)]"
-      >
+      <Link to="/" className="btn-frame mt-10 text-[color:var(--brand-forest-green)]">
         Back to site
       </Link>
     </section>

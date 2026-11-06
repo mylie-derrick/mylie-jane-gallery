@@ -28,13 +28,15 @@ function Index() {
     <>
       <section
         className="hero-full sticky top-0 z-0 flex w-full items-center overflow-hidden"
-        style={{
-          // No background colour here on purpose: iPhone Safari paints its top and bottom
-          // bars with the colour of a pinned (sticky) section, which framed the photo in
-          // green. Without one, the photo runs underneath the bars.
-          // Fill the whole phone screen. On phones the photo also runs on underneath
-          // Safari's floating bottom toolbar (see .hero-full in styles.css).
-        }}
+        style={
+          {
+            // No background colour here on purpose: iPhone Safari paints its top and bottom
+            // bars with the colour of a pinned (sticky) section, which framed the photo in
+            // green. Without one, the photo runs underneath the bars.
+            // Fill the whole phone screen. On phones the photo also runs on underneath
+            // Safari's floating bottom toolbar (see .hero-full in styles.css).
+          }
+        }
       >
         <img
           src="/images/hero-painting-process.jpg"
@@ -52,31 +54,18 @@ function Index() {
               "linear-gradient(to bottom, rgba(26,26,26,0.15) 0%, rgba(26,26,26,0) 30%, rgba(26,26,26,0) 55%, rgba(26,26,26,0.7) 100%)",
           }}
         />
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-28 pt-32 md:px-10 md:pb-32 md:pt-36">
+        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-28 pt-32 text-center md:px-10 md:pb-32 md:pt-36">
           <h1
-            className="max-w-3xl italic leading-[1.04] text-4xl md:text-6xl lg:text-7xl"
+            className="font-display text-[1.75rem] uppercase leading-[1.2] tracking-[0.06em] sm:text-4xl md:text-5xl lg:text-[3.6rem]"
             style={{
-              fontFamily: '"Cormorant Garamond", Georgia, serif',
               color: "var(--brand-cream)",
               textShadow: "0 2px 30px rgba(0,0,0,0.35)",
             }}
           >
-            Art that elevates the everyday.
+            Oil paintings
+            <br />
+            by Mylie Jane Derrick
           </h1>
-          <div className="mt-9 flex flex-wrap gap-4">
-            <Link
-              to="/gallery"
-              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)]/30 bg-[color:var(--brand-header-green)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-deep-moss)]"
-            >
-              View Gallery
-            </Link>
-            <Link
-              to="/contact"
-              className="inline-flex items-center justify-center border border-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-cream)] transition-colors hover:bg-[color:var(--brand-cream)] hover:text-[color:var(--background)]"
-            >
-              Inquire About a Painting
-            </Link>
-          </div>
         </div>
         <a
           href="#recent-work"
@@ -202,10 +191,7 @@ function Index() {
               arrangement, or memory you want to hold onto. Share what you're imagining and I'll
               help shape it into an original piece.
             </p>
-            <Link
-              to="/contact"
-              className="mt-8 inline-flex items-center justify-center border border-[color:var(--brand-cream)] bg-[color:var(--brand-cream)] px-6 py-3 text-sm uppercase tracking-[0.22em] text-[color:var(--brand-forest-green)] transition-colors hover:bg-transparent hover:text-[color:var(--brand-cream)]"
-            >
+            <Link to="/contact" className="btn-frame mt-8 text-[color:var(--brand-cream)]">
               Start an Inquiry
             </Link>
           </div>
