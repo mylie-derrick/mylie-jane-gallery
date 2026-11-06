@@ -165,13 +165,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+/** Dark tone from the top edge of the home cover photo. */
+const HOME_EDGE_COLOR = "#22251f";
+
 function RootShell({ children }: { children: ReactNode }) {
+  // iPhone Safari fills the strip behind the clock/battery with the page's background
+  // colour. On the home page, match it to the cover photo so the photo reads edge to edge.
+  const isHome = useDisplayedPathname() === "/";
+  const edgeStyle = isHome ? { backgroundColor: HOME_EDGE_COLOR } : undefined;
   return (
-    <html lang="en">
+    <html lang="en" style={edgeStyle}>
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body style={edgeStyle}>
         {children}
         <Scripts />
         <Analytics beforeSend={filterMylieAnalytics} />

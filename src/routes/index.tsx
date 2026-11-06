@@ -27,14 +27,13 @@ function Index() {
   return (
     <>
       <section
-        className="sticky top-0 z-0 flex w-full items-center overflow-hidden"
+        className="hero-full sticky top-0 z-0 flex w-full items-center overflow-hidden"
         style={{
           // No background colour here on purpose: iPhone Safari paints its top and bottom
           // bars with the colour of a pinned (sticky) section, which framed the photo in
           // green. Without one, the photo runs underneath the bars.
-          // Fill the whole phone screen, including the strips behind the clock/battery
-          // bar and Safari's toolbar.
-          minHeight: "calc(100lvh + env(safe-area-inset-top) + env(safe-area-inset-bottom))",
+          // Fill the whole phone screen. On phones the photo also runs on underneath
+          // Safari's floating bottom toolbar (see .hero-full in styles.css).
         }}
       >
         <img
@@ -85,7 +84,8 @@ function Index() {
           className="absolute left-1/2 z-10 -translate-x-1/2"
           style={{
             color: "var(--brand-cream)",
-            bottom: "calc(2rem + env(safe-area-inset-bottom) + env(safe-area-inset-top))",
+            // Just above the bottom of the visible screen (above Safari's toolbar on phones).
+            top: "calc(100svh - 4.75rem)",
           }}
         >
           <svg

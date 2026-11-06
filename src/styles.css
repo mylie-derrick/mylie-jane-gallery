@@ -185,3 +185,16 @@
 .theme-dark .eyebrow {
   color: #f7f3ec;
 }
+
+/* Home cover photo: fills the screen. On phones it runs an extra strip past the visible
+   screen so it continues underneath Safari's floating bottom toolbar instead of showing
+   the next section's green there. */
+.hero-full {
+  min-height: 100lvh;
+}
+@media (max-width: 767px) {
+  .hero-full {
+    min-height: calc(100lvh + 8rem);
+    padding-bottom: 8rem; /* keep the headline centred in the visible part */
+  }
+}
