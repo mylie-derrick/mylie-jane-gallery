@@ -249,7 +249,7 @@ function SiteHeader() {
   // Each piece of the header (left links, logo, right links, menu button) picks its own
   // colour from what is directly behind it, so it stays readable over paintings too.
   const [darkParts, setDarkParts] = useState<Record<string, boolean>>({});
-  // Once the footer reaches the top of the screen, the header steps out of the way.
+  // Once you reach the footer, the header steps out of the way.
   const [overFooter, setOverFooter] = useState(false);
 
   useEffect(() => {
@@ -276,7 +276,10 @@ function SiteHeader() {
           : next,
       );
       const footer = document.querySelector("footer");
-      setOverFooter(Boolean(footer && footer.getBoundingClientRect().top < y + 8));
+      // Hide once the footer fills the lower half of the screen.
+      setOverFooter(
+        Boolean(footer && footer.getBoundingClientRect().top < window.innerHeight * 0.5),
+      );
     };
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(check);
@@ -484,7 +487,7 @@ function SiteFooter() {
 
   return (
     <footer
-      className="relative flex min-h-[100svh] flex-col overflow-hidden"
+      className="relative flex flex-col overflow-hidden"
       style={{ backgroundColor: footerBackground, color: footerColor }}
     >
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 pt-16 md:px-10 md:pt-20">
@@ -520,7 +523,7 @@ function SiteFooter() {
           ))}
         </nav>
 
-        <div className="mt-auto grid gap-6 pb-8 pt-20 md:grid-cols-[1fr_auto_1fr] md:items-end">
+        <div className="grid gap-6 pb-6 pt-20 md:grid-cols-[1fr_auto_1fr] md:items-end md:pt-28">
           <div className="max-w-xs text-[0.82rem] leading-relaxed opacity-85">
             <p>
               Original oil paintings of still lifes and landscapes, from a studio in Salt Lake City,

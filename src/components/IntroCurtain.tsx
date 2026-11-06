@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 /**
  * Opening curtain, shown once per visit when someone first lands on the home page:
- * a solid forest-green page with the large "Mylie Jane Design" wordmark at the bottom,
- * which then slides up to reveal the site.
+ * a solid forest-green page with the "Mylie Jane Design" wordmark centred in a lighter
+ * green, which then slides up (wordmark and all) to reveal the site.
  *
  * A tiny script in the page head (INTRO_SEEN_SCRIPT) hides it before the first paint
  * if it has already played in this browser session, so repeat visits never flash it.
@@ -13,7 +13,7 @@ export const INTRO_SEEN_SCRIPT = `try{if(sessionStorage.getItem("${INTRO_SEEN_KE
 
 const HOLD_MS = 1000; // wordmark on the green before the page lifts
 const LIFT_MS = 1100; // how long the green takes to slide away
-const FADE_MS = 700; // wordmark fades after the green has passed it
+const FADE_MS = 100; // small buffer after the slide before removing the curtain
 
 type Phase = "hold" | "lift" | "done";
 
@@ -63,8 +63,9 @@ export function IntroCurtain() {
 
   return (
     <div className={`site-intro ${phase === "lift" ? "is-lifting" : ""}`} aria-hidden="true">
-      <div className="site-intro__panel" />
-      <p className="site-intro__logo font-snell">Mylie Jane Design</p>
+      <div className="site-intro__panel">
+        <p className="site-intro__logo font-snell">Mylie Jane Design</p>
+      </div>
     </div>
   );
 }
