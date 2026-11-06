@@ -205,3 +205,17 @@
     "Snell Roundhand", "SnellRoundhand", "Mrs Saint Delafield", "Cormorant Garamond", cursive;
   font-weight: 400;
 }
+
+/* Footer: giant script wordmark sized to span the full width, bottom cropped. */
+.footer-wordmark-crop {
+  height: calc(var(--wordmark-size) * 0.78);
+  overflow: hidden;
+  --wordmark-size: 13.6vw;
+}
+.footer-wordmark {
+  font-size: var(--wordmark-size);
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+  margin-top: calc(var(--wordmark-size) * 0.02);
+}

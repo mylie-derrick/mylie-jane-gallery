@@ -198,6 +198,32 @@ function useDisplayedPathname() {
   });
 }
 
+/** True when whatever sits behind the header at height `y` is dark. */
+function isDarkBehind(header: HTMLElement, y: number): boolean {
+  const xs = [window.innerWidth * 0.08, window.innerWidth * 0.5, window.innerWidth * 0.92];
+  let darkVotes = 0;
+  for (const x of xs) {
+    const el = document
+      .elementsFromPoint(x, y)
+      .find((node) => !header.contains(node) && !node.closest("[data-page-veil]"));
+    if (isDarkElement(el ?? null)) darkVotes += 1;
+  }
+  return darkVotes >= 2;
+}
+
+function isDarkElement(start: Element | null): boolean {
+  for (let el = start; el; el = el.parentElement) {
+    if (el.tagName === "IMG" || el.tagName === "VIDEO") return true; // paintings and photos
+    const bg = getComputedStyle(el).backgroundColor;
+    const m = bg.match(/rgba?\(([^)]+)\)/);
+    if (!m) continue;
+    const [r, g, b, a = 1] = m[1].split(",").map((v) => parseFloat(v));
+    if (a < 0.5) continue;
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b < 140;
+  }
+  return false;
+}
+
 function SiteHeader() {
   const pathname = useDisplayedPathname();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -210,8 +236,38 @@ function SiteHeader() {
     style: { color: "var(--brand-forest-green)", borderColor: "var(--brand-forest-green)" },
   };
 
+  const headerRef = useRef<HTMLElement>(null);
+  // Whether the header is currently floating over something dark (photo, green section).
+  const [onDark, setOnDark] = useState(true);
+
   useEffect(() => {
     setMenuOpen(false);
+  }, [pathname]);
+
+  // As the page scrolls, look at what is behind the header and pick cream (over dark)
+  // or forest green (over light). Real brand colours, so it never turns purple.
+  useEffect(() => {
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const header = headerRef.current;
+      if (!header) return;
+      const y = Math.min(header.getBoundingClientRect().bottom - 8, window.innerHeight - 1);
+      setOnDark(isDarkBehind(header, Math.max(y, 1)));
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+    check();
+    const late = window.setTimeout(check, 400); // after the new page has painted
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(late);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
   }, [pathname]);
 
   useEffect(() => {
@@ -281,14 +337,14 @@ function SiteHeader() {
 
   return (
     <>
-      {/*
-        The header floats over the page as you scroll, with no bar behind it.
-        "difference" blending flips the white text so it stays readable:
-        light over dark paintings and green, dark over cream pages.
-      */}
+      {/* The header floats over the page as you scroll, with no bar behind it. */}
       <header
-        className="pointer-events-none fixed inset-x-0 top-0 z-50 text-white mix-blend-difference"
-        style={{ paddingTop: "env(safe-area-inset-top)" }}
+        ref={headerRef}
+        className="pointer-events-none fixed inset-x-0 top-0 z-50 transition-colors duration-300"
+        style={{
+          paddingTop: "env(safe-area-inset-top)",
+          color: onDark ? "var(--brand-cream)" : "var(--brand-forest-green)",
+        }}
       >
         <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 py-5 md:px-10 md:py-6">
           <nav
@@ -365,48 +421,93 @@ function SiteFooter() {
   const isDarkPage = pathname === "/" || pathname === "/gallery" || pathname === "/contact";
   const footerBackground = isDarkPage ? "var(--brand-deep-moss)" : "var(--brand-footer-moss)";
   const footerColor = isDarkPage ? "var(--brand-cream)" : "var(--brand-deep-moss)";
-  const mutedFooterColor = isDarkPage ? "rgba(247, 243, 236, 0.78)" : "var(--brand-deep-moss)";
-  const linkCls = isDarkPage
-    ? "text-sm text-[color:var(--brand-cream)]/80 transition-colors hover:text-[color:var(--brand-cream)]"
-    : "text-sm text-[color:var(--brand-deep-moss)]/80 transition-colors hover:text-[color:var(--brand-deep-moss)]";
+  const linkCls =
+    "text-[0.82rem] tracking-[0.04em] opacity-80 transition-opacity hover:opacity-100";
+  const headingCls = "mb-4 font-serif text-[0.95rem] uppercase tracking-[0.12em]";
+  const columns = [
+    {
+      heading: "Paintings",
+      links: [
+        { to: "/gallery", label: "Gallery" },
+        { to: "/shop", label: "Available Work" },
+      ],
+    },
+    {
+      heading: "Studio",
+      links: [
+        { to: "/about", label: "About Mylie" },
+        { to: "/contact", label: "Commissions" },
+      ],
+    },
+    {
+      heading: "Connect",
+      links: [{ to: "/contact", label: "Contact" }],
+      instagram: true,
+    },
+  ] as const;
+
   return (
-    <footer className="mt-32" style={{ backgroundColor: footerBackground, color: footerColor }}>
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-14 md:flex-row md:items-center md:justify-between md:px-10">
-        <div>
-          <p className="font-serif text-lg" style={{ color: footerColor }}>
-            Mylie Jane Design
-          </p>
-          <p className="mt-1 text-sm" style={{ color: mutedFooterColor }}>
-            Studio in Salt Lake City, Utah.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-x-8 gap-y-2">
-          <Link to="/gallery" className={linkCls}>
-            Gallery
-          </Link>
-          <Link to="/shop" className={linkCls}>
-            Available Work
-          </Link>
-          <Link to="/about" className={linkCls}>
-            About
-          </Link>
-          <Link to="/contact" className={linkCls}>
-            Contact
-          </Link>
-          <a
-            href="https://www.instagram.com/myliejanedesign/"
-            target="_blank"
-            rel="noreferrer"
-            className={`inline-flex items-center gap-2 ${linkCls}`}
-            aria-label="Mylie Jane Design on Instagram"
+    <footer
+      className="relative mt-32 flex min-h-[85svh] flex-col overflow-hidden"
+      style={{ backgroundColor: footerBackground, color: footerColor }}
+    >
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 pt-16 md:px-10 md:pt-20">
+        <nav
+          aria-label="Footer navigation"
+          className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 md:ml-auto md:w-[52%]"
+        >
+          {columns.map((column) => (
+            <div key={column.heading}>
+              <p className={headingCls}>{column.heading}</p>
+              <ul className="flex flex-col gap-2">
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    <Link to={link.to} className={linkCls}>
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+                {"instagram" in column && (
+                  <li>
+                    <a
+                      href="https://www.instagram.com/myliejanedesign/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className={linkCls}
+                    >
+                      Instagram
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </div>
+          ))}
+        </nav>
+
+        <div className="mt-auto grid gap-6 pb-8 pt-20 md:grid-cols-[1fr_auto_1fr] md:items-end">
+          <div className="max-w-xs text-[0.82rem] leading-relaxed opacity-85">
+            <p>
+              Original oil paintings of still lifes and landscapes, from a studio in Salt Lake City,
+              Utah.
+            </p>
+            <p className="mt-4 text-[0.72rem] opacity-80">
+              © {new Date().getFullYear()} Mylie Jane Derrick. All works original.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="justify-self-start text-[0.72rem] uppercase tracking-[0.18em] opacity-80 transition-opacity hover:opacity-100 md:justify-self-center"
           >
-            <Instagram size={16} aria-hidden="true" />
-            <span>Instagram</span>
-          </a>
+            ↑ Back to top
+          </button>
+          <div />
         </div>
-        <p className="text-xs" style={{ color: mutedFooterColor }}>
-          © {new Date().getFullYear()} Mylie Jane Derrick. All works original.
-        </p>
+      </div>
+
+      {/* Giant script wordmark, running edge to edge and cropped by the bottom of the page. */}
+      <div aria-hidden="true" className="footer-wordmark-crop">
+        <p className="footer-wordmark font-snell">Mylie Jane Design</p>
       </div>
     </footer>
   );
@@ -478,6 +579,7 @@ function PageVeil() {
 
   return (
     <div
+      data-page-veil
       aria-hidden={!visible}
       role={visible ? "status" : undefined}
       className={`fixed inset-0 z-[100] items-center justify-center transition-opacity ${
