@@ -200,46 +200,15 @@ function useDisplayedPathname() {
 
 function SiteHeader() {
   const pathname = useDisplayedPathname();
-  const isHome = pathname === "/";
-  const isDarkPage = isHome || pathname === "/gallery" || pathname === "/contact";
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileNavRef = useRef<HTMLElement>(null);
   const closeMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const navTextColor = scrolled
-    ? "var(--brand-cream)"
-    : isDarkPage
-      ? "var(--brand-cream)"
-      : "var(--brand-forest-green)";
-  const navTextMuted = scrolled
-    ? "rgba(247, 243, 236, 0.78)"
-    : isDarkPage
-      ? "rgba(247, 243, 236, 0.78)"
-      : "rgba(46, 59, 36, 0.78)";
   const linkBase = "text-[0.78rem] uppercase tracking-[0.22em] transition-colors hover:opacity-100";
-  const desktopActive = {
-    className: `${linkBase} border-b pb-1 opacity-100`,
-    style: { color: navTextColor, borderColor: navTextColor },
-  };
   const mobileActive = {
     className: `${linkBase} border-b pb-1 opacity-100`,
     style: { color: "var(--brand-forest-green)", borderColor: "var(--brand-forest-green)" },
   };
-
-  useEffect(() => {
-    // On the home page the header stays see-through over the cover photo and only
-    // turns into the green bar once the photo has been scrolled past.
-    const updateScrolled = () =>
-      setScrolled(window.scrollY > (isHome ? window.innerHeight - 120 : 2));
-
-    updateScrolled();
-    window.addEventListener("scroll", updateScrolled, { passive: true });
-    window.addEventListener("resize", updateScrolled);
-    return () => {
-      window.removeEventListener("scroll", updateScrolled);
-      window.removeEventListener("resize", updateScrolled);
-    };
-  }, [isHome]);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -249,7 +218,8 @@ function SiteHeader() {
     if (!menuOpen) return;
 
     const closeOnOutsideClick = (event: MouseEvent | TouchEvent) => {
-      if (!mobileMenuRef.current?.contains(event.target as Node)) {
+      const target = event.target as Node;
+      if (!mobileMenuRef.current?.contains(target) && !mobileNavRef.current?.contains(target)) {
         setMenuOpen(false);
       }
     };
@@ -289,42 +259,65 @@ function SiteHeader() {
     closeMenuTimerRef.current = setTimeout(() => setMenuOpen(false), 350);
   };
 
-  return (
-    <header
-      className="fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 ease-out"
-      style={{
-        paddingTop: "env(safe-area-inset-top)",
-        backgroundColor: scrolled ? "var(--brand-header-green)" : "transparent",
-        borderColor: scrolled ? "rgba(247, 243, 236, 0.22)" : "transparent",
-        boxShadow: scrolled ? "0 12px 30px -28px rgba(26, 26, 26, 0.45)" : "none",
-      }}
+  const navLinks = [
+    { to: "/gallery", label: "Gallery" },
+    { to: "/shop", label: "Available Work" },
+    { to: "/about", label: "About" },
+    { to: "/contact", label: "Contact" },
+  ] as const;
+  const headerLinkBase =
+    "text-[0.74rem] uppercase tracking-[0.22em] transition-opacity hover:opacity-100";
+  const headerActive = { className: `${headerLinkBase} border-b border-current pb-1 opacity-100` };
+  const renderHeaderLink = (link: (typeof navLinks)[number]) => (
+    <Link
+      key={link.to}
+      to={link.to}
+      className={`${headerLinkBase} opacity-85`}
+      activeProps={headerActive}
     >
-      <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-5 md:flex-row md:items-end md:justify-between md:px-10">
-        <div className="flex items-center justify-between gap-5">
-          <Link to="/" className="block">
-            <p
-              className="font-serif text-2xl leading-none tracking-tight transition-colors duration-300"
-              style={{ color: navTextColor }}
-            >
-              Mylie Jane Derrick
-            </p>
-            <p
-              className="mt-2 text-[0.68rem] uppercase tracking-[0.28em] transition-colors duration-300"
-              style={{ color: navTextMuted }}
-            >
-              Mylie Jane Design · Oil Paintings
-            </p>
+      {link.label}
+    </Link>
+  );
+
+  return (
+    <>
+      {/*
+        The header floats over the page as you scroll, with no bar behind it.
+        "difference" blending flips the white text so it stays readable:
+        light over dark paintings and green, dark over cream pages.
+      */}
+      <header
+        className="pointer-events-none fixed inset-x-0 top-0 z-50 text-white mix-blend-difference"
+        style={{ paddingTop: "env(safe-area-inset-top)" }}
+      >
+        <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 py-5 md:px-10 md:py-6">
+          <nav
+            aria-label="Main navigation"
+            className="pointer-events-auto hidden items-center gap-x-10 md:flex"
+          >
+            {navLinks.slice(0, 2).map(renderHeaderLink)}
+          </nav>
+          <div className="md:hidden" />
+          <Link
+            to="/"
+            className="pointer-events-auto block text-center"
+            aria-label="Mylie Jane Design, home"
+          >
+            <span className="font-snell block whitespace-nowrap text-[1.45rem] leading-none sm:text-[1.75rem] md:text-[2.2rem]">
+              Mylie Jane Design
+            </span>
           </Link>
+          <nav
+            aria-label="More navigation"
+            className="pointer-events-auto hidden items-center justify-end gap-x-10 md:flex"
+          >
+            {navLinks.slice(2).map(renderHeaderLink)}
+          </nav>
           <div
             ref={mobileMenuRef}
-            className="relative md:hidden"
+            className="pointer-events-auto flex justify-end md:hidden"
             onMouseEnter={keepMenuOpen}
             onMouseLeave={closeMenuSoon}
-            onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) {
-                closeMenuSoon();
-              }
-            }}
           >
             <button
               type="button"
@@ -333,96 +326,37 @@ function SiteHeader() {
               aria-controls="mobile-navigation"
               onClick={() => setMenuOpen((open) => !open)}
               onFocus={keepMenuOpen}
-              className="flex h-10 w-10 cursor-pointer items-center justify-center border transition-colors duration-300"
-              style={{ borderColor: navTextMuted, color: navTextColor }}
+              className="flex h-10 w-10 cursor-pointer items-center justify-center border border-current"
             >
               <Menu size={18} />
             </button>
-            <nav
-              id="mobile-navigation"
-              aria-label="Mobile navigation"
-              className={`absolute right-0 top-12 z-20 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)] transition-opacity duration-200 ${
-                menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-              }`}
-            >
-              <Link
-                to="/gallery"
-                className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-forest-green)" }}
-                activeProps={mobileActive}
-                onClick={() => setMenuOpen(false)}
-              >
-                Gallery
-              </Link>
-              <Link
-                to="/shop"
-                className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-forest-green)" }}
-                activeProps={mobileActive}
-                onClick={() => setMenuOpen(false)}
-              >
-                Available Work
-              </Link>
-              <Link
-                to="/about"
-                className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-forest-green)" }}
-                activeProps={mobileActive}
-                onClick={() => setMenuOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                to="/contact"
-                className={`${linkBase} opacity-80`}
-                style={{ color: "var(--brand-forest-green)" }}
-                activeProps={mobileActive}
-                onClick={() => setMenuOpen(false)}
-              >
-                Contact
-              </Link>
-            </nav>
           </div>
         </div>
-        <nav
-          aria-label="Main navigation"
-          className="hidden flex-col gap-4 pt-3 md:flex md:flex-row md:flex-wrap md:items-center md:gap-x-8 md:gap-y-3 md:pt-0"
-        >
+      </header>
+      <nav
+        id="mobile-navigation"
+        ref={mobileNavRef}
+        aria-label="Mobile navigation"
+        onMouseEnter={keepMenuOpen}
+        onMouseLeave={closeMenuSoon}
+        className={`fixed right-6 top-[4.5rem] z-50 flex min-w-48 flex-col gap-4 bg-[color:var(--brand-cream)] p-5 shadow-[0_18px_50px_-30px_rgba(26,26,26,0.7)] transition-opacity duration-200 md:hidden ${
+          menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      >
+        {navLinks.map((link) => (
           <Link
-            to="/gallery"
+            key={link.to}
+            to={link.to}
             className={`${linkBase} opacity-80`}
-            style={{ color: navTextColor }}
-            activeProps={desktopActive}
+            style={{ color: "var(--brand-forest-green)" }}
+            activeProps={mobileActive}
+            onClick={() => setMenuOpen(false)}
           >
-            Gallery
+            {link.label}
           </Link>
-          <Link
-            to="/shop"
-            className={`${linkBase} opacity-80`}
-            style={{ color: navTextColor }}
-            activeProps={desktopActive}
-          >
-            Available Work
-          </Link>
-          <Link
-            to="/about"
-            className={`${linkBase} opacity-80`}
-            style={{ color: navTextColor }}
-            activeProps={desktopActive}
-          >
-            About
-          </Link>
-          <Link
-            to="/contact"
-            className={`${linkBase} opacity-80`}
-            style={{ color: navTextColor }}
-            activeProps={desktopActive}
-          >
-            Contact
-          </Link>
-        </nav>
-      </div>
-    </header>
+        ))}
+      </nav>
+    </>
   );
 }
 
@@ -577,9 +511,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div
-        className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}
-      >
+      <div className={`flex min-h-screen flex-col bg-background text-foreground ${pageThemeClass}`}>
         <PageVeil />
         <SiteHeader />
         <main className={`flex-1 ${isHome ? "" : "pt-28 md:pt-32"}`}>

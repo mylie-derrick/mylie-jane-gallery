@@ -198,3 +198,10 @@
     padding-bottom: 8rem; /* keep the headline centred in the visible part */
   }
 }
+
+/* Header script logo (preview). Snell Roundhand ships with macOS and iOS. */
+.font-snell {
+  font-family:
+    "Snell Roundhand", "SnellRoundhand", "Mrs Saint Delafield", "Cormorant Garamond", cursive;
+  font-weight: 400;
+}
