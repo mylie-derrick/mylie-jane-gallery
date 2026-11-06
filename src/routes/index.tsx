@@ -27,7 +27,7 @@ function Index() {
   return (
     <>
       <section
-        className="sticky top-0 z-0 flex min-h-screen w-full items-center overflow-hidden"
+        className="sticky top-0 z-0 flex min-h-screen min-h-[100lvh] w-full items-center overflow-hidden"
         style={{ backgroundColor: "var(--brand-forest-green)" }}
       >
         <img

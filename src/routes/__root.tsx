@@ -125,7 +125,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: `${siteName} — Oil Paintings by ${artistName}` },
       {
         name: "description",
@@ -279,6 +279,7 @@ function SiteHeader() {
     <header
       className="fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 ease-out"
       style={{
+        paddingTop: "env(safe-area-inset-top)",
         backgroundColor: scrolled ? "var(--brand-header-green)" : "transparent",
         borderColor: scrolled ? "rgba(247, 243, 236, 0.22)" : "transparent",
         boxShadow: scrolled ? "0 12px 30px -28px rgba(26, 26, 26, 0.45)" : "none",
@@ -512,8 +513,10 @@ function PageVeil() {
     <div
       aria-hidden={!visible}
       role={visible ? "status" : undefined}
-      className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity ${
-        visible ? "opacity-100" : "pointer-events-none opacity-0"
+      // Fully hidden (not just transparent) when idle: iPhone Safari otherwise picks up
+      // this green for its top and bottom bars, framing the hero photo in green.
+      className={`fixed inset-0 z-[100] flex items-center justify-center transition-[opacity,visibility] ${
+        visible ? "visible opacity-100" : "pointer-events-none invisible opacity-0"
       }`}
       style={{
         backgroundColor: "var(--brand-forest-green)",
