@@ -100,7 +100,7 @@ function Gallery() {
           </p>
         </div>
         <div className="md:col-span-5">
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-4">
             {filters.map((item) => {
               const active = item.id === filter;
               return (
@@ -108,12 +108,10 @@ function Gallery() {
                   key={item.id}
                   to="/gallery"
                   search={item.id === "all" ? {} : { category: item.id }}
-                  className="border px-4 py-2 text-xs uppercase tracking-[0.22em] transition-colors"
-                  style={{
-                    borderColor: active ? "var(--brand-header-green)" : "var(--brand-deep-moss)",
-                    backgroundColor: active ? "var(--brand-header-green)" : "transparent",
-                    color: active ? "var(--brand-cream)" : "var(--brand-ink)",
-                  }}
+                  aria-current={active ? "page" : undefined}
+                  className={`btn-frame btn-frame-sm text-[color:var(--brand-cream)] ${
+                    active ? "btn-frame-active" : "opacity-75 hover:opacity-100"
+                  }`}
                 >
                   {item.label}
                 </Link>

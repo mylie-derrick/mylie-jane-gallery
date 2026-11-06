@@ -331,3 +331,13 @@
     min-height: 100vh;
   }
 }
+
+/* Smaller framed button, e.g. the Gallery category filters. */
+.btn-frame-sm {
+  padding: 0.7rem 1.4rem;
+  font-size: 0.68rem;
+}
+/* The selected filter: softly filled. */
+.btn-frame-active {
+  background-color: color-mix(in srgb, currentColor 16%, transparent);
+}
