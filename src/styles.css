@@ -403,3 +403,26 @@
     opacity: 0;
   }
 }
+
+/* Available Work: one painting per screen. */
+.shop-slide {
+  min-height: 100svh;
+  padding-top: 6.5rem; /* clear the floating header */
+  padding-bottom: 3rem;
+  scroll-snap-align: start;
+}
+.shop-slide-img {
+  max-height: calc(100svh - 9.5rem);
+}
+@media (max-width: 767px) {
+  .shop-slide {
+    padding-top: 5.5rem;
+    align-content: center;
+  }
+  .shop-slide-img {
+    max-height: 58svh;
+  }
+}
+html.snap-paintings {
+  scroll-snap-type: y proximity;
+}
