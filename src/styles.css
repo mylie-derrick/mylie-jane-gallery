@@ -337,6 +337,18 @@
   padding: 0.7rem 1.4rem;
   font-size: 0.68rem;
 }
+/* Gallery filters: tighter on phones so all four fit on one line. */
+@media (max-width: 639px) {
+  .gallery-filters .btn-frame-sm {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+}
+.gallery-filters .btn-frame-sm {
+  white-space: nowrap;
+}
 /* The selected filter: softly filled. */
 .btn-frame-active {
   background-color: color-mix(in srgb, currentColor 16%, transparent);

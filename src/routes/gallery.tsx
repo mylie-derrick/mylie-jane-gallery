@@ -89,8 +89,8 @@ function Gallery() {
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
-      <header className="grid gap-10 md:grid-cols-12 md:items-end">
-        <div className="max-w-2xl md:col-span-7">
+      <header>
+        <div className="max-w-2xl">
           <p className="eyebrow">Gallery</p>
           <h1 className="mt-4 font-serif text-4xl italic leading-tight text-foreground md:text-6xl">
             Original paintings, gathered by series.
@@ -99,8 +99,9 @@ function Gallery() {
             Browse still lifes, landscapes, portraits, and studies.
           </p>
         </div>
-        <div className="md:col-span-5">
-          <div className="flex flex-wrap gap-4">
+        <div className="mt-10">
+          {/* All filters stay on one line, even on a phone. */}
+          <div className="gallery-filters flex flex-nowrap gap-2 sm:gap-4">
             {filters.map((item) => {
               const active = item.id === filter;
               return (

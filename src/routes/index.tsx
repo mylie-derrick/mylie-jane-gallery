@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useScrollDrift } from "@/lib/scroll-drift";
 import { getFeaturedArtworks } from "@/lib/sanity.artworks";
 import { artworkAlt, defaultSeoImage, seo, websiteSchema } from "@/lib/seo";
 
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const featured = Route.useLoaderData();
+  useScrollDrift();
 
   return (
     <>
@@ -147,55 +149,60 @@ function Index() {
             id="recent-work"
             className="mx-auto max-w-7xl px-6 pb-24 pt-24 md:px-10 md:pb-32 md:pt-32 scroll-mt-16"
           >
-            <div className="flex items-end justify-between gap-6 pb-6">
-              <div>
-                <p className="eyebrow">Recent Work</p>
-                <h2
-                  className="mt-3 font-serif text-3xl md:text-4xl"
-                  style={{ color: "var(--brand-ink)" }}
-                >
-                  Still lifes, landscapes, and studies
-                </h2>
-              </div>
-              <Link
-                to="/gallery"
-                className="hidden text-sm uppercase tracking-[0.22em] md:inline"
-                style={{ color: "var(--brand-forest-green)" }}
-              >
-                See all →
-              </Link>
-            </div>
-            <div className="mt-12 grid grid-cols-1 items-center gap-12 md:grid-cols-3">
-              {featured.map((p) => (
+            <div data-drift>
+              <div className="flex items-end justify-between gap-6 pb-6">
+                <div>
+                  <p className="eyebrow">Recent Work</p>
+                  <h2
+                    className="mt-3 font-serif text-3xl md:text-4xl"
+                    style={{ color: "var(--brand-ink)" }}
+                  >
+                    Still lifes, landscapes, and studies
+                  </h2>
+                </div>
                 <Link
-                  key={p.slug}
-                  to="/paintings/$slug"
-                  params={{ slug: p.slug }}
-                  className="group block"
+                  to="/gallery"
+                  className="hidden text-sm uppercase tracking-[0.22em] md:inline"
+                  style={{ color: "var(--brand-forest-green)" }}
                 >
-                  <div className="overflow-hidden">
-                    <img
-                      src={p.image}
-                      srcSet={p.imageSrcSet}
-                      sizes={p.imageSizes}
-                      alt={artworkAlt(p)}
-                      width={p.imageWidth}
-                      height={p.imageHeight}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
-                    />
-                  </div>
-                  <div className="mt-4">
-                    <p className="font-serif text-xl italic" style={{ color: "var(--brand-ink)" }}>
-                      {p.title}
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {p.category} · {p.year}
-                    </p>
-                  </div>
+                  See all →
                 </Link>
-              ))}
+              </div>
+              <div className="mt-12 grid grid-cols-1 items-center gap-12 md:grid-cols-3">
+                {featured.map((p) => (
+                  <Link
+                    key={p.slug}
+                    to="/paintings/$slug"
+                    params={{ slug: p.slug }}
+                    className="group block"
+                  >
+                    <div className="overflow-hidden">
+                      <img
+                        src={p.image}
+                        srcSet={p.imageSrcSet}
+                        sizes={p.imageSizes}
+                        alt={artworkAlt(p)}
+                        width={p.imageWidth}
+                        height={p.imageHeight}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]"
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <p
+                        className="font-serif text-xl italic"
+                        style={{ color: "var(--brand-ink)" }}
+                      >
+                        {p.title}
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {p.category} · {p.year}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           </section>
         </div>
@@ -208,7 +215,8 @@ function Index() {
             height={1086}
             loading="lazy"
             decoding="async"
-            className="absolute inset-0 h-full w-full object-cover object-[center_84%]"
+            data-parallax
+            className="absolute inset-x-0 -top-[12%] h-[124%] w-full object-cover object-[center_84%]"
           />
           <div
             className="absolute inset-0"
@@ -217,7 +225,7 @@ function Index() {
                 "radial-gradient(circle at center, rgba(46,59,36,0.34) 0%, rgba(46,59,36,0.5) 46%, rgba(46,59,36,0.68) 100%), linear-gradient(rgba(46,59,36,0.46), rgba(46,59,36,0.46))",
             }}
           />
-          <div className="relative z-10 mx-auto w-full max-w-4xl">
+          <div data-drift className="relative z-10 mx-auto w-full max-w-4xl">
             <p className="eyebrow">Commissions</p>
             <h2
               className="mt-4 font-serif text-3xl italic leading-tight md:text-5xl"
@@ -243,7 +251,10 @@ function Index() {
           className="relative z-10 bg-background px-6 py-24 md:px-10 md:py-32"
           style={{ boxShadow: "0 -24px 60px -30px rgba(0,0,0,0.45)" }}
         >
-          <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[5fr_7fr] md:gap-20">
+          <div
+            data-drift
+            className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[5fr_7fr] md:gap-20"
+          >
             <img
               src="/images/mylie-holding-peonies.jpg"
               alt="Mylie Jane Derrick holding her framed painting of peonies in a white vase."
@@ -254,9 +265,8 @@ function Index() {
               className="mx-auto aspect-[4/5] w-full max-w-sm object-cover object-top md:max-w-none"
             />
             <div className="mx-auto max-w-xl text-center">
-              <p className="eyebrow">A Note</p>
               <p
-                className="mt-6 font-serif text-2xl italic leading-relaxed md:text-3xl"
+                className="font-serif text-2xl italic leading-relaxed md:text-3xl"
                 style={{ color: "var(--brand-ink)" }}
               >
                 Thank you for being here. It means a great deal to me that these paintings find
