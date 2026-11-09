@@ -6,7 +6,7 @@ export const siteUrl =
 
 export const siteName = "Mylie Jane Design";
 export const artistName = "Mylie Jane Derrick";
-export const defaultSeoImage = "/images/hero-painting-process.jpg";
+export const defaultSeoImage = "/images/og-share.jpg";
 
 export function absoluteUrl(path = "/") {
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
